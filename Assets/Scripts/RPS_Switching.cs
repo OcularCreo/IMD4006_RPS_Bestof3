@@ -29,7 +29,7 @@ public class RPS_Switching : MonoBehaviour
 
     string[] RPS_cntrl = new string[3];         //creating empty character array
     
-    Character character;                        //variable to keep track of the current character the player is
+    public Character character;                        //variable to keep track of the current character the player is
     Character selectionCharacter;               //veriable used when selected a new character
     bool applyedChange;
     public GameObject rock, paper, scissors;    //variable to take in the different character objects/types

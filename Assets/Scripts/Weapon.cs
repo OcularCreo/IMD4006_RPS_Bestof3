@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -29,6 +30,7 @@ public class Weapon : MonoBehaviour
 		if (collision.gameObject.GetComponent<Combat>() != null)
 		{
 			playerCharacter.GetComponent<Combat>().CanHitEnterRange();
+			playerCharacter.GetComponent<Combat>().enemy = collision.gameObject;
 		}
 	}
 
@@ -75,6 +77,7 @@ public class Weapon : MonoBehaviour
 		
 	}
 
+	//Flips the weapon to the opposite side
 	private void Flip() {
 		//Debug.Log(transform.localPosition);
 		transform.localPosition = new Vector3(-transform.localPosition.x, 0, 0);
