@@ -25,7 +25,7 @@ public class RPS_Switching : MonoBehaviour
 {
 
     [SerializeField] Manager gameManager;       //get the script from the game manager
-    [SerializeField] Player player;             //determine which player the character belongs to
+    [SerializeField] public Player player;             //determine which player the character belongs to
 
     string[] RPS_cntrl = new string[3];         //creating empty character array
     
