@@ -9,7 +9,7 @@ public class Combat : MonoBehaviour
     [SerializeField] private int dmgMultiplier = 1;
 	[SerializeField] public float attackSpeed = 0.3f;
 
-	enum characterType {Rock, Paper, Scissors};
+	enum characterType {rock, paper, scissors};
     // Start is called before the first frame update
     void Start()
     {
