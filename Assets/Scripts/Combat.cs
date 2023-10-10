@@ -14,7 +14,8 @@ public class Combat : MonoBehaviour
 	[SerializeField] public float attackSpeed = 0.3f;
 
 	[SerializeField] private GameObject weapon;
-	[SerializeField] private GameObject[] respawnPoints;
+	[SerializeField] private GameObject respawnPointsObject;
+	private Transform[] respawnPoints;
 
 	private bool canHit = false;
 	private bool hitting = false;
@@ -24,8 +25,8 @@ public class Combat : MonoBehaviour
 
 	void Start()
     {
-        
-    }
+		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>(); ;
+	}
 
     void Update()
     {
@@ -136,13 +137,13 @@ public class Combat : MonoBehaviour
 		}
 
 		enemy.GetComponent<Combat>().health = enemyHealth;
-		Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
+		//Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
 	}
 
 	public void Die()
 	{
 		lives -= 1;
-		Debug.Log("Life Lost");
+		//Debug.Log("Life Lost");
 		if (lives <= 0)
 		{
 			gameObject.SetActive(false);
@@ -154,10 +155,12 @@ public class Combat : MonoBehaviour
 
 	public void Respawn()
 	{
-		Debug.Log("Respawn");
+		//Debug.Log("Respawn");
 		health = 100;
 
-		//Can modify in the future
-		gameObject.transform.position = respawnPoints[0].transform.position;
+		int randSpawn = Random.Range(1, respawnPoints.Length);
+		Debug.Log(randSpawn);
+
+		gameObject.transform.position = respawnPoints[randSpawn].gameObject.transform.position;
 	}
 }

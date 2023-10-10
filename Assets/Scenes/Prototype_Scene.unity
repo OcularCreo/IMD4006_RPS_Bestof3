@@ -292,6 +292,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6965764918744168677}
     - target: {fileID: 7884441233949426789, guid: 28801e239077b8448b0cd004ae8f3607, type: 3}
+      propertyPath: respawnPointsObject
+      value: 
+      objectReference: {fileID: 6965764918744168678}
+    - target: {fileID: 7884441233949426789, guid: 28801e239077b8448b0cd004ae8f3607, type: 3}
       propertyPath: respawnPoints.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -375,15 +379,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2893419481668827336, guid: 01de21aadae76a94caa0b6d9c8d680d4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2893419481668827336, guid: 01de21aadae76a94caa0b6d9c8d680d4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.67
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2893419481668827336, guid: 01de21aadae76a94caa0b6d9c8d680d4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.010465622
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2893419481668827336, guid: 01de21aadae76a94caa0b6d9c8d680d4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -425,6 +429,11 @@ PrefabInstance:
 --- !u!1 &6965764918744168677 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7216012067727649173, guid: 01de21aadae76a94caa0b6d9c8d680d4, type: 3}
+  m_PrefabInstance: {fileID: 6965764918744168676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6965764918744168678 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5372006413944238247, guid: 01de21aadae76a94caa0b6d9c8d680d4, type: 3}
   m_PrefabInstance: {fileID: 6965764918744168676}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8009272510956823765
