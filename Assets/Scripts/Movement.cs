@@ -10,8 +10,8 @@ public class Movement : MonoBehaviour
     private float moveSpeed = 3f; // speed moving left and right
     private float jumpSpeed = 5f; // speed of jump
 
-    public bool jumping = false; // check whether the player has jumped
-    public int jumpCount = 0; // counter for double jump
+    private bool jumping = false; // check whether the player has jumped
+    private int jumpCount = 0; // counter for double jump
 
     // Start is called before the first frame update
     void Start()
@@ -24,23 +24,48 @@ public class Movement : MonoBehaviour
     void Update()
     {
         // Player 1
-        // If player presses a, go left
-        if (Input.GetKeyDown("a"))
+        if(GetComponent<RPS_Switching>().player == Player.P1)
         {
-            rb.velocity = new Vector2(-moveSpeed, 0);
+            // If player presses a, go left
+            if (Input.GetKeyDown("a"))
+            {
+                rb.velocity = new Vector2(-moveSpeed, 0);
+            }
+            // if player presses d, go right
+            if (Input.GetKeyDown("d"))
+            {
+                rb.velocity = new Vector2(moveSpeed, 0);
+            }
+            // if player presses w and player has not jumped twice yet, let player jump
+            if (Input.GetKeyDown("w") && !(jumping))
+            {
+                rb.velocity = Vector2.up * jumpSpeed;
+                jumpCount += 1;
+                jumping = checkJump();
+            }
         }
-        // if player presses d, go right
-        if (Input.GetKeyDown("d"))
+        // Player 2
+        else if (GetComponent<RPS_Switching>().player == Player.P2)
         {
-            rb.velocity = new Vector2(moveSpeed, 0);
+            // If player presses left arrow, go left
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                rb.velocity = new Vector2(-moveSpeed, 0);
+            }
+            // if player presses right arrow, go right
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                rb.velocity = new Vector2(moveSpeed, 0);
+            }
+            // if player presses up arrow and player has not jumped twice yet, let player jump
+            if (Input.GetKeyDown(KeyCode.UpArrow) && !(jumping))
+            {
+                rb.velocity = Vector2.up * jumpSpeed;
+                jumpCount += 1;
+                jumping = checkJump();
+            }
         }
-        // if player presses w and player has not jumped twice yet, let player jump
-        if (Input.GetKeyDown("w") && !(jumping))
-        {
-            rb.velocity = Vector2.up * jumpSpeed;
-            jumpCount += 1;
-            jumping = checkJump();
-        }
+
 
     }
 
