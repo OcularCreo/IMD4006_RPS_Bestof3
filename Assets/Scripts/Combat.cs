@@ -22,8 +22,6 @@ public class Combat : MonoBehaviour
 
 	public GameObject enemy;
 
-	private bool lost = false;
-
 	void Start()
     {
         
@@ -147,8 +145,7 @@ public class Combat : MonoBehaviour
 		Debug.Log("Life Lost");
 		if (lives <= 0)
 		{
-			lost = true;
-			Debug.Log("Lost Match");
+			gameObject.SetActive(false);
 		}
 		else {
 			Respawn();
@@ -159,8 +156,8 @@ public class Combat : MonoBehaviour
 	{
 		Debug.Log("Respawn");
 		health = 100;
-		
-		//Can modify in the future
 
+		//Can modify in the future
+		gameObject.transform.position = respawnPoints[0].transform.position;
 	}
 }
