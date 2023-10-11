@@ -25,11 +25,12 @@ public class RPS_Switching : MonoBehaviour
 {
 
     [SerializeField] Manager gameManager;       //get the script from the game manager
-    [SerializeField] public Player player;             //determine which player the character belongs to
+    [SerializeField] public Player player;      //determine which player the character belongs to
+    private Combat combat;                      //getting the combat script
 
     string[] RPS_cntrl = new string[3];         //creating empty character array
     
-    public Character character;                        //variable to keep track of the current character the player is
+    public Character character;                 //variable to keep track of the current character the player is
     Character selectionCharacter;               //veriable used when selected a new character
     bool applyedChange;
     public GameObject rock, paper, scissors;    //variable to take in the different character objects/types
@@ -43,6 +44,9 @@ public class RPS_Switching : MonoBehaviour
 
         //setting up variables
         applyedChange = false;
+
+        //getting the combat script from the game object itself
+        combat = gameObject.GetComponent<Combat>();
         
 
         //set the controls dependong on if they are player 1 or 2
@@ -125,6 +129,7 @@ public class RPS_Switching : MonoBehaviour
             character = newCharacter;
 
             //subtract 5 health
+            gameObject.GetComponent<Combat>().switchDamage();
         }
 
     }

@@ -169,4 +169,10 @@ public class Combat : MonoBehaviour
 
 		gameObject.transform.position = respawnPoints[randSpawn].gameObject.transform.position;
 	}
+
+	public void switchDamage()
+	{
+		health = health - 5;
+		healthUI.text = health.ToString();
+	}
 }
