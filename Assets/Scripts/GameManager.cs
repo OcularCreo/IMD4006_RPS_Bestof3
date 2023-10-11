@@ -19,6 +19,9 @@ public class Manager : MonoBehaviour
 
     public GameState state; //variable to keep track of the game's current state
 
+    public GameObject player1;
+    public GameObject player2;
+
     //funciton used to handle different game states
     /*public void updateGameState(GameState newState)
     {
@@ -66,7 +69,11 @@ public class Manager : MonoBehaviour
                 //reset the timer
                 RPS_time = 3f;
 
-                UnityEngine.Debug.Log("RPS over. Battle time!");
+                //give weapons back
+                player1.GetComponent<Combat>().WeaponEnable();
+				player2.GetComponent<Combat>().WeaponEnable();
+
+				UnityEngine.Debug.Log("RPS over. Battle time!");
             }
         } 
         //when in the battle state
@@ -82,7 +89,11 @@ public class Manager : MonoBehaviour
                 //reset timer
                 battleTime = 15f;
 
-                UnityEngine.Debug.Log("battle over. Now for some RPS!");
+				//remove weapons
+				player1.GetComponent<Combat>().WeaponDisable();
+				player2.GetComponent<Combat>().WeaponDisable();
+
+				UnityEngine.Debug.Log("battle over. Now for some RPS!");
             }
 
         } 

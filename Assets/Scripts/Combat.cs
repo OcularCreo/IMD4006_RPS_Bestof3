@@ -9,7 +9,8 @@ using TMPro;
 public class Combat : MonoBehaviour
 {
 	[SerializeField] private TextMeshProUGUI healthUI;
-	
+	[SerializeField] private TextMeshProUGUI livesUI;
+
 	[SerializeField] private int lives = 3;
 	[SerializeField] private int health = 100;
     [SerializeField] private int characterDamage = 5;
@@ -31,6 +32,7 @@ public class Combat : MonoBehaviour
     {
 		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
 		healthUI.text = health.ToString();
+		livesUI.text = lives.ToString();
 	}
 
     void Update()
@@ -149,6 +151,7 @@ public class Combat : MonoBehaviour
 	public void Die()
 	{
 		lives -= 1;
+		livesUI.text = lives.ToString();
 		//Debug.Log("Life Lost");
 		if (lives <= 0)
 		{
@@ -163,6 +166,7 @@ public class Combat : MonoBehaviour
 	{
 		//Debug.Log("Respawn");
 		health = 100;
+		healthUI.text = health.ToString();
 
 		int randSpawn = Random.Range(1, respawnPoints.Length);
 		Debug.Log(randSpawn);
@@ -172,7 +176,16 @@ public class Combat : MonoBehaviour
 
 	public void switchDamage()
 	{
-		health = health - 5;
+		health = health - 20;
 		healthUI.text = health.ToString();
+	}
+
+	public void WeaponEnable() {
+		weapon.SetActive(true);
+	}
+
+	public void WeaponDisable()
+	{
+		weapon.SetActive(false);
 	}
 }
