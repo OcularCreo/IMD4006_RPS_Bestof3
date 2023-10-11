@@ -78,7 +78,7 @@ public class Combat : MonoBehaviour
 	{
 		if (GetComponent<RPS_Switching>().player == Player.P1)
 		{
-			if (Input.GetKeyDown("e") && !hitting)
+			if (Input.GetKeyDown(KeyCode.Space) && !hitting)
 			{
 				StartCoroutine(StartCooldown());
 			}
