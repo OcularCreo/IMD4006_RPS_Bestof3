@@ -7,8 +7,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public Rigidbody2D rb; // the player rigid body
-    private float moveSpeed = 3f; // speed moving left and right
-    private float jumpSpeed = 5f; // speed of jump
+    [SerializeField] private float moveSpeed = 3f; // speed moving left and right
+    [SerializeField] private float jumpSpeed = 5f; // speed or strength of jump
 
     private bool jumping = false; // check whether the player has jumped
     private int jumpCount = 0; // counter for double jump
@@ -27,40 +27,41 @@ public class Movement : MonoBehaviour
         if(GetComponent<RPS_Switching>().player == Player.P1)
         {
             // If player presses a, go left
-            if (Input.GetKeyDown("a"))
+            if (Input.GetKey("a"))
             {
-                rb.velocity = new Vector2(-moveSpeed, 0);
+                rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             }
             // if player presses d, go right
-            if (Input.GetKeyDown("d"))
+            if (Input.GetKey("d"))
             {
-                rb.velocity = new Vector2(moveSpeed, 0);
+                rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             }
             // if player presses w and player has not jumped twice yet, let player jump
             if (Input.GetKeyDown("w") && !(jumping))
             {
-                rb.velocity = Vector2.up * jumpSpeed;
+                rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                 jumpCount += 1;
                 jumping = checkJump();
             }
         }
+
         // Player 2
         else if (GetComponent<RPS_Switching>().player == Player.P2)
         {
             // If player presses left arrow, go left
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                rb.velocity = new Vector2(-moveSpeed, 0);
+                rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             }
             // if player presses right arrow, go right
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
-                rb.velocity = new Vector2(moveSpeed, 0);
+                rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             }
             // if player presses up arrow and player has not jumped twice yet, let player jump
             if (Input.GetKeyDown(KeyCode.UpArrow) && !(jumping))
             {
-                rb.velocity = Vector2.up * jumpSpeed;
+                rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                 jumpCount += 1;
                 jumping = checkJump();
             }
