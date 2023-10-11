@@ -88,7 +88,7 @@ public class RPS_Switching : MonoBehaviour
             }
 
             //when time almost up and the character hasn't been changed yet (applyedChange == false), toggle the player's character
-            if(gameManager.RPS_x <= 0.05 && !applyedChange)
+            if(gameManager.RPS_time <= 0.05 && !applyedChange)
             {
                 changeCharacter(selectionCharacter);
                 applyedChange = true;
@@ -153,3 +153,4 @@ public class RPS_Switching : MonoBehaviour
     }
 
 }
+
