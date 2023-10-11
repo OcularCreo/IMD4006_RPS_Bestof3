@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     private bool jumping = false; // check whether the player has jumped
     private int jumpCount = 0; // counter for double jump
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Player 1
+        // PLAYER 1
         if(GetComponent<RPS_Switching>().player == Player.P1)
         {
             // If player presses a, go left
@@ -36,16 +37,41 @@ public class Movement : MonoBehaviour
             {
                 rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             }
+
             // if player presses w and player has not jumped twice yet, let player jump
             if (Input.GetKeyDown("w") && !(jumping))
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                 jumpCount += 1;
-                jumping = checkJump();
+
+                // if the character is paper, allow triple jump
+                if(GetComponent<RPS_Switching>().character == Character.paper)
+                {
+                    jumping = checkJump(3);
+                }
+                else // otherwise only double jump
+                {
+                    jumping = checkJump(2);
+                }
+            }
+
+            // if player presses s
+            if (Input.GetKeyDown("s"))
+            {
+                // if player is rock, drop down
+                if(GetComponent<RPS_Switching>().character == Character.rock)
+                {
+                    rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
+                }
+                // if player is scissors, diagonal motion
+                if (GetComponent<RPS_Switching>().character == Character.scissors)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x * 2f, (-2f) * jumpSpeed);
+                }
             }
         }
 
-        // Player 2
+        // PLAYER 2
         else if (GetComponent<RPS_Switching>().player == Player.P2)
         {
             // If player presses left arrow, go left
@@ -63,17 +89,41 @@ public class Movement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                 jumpCount += 1;
-                jumping = checkJump();
+
+                // if the character is paper, allow triple jump
+                if (GetComponent<RPS_Switching>().character == Character.paper)
+                {
+                    jumping = checkJump(3);
+                }
+                else // otherwise only double jump
+                {
+                    jumping = checkJump(2);
+                }
+            }
+
+            // if player presses down arrow
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                // if player is rock, drop down
+                if (GetComponent<RPS_Switching>().character == Character.rock)
+                {
+                    rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
+                }
+                // if player is scissors, diagonal motion
+                if (GetComponent<RPS_Switching>().character == Character.scissors)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x * 2f, (-2f) * jumpSpeed);
+                }
+
             }
         }
 
-
     }
 
-    // check if the player has jumped twice
-    private bool checkJump()
+    // check if the player has jumped twice (or 3 times)
+    private bool checkJump(int maxJump)
     {
-        if(jumpCount >= 2)
+        if(jumpCount >= maxJump)
         {
             return true;
         }
@@ -90,7 +140,6 @@ public class Movement : MonoBehaviour
             jumping = false;
             jumpCount = 0;
         }
-        //Debug.Log("collision with " + collision.gameObject.name);
     }
 
 }
