@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using TMPro;
 
 public class Combat : MonoBehaviour
 {
+	[SerializeField] private TextMeshProUGUI healthUI;
+	
 	[SerializeField] private int lives = 3;
 	[SerializeField] private int health = 100;
     [SerializeField] private int characterDamage = 5;
@@ -25,7 +29,8 @@ public class Combat : MonoBehaviour
 
 	void Start()
     {
-		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>(); ;
+		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
+		healthUI.text = health.ToString();
 	}
 
     void Update()
@@ -137,8 +142,9 @@ public class Combat : MonoBehaviour
 		}
 
 		enemy.GetComponent<Combat>().health = enemyHealth;
-		//Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
-	}
+        enemy.GetComponent<Combat>().healthUI.text = enemyHealth.ToString();
+        //Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
+    }
 
 	public void Die()
 	{
