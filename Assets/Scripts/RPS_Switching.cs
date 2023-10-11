@@ -47,6 +47,8 @@ public class RPS_Switching : MonoBehaviour
 
         //getting the combat script from the game object itself
         combat = gameObject.GetComponent<Combat>();
+
+       
         
 
         //set the controls dependong on if they are player 1 or 2
@@ -56,11 +58,15 @@ public class RPS_Switching : MonoBehaviour
             RPS_cntrl[1] = "x";
             RPS_cntrl[2] = "c";
 
+            
+
         } else
         {
             RPS_cntrl[0] = "b";
             RPS_cntrl[1] = "n";
             RPS_cntrl[2] = "m";
+
+            
         }
     }
 

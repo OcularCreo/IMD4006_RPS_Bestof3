@@ -56,7 +56,18 @@ public class Manager : MonoBehaviour
         time.GetComponent<Transform>().localScale = new Vector2(15.8f, 1f);
         time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
         time.GetComponent<SpriteRenderer>().enabled = true;
-        //gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        
+
+        //assigned colour to the player
+        player1.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0.9528f,0.3632f,0.0764f,1f);
+        player1.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0.9528f,0.3632f,0.0764f,1f);
+        player1.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0.9528f,0.3632f,0.0764f,1f);
+
+        player2.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0.6782f,0.0141f,1f,1f);
+        player2.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0.6782f,0.0141f,1f,1f);
+        player2.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0.6782f,0.0141f,1f,1f);
+        
+        //player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
     }
 
     // Update is called once per frame
