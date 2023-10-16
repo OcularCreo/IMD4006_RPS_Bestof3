@@ -17,6 +17,7 @@ public class Combat : MonoBehaviour
     [SerializeField] private float advantageMultiplier = 1.5f;
 	[SerializeField] private float disadvantageMultiplier = 0.5f;
 	[SerializeField] public float attackSpeed = 0.3f;
+	public float knockback = 4f;
 
 	[SerializeField] private GameObject weapon;
 	[SerializeField] private GameObject respawnPointsObject;
@@ -142,6 +143,20 @@ public class Combat : MonoBehaviour
 		else {
 			enemyHealth -= characterDamage;
 		}
+
+		//knockback
+		Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
+		float characterFacing = 1;
+		Debug.Log(weapon.GetComponent<Weapon>().facingRight);
+		if (weapon.GetComponent<Weapon>().facingRight == true)
+		{
+			characterFacing = 1;
+		}
+		else
+		{
+			characterFacing = -1;
+		}
+		enemyRb.velocity = new Vector2(enemyRb.velocity.x + (knockback * characterFacing), enemyRb.velocity.y + knockback);
 
 		enemy.GetComponent<Combat>().health = enemyHealth;
         enemy.GetComponent<Combat>().healthUI.text = enemyHealth.ToString();

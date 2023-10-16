@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour
 	[SerializeField] public GameObject weaponPivot;
 	[SerializeField] private GameObject playerCharacter;
 
-	private bool facingRight = true;
+	public bool facingRight = true;
 
 
 	// Start is called before the first frame update
