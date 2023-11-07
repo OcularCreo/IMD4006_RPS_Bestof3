@@ -5,6 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using TMPro;
+using Unity.Mathematics;
+using System;
 
 public class Combat : MonoBehaviour
 {
@@ -12,12 +14,15 @@ public class Combat : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI livesUI;
 
 	[SerializeField] private int lives = 3;
-	[SerializeField] private int health = 100;
+	[SerializeField] private int maxHealth = 100;
+	[SerializeField] private int health;
     [SerializeField] private int characterDamage = 5;
     [SerializeField] private float advantageMultiplier = 1.5f;
 	[SerializeField] private float disadvantageMultiplier = 0.5f;
 	[SerializeField] public float attackSpeed = 0.3f;
-	public float knockback = 4f;
+	private float knockback = 3f;
+	private float knockbackMultiplier;
+	private float knockbackTime = 0.5f;
 
 	//[SerializeField] private GameObject weapon;
 	[SerializeField] private GameObject respawnPointsObject;
@@ -31,6 +36,7 @@ public class Combat : MonoBehaviour
 
 	void Start()
     {
+		health = maxHealth;
 		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
 		healthUI.text = health.ToString();
 		livesUI.text = lives.ToString();
@@ -38,15 +44,18 @@ public class Combat : MonoBehaviour
 
     void Update()
     {
-		//If player attacks play animation
-		CheckForHitAnimation();
+		if(GetComponent<RPS_Switching>().gameManager.state != GameState.RPS){ 
+		
+			//If player attacks play animation
+			CheckForHitAnimation();
 
-		//If the player is attacking and is in range of the other player
-		if (hitting == true && canHit == true) {
-			//Figure out how to hit enemy
-			if (!alreadyHit) {
-				HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
-				alreadyHit = true;
+			//If the player is attacking and is in range of the other player
+			if (hitting == true && canHit == true) {
+				//Figure out how to hit enemy
+				if (!alreadyHit) {
+					HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
+					alreadyHit = true;
+				}
 			}
 		}
 
@@ -181,7 +190,9 @@ public class Combat : MonoBehaviour
 			enemyHealth -= characterDamage;
 		}
 
-		//knockback
+		enemy.GetComponent<Combat>().takeDamage(enemyHealth);
+
+		/*//knockback
 		Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
 		float characterFacing = 1;
 		Debug.Log(GetComponent<Movement>().facingRight);
@@ -197,8 +208,8 @@ public class Combat : MonoBehaviour
 
 		enemy.GetComponent<Combat>().health = enemyHealth;
         enemy.GetComponent<Combat>().healthUI.text = enemyHealth.ToString();
-        //Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
-    }
+        //Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);*/
+	}
 
 	public void Die()
 	{
@@ -217,11 +228,13 @@ public class Combat : MonoBehaviour
 	public void Respawn()
 	{
 		//Debug.Log("Respawn");
-		health = 100;
+		health = maxHealth;
 		healthUI.text = health.ToString();
 
-		int randSpawn = Random.Range(1, respawnPoints.Length);
-		Debug.Log(randSpawn);
+		GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+
+		int randSpawn = UnityEngine.Random.Range(1, respawnPoints.Length);
+		//Debug.Log(randSpawn);
 
 		gameObject.transform.position = respawnPoints[randSpawn].gameObject.transform.position;
 	}
@@ -258,5 +271,46 @@ public class Combat : MonoBehaviour
 		{
 			CanHitExitRange();
 		}
+	}
+
+	public void takeDamage(int newHealth)
+	{
+		//knockback
+		StartCoroutine(KnockbackTimer());
+		float enemyFacing = 1;
+		//Debug.Log(GetComponent<Movement>().facingRight);
+		if (enemy.GetComponent<Movement>().facingRight == true)
+		{
+			//right
+			enemyFacing = 1;
+		}
+		else
+		{
+			//left
+			enemyFacing = -1;
+		}
+		Rigidbody2D rb = GetComponent<Rigidbody2D>();
+		knockbackMultiplier = Mathf.Pow((((float)maxHealth - (float)health) / (float)maxHealth) + 1, 2f);
+		float kbValue = knockback * knockbackMultiplier;
+		Debug.Log(kbValue);
+		GetComponent<Rigidbody2D>().velocity = new Vector2(rb.velocity.x + (kbValue * enemyFacing), rb.velocity.y + kbValue);
+
+		//Update Health
+		health = newHealth;
+		healthUI.text = newHealth.ToString();
+		//Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
+
+		
+	}
+
+	private IEnumerator KnockbackTimer()
+	{
+		GetComponent<Movement>().isBeingKnockedBack = true;
+		//Debug.Log(GetComponent<Movement>().isBeingKnockedBack);
+
+		yield return new WaitForSeconds(knockbackTime);
+
+		GetComponent<Movement>().isBeingKnockedBack = false;
+		//Debug.Log(GetComponent<Movement>().isBeingKnockedBack);
 	}
 }

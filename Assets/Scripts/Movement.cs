@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
 
 	public bool facingRight = true; // check what direction player is facing
 
+    public bool isBeingKnockedBack = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -27,7 +28,7 @@ public class Movement : MonoBehaviour
     void Update()
     {
         // PLAYER 1
-        if(GetComponent<RPS_Switching>().player == Player.P1)
+        if(GetComponent<RPS_Switching>().player == Player.P1 && !isBeingKnockedBack)
         {
             // If player presses a, go left
             if (Input.GetKey("a"))
@@ -88,7 +89,7 @@ public class Movement : MonoBehaviour
         }
 
         // PLAYER 2
-        else if (GetComponent<RPS_Switching>().player == Player.P2)
+        else if (GetComponent<RPS_Switching>().player == Player.P2 && !isBeingKnockedBack)
         {
             // If player presses left arrow, go left
             if (Input.GetKey(KeyCode.LeftArrow))

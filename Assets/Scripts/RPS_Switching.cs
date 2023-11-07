@@ -24,7 +24,7 @@ public enum Player
 public class RPS_Switching : MonoBehaviour
 {
 
-    [SerializeField] Manager gameManager;       //get the script from the game manager
+    [SerializeField] public Manager gameManager;       //get the script from the game manager
     [SerializeField] public Player player;      //determine which player the character belongs to
     private Combat combat;                      //getting the combat script
 
