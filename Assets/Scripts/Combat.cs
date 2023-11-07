@@ -19,7 +19,7 @@ public class Combat : MonoBehaviour
 	[SerializeField] public float attackSpeed = 0.3f;
 	public float knockback = 4f;
 
-	[SerializeField] private GameObject weapon;
+	//[SerializeField] private GameObject weapon;
 	[SerializeField] private GameObject respawnPointsObject;
 	private Transform[] respawnPoints;
 
@@ -97,9 +97,46 @@ public class Combat : MonoBehaviour
 	private IEnumerator StartCooldown()
 	{
 		hitting = true;
-		weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, -90);
+
+		//Animate attack
+		//weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, -90);
+		if (GetComponent<RPS_Switching>().character == Character.rock)
+		{
+			GetComponent<PlayerGFX>().rockAttack.SetActive(true);
+			GetComponent<PlayerGFX>().rockIdle.SetActive(false);
+		}
+		else if (GetComponent<RPS_Switching>().character == Character.scissors)
+		{
+			GetComponent<PlayerGFX>().scissorsAttack.SetActive(true);
+			GetComponent<PlayerGFX>().scissorsIdle.SetActive(false);
+		}
+		else if (GetComponent<RPS_Switching>().character == Character.paper)
+		{
+			GetComponent<PlayerGFX>().paperAttack.SetActive(true);
+			GetComponent<PlayerGFX>().paperIdle.SetActive(false);
+		}
+
 		yield return new WaitForSeconds(attackSpeed);
-		weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, 90);
+
+		//animate idle
+		//weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, 90);
+		if (GetComponent<RPS_Switching>().character == Character.rock)
+		{
+			GetComponent<PlayerGFX>().rockAttack.SetActive(false);
+			GetComponent<PlayerGFX>().rockIdle.SetActive(true);
+		}
+		else if (GetComponent<RPS_Switching>().character == Character.scissors)
+		{
+			GetComponent<PlayerGFX>().scissorsAttack.SetActive(false);
+			GetComponent<PlayerGFX>().scissorsIdle.SetActive(true);
+		}
+		else if (GetComponent<RPS_Switching>().character == Character.paper)
+		{
+			GetComponent<PlayerGFX>().paperAttack.SetActive(false);
+			GetComponent<PlayerGFX>().paperIdle.SetActive(true);
+		}
+
+
 		hitting = false;
 		alreadyHit = false;
 	}
@@ -147,8 +184,8 @@ public class Combat : MonoBehaviour
 		//knockback
 		Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
 		float characterFacing = 1;
-		Debug.Log(weapon.GetComponent<Weapon>().facingRight);
-		if (weapon.GetComponent<Weapon>().facingRight == true)
+		Debug.Log(GetComponent<Movement>().facingRight);
+		if (GetComponent<Movement>().facingRight == true)
 		{
 			characterFacing = 1;
 		}
@@ -195,12 +232,31 @@ public class Combat : MonoBehaviour
 		healthUI.text = health.ToString();
 	}
 
-	public void WeaponEnable() {
+	/*public void WeaponEnable() {
 		weapon.SetActive(true);
 	}
 
 	public void WeaponDisable()
 	{
 		weapon.SetActive(false);
+	}*/
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		//Debug.Log("Check in");
+		if (collision.gameObject.GetComponent<Combat>() != null)
+		{
+			CanHitEnterRange();
+			enemy = collision.gameObject;
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		//Debug.Log("Check out");
+		if (collision.gameObject.GetComponent<Combat>() != null)
+		{
+			CanHitExitRange();
+		}
 	}
 }

@@ -13,9 +13,11 @@ public class Movement : MonoBehaviour
     private bool jumping = false; // check whether the player has jumped
     private int jumpCount = 0; // counter for double jump
 
+	public bool facingRight = true; // check what direction player is facing
 
-    // Start is called before the first frame update
-    void Start()
+
+	// Start is called before the first frame update
+	void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true; // freeze rotation of the player, because otherwise the circle rotates when it moves
@@ -31,12 +33,26 @@ public class Movement : MonoBehaviour
             if (Input.GetKey("a"))
             {
                 rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
-            }
+
+				// flip player
+				if (facingRight)
+				{
+					Flip();
+					facingRight = false;
+				}
+			}
             // if player presses d, go right
             if (Input.GetKey("d"))
             {
                 rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
-            }
+
+				// flip player
+				if (!facingRight)
+				{
+					Flip();
+					facingRight = true;
+				}
+			}
 
             // if player presses w and player has not jumped twice yet, let player jump
             if (Input.GetKeyDown("w") && !(jumping))
@@ -78,12 +94,26 @@ public class Movement : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
-            }
+
+				// flip player
+				if (facingRight)
+				{
+					Flip();
+					facingRight = false;
+				}
+			}
             // if player presses right arrow, go right
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
-            }
+
+                // flip player
+				if (!facingRight)
+				{
+					Flip();
+					facingRight = true;
+				}
+			}
             // if player presses up arrow and player has not jumped twice yet, let player jump
             if (Input.GetKeyDown(KeyCode.UpArrow) && !(jumping))
             {
@@ -141,5 +171,12 @@ public class Movement : MonoBehaviour
             jumpCount = 0;
         }
     }
+
+	private void Flip()
+	{
+		//Debug.Log(transform.localPosition);
+		//transform.localPosition = new Vector3(-transform.localPosition.x, 0, 0);
+		transform.Rotate(0, 180, 0);
+	}
 
 }

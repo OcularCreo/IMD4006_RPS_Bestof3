@@ -92,8 +92,8 @@ public class Manager : MonoBehaviour
                 RPS_time = 3f;
 
                 //give weapons back
-                player1.GetComponent<Combat>().WeaponEnable();
-                player2.GetComponent<Combat>().WeaponEnable();
+                //player1.GetComponent<Combat>().WeaponEnable();
+                //player2.GetComponent<Combat>().WeaponEnable();
 
                 UnityEngine.Debug.Log("RPS over. Battle time!");
 
@@ -119,8 +119,8 @@ public class Manager : MonoBehaviour
                 battleTime = 15f;
 
                 //remove weapons
-                player1.GetComponent<Combat>().WeaponDisable();
-                player2.GetComponent<Combat>().WeaponDisable();
+                //player1.GetComponent<Combat>().WeaponDisable();
+                //player2.GetComponent<Combat>().WeaponDisable();
 
                 UnityEngine.Debug.Log("battle over. Now for some RPS!");
 

@@ -147,14 +147,23 @@ public class RPS_Switching : MonoBehaviour
         switch (activeChar)
         {
             case Character.rock:
-                rock.gameObject.SetActive(active);
-                break;
+				//rock.gameObject.SetActive(active);
+				GetComponent<PlayerGFX>().rockIdle.SetActive(true);
+				GetComponent<PlayerGFX>().paperIdle.SetActive(false);
+				GetComponent<PlayerGFX>().scissorsIdle.SetActive(false);
+				break;
             case Character.paper:
-                paper.gameObject.SetActive(active);
-                break;
+				//paper.gameObject.SetActive(active);
+				GetComponent<PlayerGFX>().paperIdle.SetActive(true);
+				GetComponent<PlayerGFX>().scissorsIdle.SetActive(false);
+				GetComponent<PlayerGFX>().rockIdle.SetActive(false);
+				break;
             case Character.scissors:
-                scissors.gameObject.SetActive(active);
-                break;
+				//scissors.gameObject.SetActive(active);
+				GetComponent<PlayerGFX>().scissorsIdle.SetActive(true);
+				GetComponent<PlayerGFX>().rockIdle.SetActive(false);
+				GetComponent<PlayerGFX>().paperIdle.SetActive(false);
+				break;
         }
     }
 
