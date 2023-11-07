@@ -19,7 +19,10 @@ public class Combat : MonoBehaviour
     [SerializeField] private int characterDamage = 5;
     [SerializeField] private float advantageMultiplier = 1.5f;
 	[SerializeField] private float disadvantageMultiplier = 0.5f;
-	[SerializeField] public float attackSpeed = 0.3f;
+	private float attackSpeed = 0.3f;
+	private float attackActiveTime = 0.1f;
+	private bool attackActive = false;
+
 	private float knockback = 3f;
 	private float knockbackMultiplier;
 	private float knockbackTime = 0.5f;
@@ -50,7 +53,7 @@ public class Combat : MonoBehaviour
 			CheckForHitAnimation();
 
 			//If the player is attacking and is in range of the other player
-			if (hitting == true && canHit == true) {
+			if (hitting && canHit && attackActive) {
 				//Figure out how to hit enemy
 				if (!alreadyHit) {
 					HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
@@ -103,9 +106,11 @@ public class Combat : MonoBehaviour
 		}
 	}
 
+	// Animation for the attack
 	private IEnumerator StartCooldown()
 	{
 		hitting = true;
+		attackActive = true;
 
 		//Animate attack
 		//weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, -90);
@@ -124,6 +129,9 @@ public class Combat : MonoBehaviour
 			GetComponent<PlayerGFX>().paperAttack.SetActive(true);
 			GetComponent<PlayerGFX>().paperIdle.SetActive(false);
 		}
+
+		yield return new WaitForSeconds(attackActiveTime);
+		attackActive = false; ;
 
 		yield return new WaitForSeconds(attackSpeed);
 
@@ -239,6 +247,7 @@ public class Combat : MonoBehaviour
 		gameObject.transform.position = respawnPoints[randSpawn].gameObject.transform.position;
 	}
 
+	// Damage taken for switching characters - will change
 	public void switchDamage()
 	{
 		health = health - 20;
