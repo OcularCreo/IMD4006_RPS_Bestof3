@@ -14,7 +14,7 @@ public enum GameState
 public class Manager : MonoBehaviour
 {
 
-    float battleTime;  //timer variable for battle times
+    float battleTime;         //timer variable for battle times
     public float RPS_time;    //timer variable for swtiching characters
 
     public GameState state; //variable to keep track of the game's current state
@@ -50,7 +50,7 @@ public class Manager : MonoBehaviour
 
         //begining values for timers
         battleTime = 15f;
-        RPS_time = 3f;
+        RPS_time = 10f;
 
         //UI timer variable
         time.GetComponent<Transform>().localScale = new Vector2(15.8f, 1f);
@@ -89,7 +89,7 @@ public class Manager : MonoBehaviour
             RPS_time -= Time.deltaTime;
             
             time.GetComponent<Transform>().localScale = new Vector2(RPS_time, 1f);
-             time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
+            time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
 
             //when the time runs out
             if(RPS_time < 0)
@@ -98,7 +98,7 @@ public class Manager : MonoBehaviour
                 state = GameState.battle;
 
                 //reset the timer
-                RPS_time = 3f;
+                RPS_time = 10f;
 
                 //give weapons back
                 //player1.GetComponent<Combat>().WeaponEnable();

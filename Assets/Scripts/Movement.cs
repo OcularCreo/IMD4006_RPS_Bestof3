@@ -1,21 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using UnityEditor.Presets;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public Rigidbody2D rb; // the player rigid body
+    [SerializeField] public Manager gameManager;   //get the script from the game manager
+    public Rigidbody2D rb;                         // the player rigid body
     [SerializeField] private float moveSpeed = 3f; // speed moving left and right
     [SerializeField] private float jumpSpeed = 5f; // speed or strength of jump
 
-    private bool jumping = false; // check whether the player has jumped
-    private int jumpCount = 0; // counter for double jump
+    private bool jumping = false;   // check whether the player has jumped
+    private int jumpCount = 0;      // counter for double jump
 
 	public bool facingRight = true; // check what direction player is facing
 
     public bool isBeingKnockedBack = false;
+
+    //Variables used for switching characters
+
+    private float jumpXPos;           //tracks the xPosition of a character when they jump
+    public int changeSlamNum;      //tracks number of times player has slammed in the same spot
 
 	// Start is called before the first frame update
 	void Start()
@@ -170,10 +177,45 @@ public class Movement : MonoBehaviour
             // reset jump variables
             jumping = false;
             jumpCount = 0;
+
+            //During the swithcing stage
+            if(gameManager.state == GameState.RPS)
+            {
+                //when the player remains remains in the same x position as their initial jump
+                //add to the change slam, otherwise reset it to 0.
+                if (jumpXPos == gameObject.transform.position.x)
+                {
+                    changeSlamNum++;
+                }
+                else
+                {
+                    changeSlamNum = 0;
+                }
+
+                //when change slam is at 3
+                if(changeSlamNum > 2)
+                {
+                    changeSlamNum = 0; //reset the game slam number
+                    GetComponent<RPS_Switching>().changeCharacter();
+
+                }
+            }
+            
         }
     }
 
-	private void Flip()
+    // check if the player has collided with the platform
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        // if collided, allow the player to jump again
+        if (collision.gameObject.tag == "Platform")
+        {
+            jumpXPos = gameObject.transform.position.x;
+
+        }
+    }
+
+    private void Flip()
 	{
 		//Debug.Log(transform.localPosition);
 		//transform.localPosition = new Vector3(-transform.localPosition.x, 0, 0);
