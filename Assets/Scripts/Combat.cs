@@ -30,6 +30,7 @@ public class Combat : MonoBehaviour
 
 	private bool doubleDamage = false;
 	private float debuffTime = 3.0f;
+	[SerializeField] public GameObject armourIcon;
 
 	//[SerializeField] private GameObject weapon;
 	[SerializeField] private GameObject respawnPointsObject;
@@ -267,9 +268,11 @@ public class Combat : MonoBehaviour
 
 	private IEnumerator StartDebuffTime()
 	{
+		armourIcon.SetActive(true);
 		doubleDamage = true;
 		yield return new WaitForSeconds(debuffTime);
 		doubleDamage = false;
+		armourIcon.SetActive(false);
 	}
 
 	/*public void WeaponEnable() {
