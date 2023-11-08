@@ -24,7 +24,7 @@ public enum Player
 public class RPS_Switching : MonoBehaviour
 {
 
-    [SerializeField] Manager gameManager;       //get the script from the game manager
+    [SerializeField] public Manager gameManager;//get the script from the game manager
     [SerializeField] public Player player;      //determine which player the character belongs to
     private Combat combat;                      //getting the combat script
 
@@ -47,7 +47,6 @@ public class RPS_Switching : MonoBehaviour
 
         //getting the combat script from the game object itself
         combat = gameObject.GetComponent<Combat>();
-        
 
         //set the controls dependong on if they are player 1 or 2
         if(player == Player.P1)
@@ -56,11 +55,15 @@ public class RPS_Switching : MonoBehaviour
             RPS_cntrl[1] = "x";
             RPS_cntrl[2] = "c";
 
+            
+
         } else
         {
             RPS_cntrl[0] = "b";
             RPS_cntrl[1] = "n";
             RPS_cntrl[2] = "m";
+
+            
         }
     }
 
@@ -69,8 +72,8 @@ public class RPS_Switching : MonoBehaviour
     {
         
         //checking the game manager's state
-        //when in RPS mode allow the player to change their character
-        if(gameManager.state == GameState.RPS)
+        //when in RPS mode and player has not started to do a change slam, allow the player to change their character
+        if(gameManager.state == GameState.RPS && GetComponent<Movement>().changeSlamNum < 1)
         {
             
             //change the character type
@@ -87,13 +90,6 @@ public class RPS_Switching : MonoBehaviour
                 selectionCharacter = Character.scissors;
             }
 
-            //when time almost up and the character hasn't been changed yet (applyedChange == false), toggle the player's character
-            if(gameManager.RPS_time <= 0.05 && !applyedChange)
-            {
-                changeCharacter(selectionCharacter);
-                applyedChange = true;
-            }
-
 
         } 
         //need to reset toggle bool once out of the switching characters state
@@ -106,11 +102,11 @@ public class RPS_Switching : MonoBehaviour
     
 
     //function called after players have chosen their character
-    void changeCharacter(Character newCharacter)
+    public void changeCharacter()
     {
 
         //when the character is the same as before do nothing
-        if(character == newCharacter)
+        if(character == selectionCharacter)
         {
             //UnityEngine.Debug.Log("nothing changed");
             return;
@@ -123,10 +119,10 @@ public class RPS_Switching : MonoBehaviour
             toggleCharacter(false, character);
 
             //turn on the new character
-            toggleCharacter(true, newCharacter);
+            toggleCharacter(true, selectionCharacter);
             
             //set the character of the player to the new character
-            character = newCharacter;
+            character = selectionCharacter;
 
             //subtract 5 health
             gameObject.GetComponent<Combat>().switchDamage();
@@ -141,14 +137,14 @@ public class RPS_Switching : MonoBehaviour
         switch (activeChar)
         {
             case Character.rock:
-                rock.gameObject.SetActive(active);
-                break;
+				GetComponent<PlayerGFX>().rockIdle.SetActive(active);
+				break;
             case Character.paper:
-                paper.gameObject.SetActive(active);
-                break;
+				GetComponent<PlayerGFX>().paperIdle.SetActive(active);
+				break;
             case Character.scissors:
-                scissors.gameObject.SetActive(active);
-                break;
+				GetComponent<PlayerGFX>().scissorsIdle.SetActive(active);
+				break;
         }
     }
 

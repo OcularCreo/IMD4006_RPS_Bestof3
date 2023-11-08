@@ -14,7 +14,7 @@ public enum GameState
 public class Manager : MonoBehaviour
 {
 
-    float battleTime;  //timer variable for battle times
+    float battleTime;         //timer variable for battle times
     public float RPS_time;    //timer variable for swtiching characters
 
     public GameState state; //variable to keep track of the game's current state
@@ -50,13 +50,35 @@ public class Manager : MonoBehaviour
 
         //begining values for timers
         battleTime = 15f;
-        RPS_time = 3f;
+
+        RPS_time = 10f;
 
         //UI timer variable
         time.GetComponent<Transform>().localScale = new Vector2(15.8f, 1f);
-        time.GetComponent<SpriteRenderer>().color =  new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
-        //gameObject.GetComponent<SpriteRenderer>().enabled = true;
-    }
+        time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
+        time.GetComponent<SpriteRenderer>().enabled = true;
+
+
+        //assigned colour to the player
+        Vector4 p1Color = new Vector4(1f, 0.6181373f, 0.3820755f, 1f);
+		Vector4 p2Color = new Vector4(0.3726415f, 0.7f, 1f, 1f);
+
+		player1.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
+        player1.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
+        player1.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
+		player1.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
+		player1.transform.GetChild(4).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
+		player1.transform.GetChild(5).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
+
+		player2.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
+        player2.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
+        player2.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
+		player2.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
+		player2.transform.GetChild(4).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
+		player2.transform.GetChild(5).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
+
+		//player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
+	}
 
     // Update is called once per frame
     void Update()
@@ -69,6 +91,9 @@ public class Manager : MonoBehaviour
             
             time.GetComponent<Transform>().localScale = new Vector2(RPS_time, 1f);
 
+            time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
+
+
             //when the time runs out
             if(RPS_time < 0)
             {
@@ -76,7 +101,11 @@ public class Manager : MonoBehaviour
                 state = GameState.battle;
 
                 //reset the timer
-                RPS_time = 3f;
+                RPS_time = 10f;
+
+                //give weapons back
+                //player1.GetComponent<Combat>().WeaponEnable();
+                //player2.GetComponent<Combat>().WeaponEnable();
 
                 //give weapons back
                 player1.GetComponent<Combat>().WeaponEnable();
@@ -94,6 +123,10 @@ public class Manager : MonoBehaviour
 
             battleTime -= Time.deltaTime;
             time.GetComponent<Transform>().localScale = new Vector2(battleTime, 1f);
+
+            time.GetComponent<SpriteRenderer>().color =  new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
+           
+
             
             if(battleTime < 0)
             {
@@ -104,8 +137,10 @@ public class Manager : MonoBehaviour
                 battleTime = 15f;
 
                 //remove weapons
-                player1.GetComponent<Combat>().WeaponDisable();
-                player2.GetComponent<Combat>().WeaponDisable();
+
+                //player1.GetComponent<Combat>().WeaponDisable();
+                //player2.GetComponent<Combat>().WeaponDisable();
+
 
                 UnityEngine.Debug.Log("battle over. Now for some RPS!");
 
@@ -123,3 +158,4 @@ public class Manager : MonoBehaviour
     }
 
 }
+
