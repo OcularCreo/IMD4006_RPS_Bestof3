@@ -4,6 +4,9 @@ using System.Threading;
 using UnityEngine;
 using TMPro;
 
+using System;
+
+
 //different states the game can be in
 public enum GameState
 {
@@ -26,6 +29,8 @@ public class Manager : MonoBehaviour
     public GameObject time;
     [SerializeField] private TextMeshProUGUI annouceUI;
 
+
+    public TextMeshProUGUI stateLabelUI;
 
     //funciton used to handle different game states
     /*public void updateGameState(GameState newState)
@@ -59,7 +64,6 @@ public class Manager : MonoBehaviour
         time.GetComponent<Transform>().localScale = new Vector2(15.8f, 1f);
         time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
         time.GetComponent<SpriteRenderer>().enabled = true;
-
 
         //assigned colour to the player
         Vector4 p1Color = new Vector4(1f, 0.6181373f, 0.3820755f, 1f);
@@ -95,8 +99,11 @@ public class Manager : MonoBehaviour
             time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
             annouceUI.text = "Switch";
 
+            // change label to 
+            stateLabelUI.text = "RPS Time!";
+
             //when the time runs out
-            if(RPS_time < 0)
+            if (RPS_time < 0)
             {
                 //change the state
                 state = GameState.battle;
@@ -110,8 +117,9 @@ public class Manager : MonoBehaviour
 
                 UnityEngine.Debug.Log("RPS over. Battle time!");
 
-                
-                
+                // change label to 
+                stateLabelUI.text = "Battle Time!";
+
             }
         } 
         //when in the battle state
