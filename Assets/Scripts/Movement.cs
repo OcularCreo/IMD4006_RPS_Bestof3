@@ -90,7 +90,14 @@ public class Movement : MonoBehaviour
                 // if player is scissors, diagonal motion
                 if (GetComponent<RPS_Switching>().character == Character.scissors)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x * 2f, (-2f) * jumpSpeed);
+                    if (!facingRight) // diagonal towards the left if player is facing left
+                    {
+                        rb.velocity = new Vector2((-2f) * jumpSpeed, (-2f) * jumpSpeed);
+                    }
+                    else // otherwise diagonal towards the right
+                    {
+                        rb.velocity = new Vector2((2f) * jumpSpeed, (-2f) * jumpSpeed);
+                    }
                 }
             }
         }
@@ -150,7 +157,14 @@ public class Movement : MonoBehaviour
                 // if player is scissors, diagonal motion
                 if (GetComponent<RPS_Switching>().character == Character.scissors)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x * 2f, (-2f) * jumpSpeed);
+                    if (!facingRight) // diagonal towards the left if player is facing left
+                    {
+                        rb.velocity = new Vector2((-2f) * jumpSpeed, (-2f) * jumpSpeed);
+                    }
+                    else // otherwise diagonal towards the right
+                    {
+                        rb.velocity = new Vector2((2f) * jumpSpeed, (-2f) * jumpSpeed);
+                    }
                 }
 
             }
