@@ -11,6 +11,7 @@ using UnityEditor.Experimental.GraphView;
 
 public class Combat : MonoBehaviour
 {
+
 	[SerializeField] private TextMeshProUGUI healthUI;
 	[SerializeField] private TextMeshProUGUI livesUI;
 
@@ -36,14 +37,16 @@ public class Combat : MonoBehaviour
 	[SerializeField] private GameObject respawnPointsObject;
 	private Transform[] respawnPoints;
 
-	private bool canHit = false;
-	private bool hitting = false;
-	private bool alreadyHit = false;
 
-	public GameObject enemy;
+    private bool canHit = false;
+    private bool hitting = false;
+    private bool alreadyHit = false;
 
-	void Start()
+    public GameObject enemy;
+
+    void Start()
     {
+
 		health = maxHealth;
 		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
 		healthUI.text = health.ToString();
@@ -72,8 +75,9 @@ public class Combat : MonoBehaviour
 		}
     }
 
-	//Entering and exiting range
+    //Entering and exiting range
     public void CanHitEnterRange()
+
 	{
 		if (!canHit)
 		{
@@ -225,6 +229,7 @@ public class Combat : MonoBehaviour
 		enemyRb.velocity = new Vector2(enemyRb.velocity.x + (knockback * characterFacing), enemyRb.velocity.y + knockback);
 
 		enemy.GetComponent<Combat>().health = enemyHealth;
+
         enemy.GetComponent<Combat>().healthUI.text = enemyHealth.ToString();
         //Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);*/
 	}
@@ -351,4 +356,6 @@ public class Combat : MonoBehaviour
 		GetComponent<Movement>().isBeingKnockedBack = false;
 		//Debug.Log(GetComponent<Movement>().isBeingKnockedBack);
 	}
+
 }
+

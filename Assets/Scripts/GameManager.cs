@@ -50,6 +50,7 @@ public class Manager : MonoBehaviour
 
         //begining values for timers
         battleTime = 15f;
+
         RPS_time = 10f;
 
         //UI timer variable
@@ -89,7 +90,9 @@ public class Manager : MonoBehaviour
             RPS_time -= Time.deltaTime;
             
             time.GetComponent<Transform>().localScale = new Vector2(RPS_time, 1f);
+
             time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
+
 
             //when the time runs out
             if(RPS_time < 0)
@@ -104,6 +107,10 @@ public class Manager : MonoBehaviour
                 //player1.GetComponent<Combat>().WeaponEnable();
                 //player2.GetComponent<Combat>().WeaponEnable();
 
+                //give weapons back
+                player1.GetComponent<Combat>().WeaponEnable();
+                player2.GetComponent<Combat>().WeaponEnable();
+
                 UnityEngine.Debug.Log("RPS over. Battle time!");
 
                 
@@ -116,8 +123,10 @@ public class Manager : MonoBehaviour
 
             battleTime -= Time.deltaTime;
             time.GetComponent<Transform>().localScale = new Vector2(battleTime, 1f);
+
             time.GetComponent<SpriteRenderer>().color =  new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
            
+
             
             if(battleTime < 0)
             {
@@ -128,8 +137,10 @@ public class Manager : MonoBehaviour
                 battleTime = 15f;
 
                 //remove weapons
+
                 //player1.GetComponent<Combat>().WeaponDisable();
                 //player2.GetComponent<Combat>().WeaponDisable();
+
 
                 UnityEngine.Debug.Log("battle over. Now for some RPS!");
 
