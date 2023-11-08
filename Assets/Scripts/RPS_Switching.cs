@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-
 //easily determine which character the player is playing as
 public enum Character
 {

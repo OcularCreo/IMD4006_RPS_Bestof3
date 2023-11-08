@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using TMPro;
 
 using System;
 
@@ -27,8 +26,6 @@ public class Manager : MonoBehaviour
     public GameObject player2;
 
     public GameObject time;
-    [SerializeField] private TextMeshProUGUI annouceUI;
-
 
     //public TextMeshProUGUI stateLabelUI;
 
@@ -97,7 +94,6 @@ public class Manager : MonoBehaviour
             
             time.GetComponent<Transform>().localScale = new Vector2(RPS_time, 1f);
             time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
-            annouceUI.text = "Switch";
 
             // change label to 
             //stateLabelUI.text = "RPS Time!";
@@ -129,7 +125,7 @@ public class Manager : MonoBehaviour
             battleTime -= Time.deltaTime;
             time.GetComponent<Transform>().localScale = new Vector2(battleTime, 1f);
             time.GetComponent<SpriteRenderer>().color =  new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
-            annouceUI.text = "Fight";
+           
             
             if(battleTime < 0)
             {
