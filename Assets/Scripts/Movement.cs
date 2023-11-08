@@ -34,7 +34,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // PLAYER 1
+        ////////// PLAYER 1 ///////////////
         if(GetComponent<RPS_Switching>().player == Player.P1 && !isBeingKnockedBack)
         {
             // If player presses a, go left
@@ -79,30 +79,45 @@ public class Movement : MonoBehaviour
                 }
             }
 
-            // if player presses s
-            if (Input.GetKeyDown("s"))
+
+            //////// COMBAT STATE /////////
+            if(gameManager.state == GameState.battle)
             {
-                // if player is rock, drop down
-                if(GetComponent<RPS_Switching>().character == Character.rock)
+                // if player presses s
+                if (Input.GetKeyDown("s"))
                 {
-                    rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
-                }
-                // if player is scissors, diagonal motion
-                if (GetComponent<RPS_Switching>().character == Character.scissors)
-                {
-                    if (!facingRight) // diagonal towards the left if player is facing left
+                    // if player is rock, drop down
+                    if (GetComponent<RPS_Switching>().character == Character.rock)
                     {
-                        rb.velocity = new Vector2((-2f) * jumpSpeed, (-2f) * jumpSpeed);
+                        rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
                     }
-                    else // otherwise diagonal towards the right
+                    // if player is scissors, diagonal motion
+                    if (GetComponent<RPS_Switching>().character == Character.scissors)
                     {
-                        rb.velocity = new Vector2((2f) * jumpSpeed, (-2f) * jumpSpeed);
+                        if (!facingRight) // diagonal towards the left if player is facing left
+                        {
+                            rb.velocity = new Vector2((-2f) * jumpSpeed, (-2f) * jumpSpeed);
+                        }
+                        else // otherwise diagonal towards the right
+                        {
+                            rb.velocity = new Vector2((2f) * jumpSpeed, (-2f) * jumpSpeed);
+                        }
                     }
                 }
             }
+            //////// SWITCHING STATE /////////
+            else if(gameManager.state == GameState.RPS)
+            {
+                // if player presses s
+                if (Input.GetKeyDown("s"))
+                {
+                    rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
+                }
+            }
+            
         }
 
-        // PLAYER 2
+        //////////// PLAYER 2 ////////////////
         else if (GetComponent<RPS_Switching>().player == Player.P2 && !isBeingKnockedBack)
         {
             // If player presses left arrow, go left
@@ -146,27 +161,40 @@ public class Movement : MonoBehaviour
                 }
             }
 
-            // if player presses down arrow
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            //////// COMBAT STATE /////////
+            if (gameManager.state == GameState.battle)
             {
-                // if player is rock, drop down
-                if (GetComponent<RPS_Switching>().character == Character.rock)
+                // if player presses down arrow
+                if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
-                    rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
-                }
-                // if player is scissors, diagonal motion
-                if (GetComponent<RPS_Switching>().character == Character.scissors)
-                {
-                    if (!facingRight) // diagonal towards the left if player is facing left
+                    // if player is rock, drop down
+                    if (GetComponent<RPS_Switching>().character == Character.rock)
                     {
-                        rb.velocity = new Vector2((-2f) * jumpSpeed, (-2f) * jumpSpeed);
+                        rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
                     }
-                    else // otherwise diagonal towards the right
+                    // if player is scissors, diagonal motion
+                    if (GetComponent<RPS_Switching>().character == Character.scissors)
                     {
-                        rb.velocity = new Vector2((2f) * jumpSpeed, (-2f) * jumpSpeed);
+                        if (!facingRight) // diagonal towards the left if player is facing left
+                        {
+                            rb.velocity = new Vector2((-2f) * jumpSpeed, (-2f) * jumpSpeed);
+                        }
+                        else // otherwise diagonal towards the right
+                        {
+                            rb.velocity = new Vector2((2f) * jumpSpeed, (-2f) * jumpSpeed);
+                        }
                     }
                 }
 
+            }
+            //////// SWITCHING STATE /////////
+            else if (gameManager.state == GameState.RPS)
+            {
+                // if player presses s
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
+                }
             }
         }
 
