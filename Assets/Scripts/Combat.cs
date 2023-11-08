@@ -7,6 +7,7 @@ using UnityEngine.TextCore.Text;
 using TMPro;
 using Unity.Mathematics;
 using System;
+using UnityEditor.Experimental.GraphView;
 
 public class Combat : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class Combat : MonoBehaviour
 	private float knockback = 3f;
 	private float knockbackMultiplier;
 	private float knockbackTime = 0.5f;
+
+	private bool doubleDamage = false;
+	private float debuffTime = 3.0f;
 
 	//[SerializeField] private GameObject weapon;
 	[SerializeField] private GameObject respawnPointsObject;
@@ -50,7 +54,7 @@ public class Combat : MonoBehaviour
 
     void Update()
     {
-		if(GetComponent<RPS_Switching>().gameManager.state != GameState.RPS){ 
+		if (GetComponent<RPS_Switching>().gameManager.state != GameState.RPS){ 
 		
 			//If player attacks play animation
 			CheckForHitAnimation();
@@ -167,42 +171,47 @@ public class Combat : MonoBehaviour
 		//hit enemy
 
 		int enemyHealth = enemy.GetComponent<Combat>().health;
+		int damageDealt = 0;
 
 		//Scissors to Rock
 		if (thisPlayer == Character.scissors && enemyPlayer == Character.rock)
 		{
-			enemyHealth -= (int)(characterDamage * disadvantageMultiplier);
+			damageDealt = (int)(characterDamage * disadvantageMultiplier);
 		}
 		//Scissors to Paper
 		else if (thisPlayer == Character.scissors && enemyPlayer == Character.paper)
 		{
-			enemyHealth -= (int)(characterDamage * advantageMultiplier);
+			damageDealt = (int)(characterDamage * advantageMultiplier);
 		}
 		//Rock to Paper
 		else if (thisPlayer == Character.rock && enemyPlayer == Character.paper)
 		{
-			enemyHealth -= (int)(characterDamage * disadvantageMultiplier);
+			damageDealt = (int)(characterDamage * disadvantageMultiplier);
 		}
 		//Rock to Scissors
 		else if (thisPlayer == Character.rock && enemyPlayer == Character.scissors)
 		{
-			enemyHealth -= (int)(characterDamage * advantageMultiplier);
+			damageDealt = (int)(characterDamage * advantageMultiplier);
 		}
 		//Paper to Rock
 		else if (thisPlayer == Character.paper && enemyPlayer == Character.rock)
 		{
-			enemyHealth -= (int)(characterDamage * advantageMultiplier);
+			damageDealt = (int)(characterDamage * advantageMultiplier);
 		}
 		//Paper to Scissors
 		else if (thisPlayer == Character.paper && enemyPlayer == Character.scissors)
 		{
-			enemyHealth -= (int)(characterDamage * disadvantageMultiplier);
+			damageDealt = (int)(characterDamage * disadvantageMultiplier);
 		}
 		else {
-			enemyHealth -= characterDamage;
+			damageDealt = characterDamage;
 		}
 
-		enemy.GetComponent<Combat>().takeDamage(enemyHealth);
+		//enemyHealth -= damageDealt;
+		//Debug.Log(damageDealt);
+		//Debug.Log(enemyHealth);
+
+		enemy.GetComponent<Combat>().takeDamage(damageDealt);
 
 		/*//knockback
 		Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
@@ -255,8 +264,17 @@ public class Combat : MonoBehaviour
 	// Damage taken for switching characters - will change
 	public void switchDamage()
 	{
-		health = health - 20;
-		healthUI.text = health.ToString();
+		//health = health - 20;
+		//healthUI.text = health.ToString();
+
+		StartCoroutine(StartDebuffTime());
+	}
+
+	private IEnumerator StartDebuffTime()
+	{
+		doubleDamage = true;
+		yield return new WaitForSeconds(debuffTime);
+		doubleDamage = false;
 	}
 
 	/*public void WeaponEnable() {
@@ -287,7 +305,7 @@ public class Combat : MonoBehaviour
 		}
 	}
 
-	public void takeDamage(int newHealth)
+	public void takeDamage(int dmg)
 	{
 		//knockback
 		StartCoroutine(KnockbackTimer());
@@ -306,12 +324,20 @@ public class Combat : MonoBehaviour
 		Rigidbody2D rb = GetComponent<Rigidbody2D>();
 		knockbackMultiplier = Mathf.Pow((((float)maxHealth - (float)health) / (float)maxHealth) + 1, 2f);
 		float kbValue = knockback * knockbackMultiplier;
-		Debug.Log(kbValue);
+		//Debug.Log(kbValue);
 		GetComponent<Rigidbody2D>().velocity = new Vector2(rb.velocity.x + (kbValue * enemyFacing), rb.velocity.y + kbValue);
 
 		//Update Health
-		health = newHealth;
-		healthUI.text = newHealth.ToString();
+		if (doubleDamage)
+		{
+			health = health - (dmg * 2);
+			//Debug.Log(dmg * 2);
+		}
+		else {
+			health = health - dmg;
+			//Debug.Log(dmg);
+		}
+		healthUI.text = health.ToString();
 		//Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
 
 		
