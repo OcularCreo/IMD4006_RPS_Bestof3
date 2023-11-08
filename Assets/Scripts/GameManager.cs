@@ -30,7 +30,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI annouceUI;
 
 
-    public TextMeshProUGUI stateLabelUI;
+    //public TextMeshProUGUI stateLabelUI;
 
     //funciton used to handle different game states
     /*public void updateGameState(GameState newState)
@@ -100,7 +100,7 @@ public class Manager : MonoBehaviour
             annouceUI.text = "Switch";
 
             // change label to 
-            stateLabelUI.text = "RPS Time!";
+            //stateLabelUI.text = "RPS Time!";
 
             //when the time runs out
             if (RPS_time < 0)
@@ -118,7 +118,7 @@ public class Manager : MonoBehaviour
                 UnityEngine.Debug.Log("RPS over. Battle time!");
 
                 // change label to 
-                stateLabelUI.text = "Battle Time!";
+                //stateLabelUI.text = "Battle Time!";
 
             }
         } 
