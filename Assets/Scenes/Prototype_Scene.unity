@@ -1666,6 +1666,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1521416363925835935, guid: 28801e239077b8448b0cd004ae8f3607, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1289651757}
     - target: {fileID: 3681431999642330257, guid: 28801e239077b8448b0cd004ae8f3607, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2318,6 +2322,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1521416363925835935, guid: 28801e239077b8448b0cd004ae8f3607, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1289651757}
     - target: {fileID: 3681431999642330257, guid: 28801e239077b8448b0cd004ae8f3607, type: 3}
       propertyPath: m_IsActive
       value: 0
