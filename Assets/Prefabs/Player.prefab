@@ -252,6 +252,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 --- !u!1 &1844053745246583650
@@ -473,6 +474,8 @@ MonoBehaviour:
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 93d22af (Add alert when health is low and when close to die)
 --- !u!1 &2546415345243972953
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,6 +687,7 @@ Transform:
   - {fileID: 4109983216600786193}
   - {fileID: 6171839833012845990}
   - {fileID: 6469898331717305300}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
   - {fileID: 7988762837472981052}
@@ -691,6 +695,8 @@ Transform:
   - {fileID: 6635546665491332870}
   - {fileID: 2501514737862540910}
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 93d22af (Add alert when health is low and when close to die)
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &843012776933033016
@@ -881,6 +887,7 @@ MonoBehaviour:
   scissorsAttack: {fileID: 3330877278541961161}
   paperIdle: {fileID: 2546415345243972953}
   paperAttack: {fileID: 9167321635161151355}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 --- !u!1 &5940461650254354730
@@ -1238,6 +1245,8 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 93d22af (Add alert when health is low and when close to die)
 --- !u!1 &7193524121493434306
 GameObject:
   m_ObjectHideFlags: 0

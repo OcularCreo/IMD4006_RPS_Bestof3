@@ -42,6 +42,7 @@ public class Combat : MonoBehaviour
 
 	public GameObject enemy;
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 
@@ -55,6 +56,8 @@ public class Combat : MonoBehaviour
 
 
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 93d22af (Add alert when health is low and when close to die)
 	void Start()
     {
 		health = maxHealth;
@@ -241,6 +244,7 @@ public class Combat : MonoBehaviour
 		enemy.GetComponent<Combat>().health = enemyHealth;
         enemy.GetComponent<Combat>().healthUI.text = enemyHealth.ToString();
         //Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);*/
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 
@@ -248,6 +252,8 @@ public class Combat : MonoBehaviour
 
 
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 93d22af (Add alert when health is low and when close to die)
 	}
 
 	public void Die()
