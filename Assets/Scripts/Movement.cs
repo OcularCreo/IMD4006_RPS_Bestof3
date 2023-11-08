@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+//using System.Diagnostics.Eventing.Reader;
 using System.Security;
 using UnityEditor.Presets;
 using UnityEngine;
@@ -23,6 +25,7 @@ public class Movement : MonoBehaviour
 
     private float jumpXPos;           //tracks the xPosition of a character when they jump
     public int changeSlamNum;      //tracks number of times player has slammed in the same spot
+    private float platformChange;
 
 	// Start is called before the first frame update
 	void Start()
@@ -223,13 +226,16 @@ public class Movement : MonoBehaviour
             //During the swithcing stage
             if(gameManager.state == GameState.RPS)
             {
+
+                int collisionID = collision.gameObject.GetComponent<ObjectID>().getID();
+
                 //when the player remains remains in the same x position as their initial jump
                 //add to the change slam, otherwise reset it to 0.
-                if (jumpXPos == gameObject.transform.position.x)
+                if (jumpXPos == gameObject.transform.position.x && collisionID == platformChange)
                 {
                     changeSlamNum++;
                 }
-                else
+                else if(jumpXPos != gameObject.transform.position.x)
                 {
                     changeSlamNum = 0;
                 }
@@ -253,6 +259,15 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.tag == "Platform")
         {
             jumpXPos = gameObject.transform.position.x;
+
+            int collisionID = collision.gameObject.GetComponent<ObjectID>().getID();
+            
+            if((collisionID == 0 && gameObject.transform.position.y >= -0.109872) || (collisionID == 1 && gameObject.transform.position.y >= 1.98807) ||
+                (collisionID == 2 && gameObject.transform.position.y >= 1.819661) || (collisionID == 3 && gameObject.transform.position.y >= 1.98807))
+            {
+                platformChange = collisionID;
+                UnityEngine.Debug.Log("Top of platform");
+            }
 
         }
     }
