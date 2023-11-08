@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using TMPro;
 
 //different states the game can be in
 public enum GameState
@@ -23,6 +24,8 @@ public class Manager : MonoBehaviour
     public GameObject player2;
 
     public GameObject time;
+    [SerializeField] private TextMeshProUGUI annouceUI;
+
 
     //funciton used to handle different game states
     /*public void updateGameState(GameState newState)
@@ -90,6 +93,7 @@ public class Manager : MonoBehaviour
             
             time.GetComponent<Transform>().localScale = new Vector2(RPS_time, 1f);
             time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
+            annouceUI.text = "Switch";
 
             //when the time runs out
             if(RPS_time < 0)
@@ -117,7 +121,7 @@ public class Manager : MonoBehaviour
             battleTime -= Time.deltaTime;
             time.GetComponent<Transform>().localScale = new Vector2(battleTime, 1f);
             time.GetComponent<SpriteRenderer>().color =  new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
-           
+            annouceUI.text = "Fight";
             
             if(battleTime < 0)
             {
