@@ -42,6 +42,19 @@ public class Combat : MonoBehaviour
 
 	public GameObject enemy;
 
+<<<<<<< Updated upstream
+=======
+
+	[SerializeField] private GameObject health_bar;
+
+	private float healthBarNum;
+	private float healthBarLocalPosition;
+	private float opponentHealth;
+
+	[SerializeField] private TextMeshProUGUI hitUI;
+
+
+>>>>>>> Stashed changes
 	void Start()
     {
 		health = maxHealth;
@@ -99,6 +112,7 @@ public class Combat : MonoBehaviour
 			if (Input.GetKeyDown(KeyCode.Space) && !hitting)
 			{
 				StartCoroutine(StartCooldown());
+
 			}
 		}
 		
@@ -227,6 +241,13 @@ public class Combat : MonoBehaviour
 		enemy.GetComponent<Combat>().health = enemyHealth;
         enemy.GetComponent<Combat>().healthUI.text = enemyHealth.ToString();
         //Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);*/
+<<<<<<< Updated upstream
+=======
+
+		//healtBar();
+
+
+>>>>>>> Stashed changes
 	}
 
 	public void Die()
@@ -313,6 +334,7 @@ public class Combat : MonoBehaviour
 		{
 			//right
 			enemyFacing = 1;
+			hitUI.text = "hit!";
 		}
 		else
 		{
@@ -330,6 +352,7 @@ public class Combat : MonoBehaviour
 		{
 			health = health - (dmg * 2);
 			//Debug.Log(dmg * 2);
+			hitUI.text = "hit hit!";
 		}
 		else {
 			health = health - dmg;
@@ -338,6 +361,7 @@ public class Combat : MonoBehaviour
 		healthUI.text = health.ToString();
 		//Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
 
+		hitUI.text = " ";
 		
 	}
 
