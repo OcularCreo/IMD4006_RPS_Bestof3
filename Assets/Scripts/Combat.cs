@@ -41,6 +41,8 @@ public class Combat : MonoBehaviour
 
 	public bool slamOver = false;
 
+	public bool hasRespawned = true;
+
 	public GameObject enemy;
 
 
@@ -67,7 +69,7 @@ public class Combat : MonoBehaviour
 
     void Update()
     {
-		Debug.Log("combat script: "+ health);
+		//Debug.Log("combat script: "+ health);
 		if (GetComponent<RPS_Switching>().gameManager.state != GameState.RPS){ 
 		
 			//If player attacks play animation
@@ -269,8 +271,8 @@ public class Combat : MonoBehaviour
 
 	public void Die()
 	{
-		lives -= 1;
-		livesUI.text = lives.ToString();
+        lives -= 1;
+        livesUI.text = lives.ToString();
 		//Debug.Log("Life Lost");
 		if (lives <= 0)
 		{
@@ -278,7 +280,7 @@ public class Combat : MonoBehaviour
 		}
 		else {
 			Respawn();
-		}
+        }
 
 		if (lives < 2) {
             GetComponent<PlayerIcons>().EnableLowLivesIcon();
@@ -299,6 +301,8 @@ public class Combat : MonoBehaviour
 		//Debug.Log(randSpawn);
 
 		gameObject.transform.position = respawnPoints[randSpawn].gameObject.transform.position;
+
+		hasRespawned = true;
 	}
 
 	// Damage taken for switching characters - will change
@@ -405,7 +409,7 @@ public class Combat : MonoBehaviour
             healthBarLocalPosition =  (health/100f);
             health_bar.GetComponent<Transform>().localScale = new Vector2(healthBarNum,health_bar.GetComponent<Transform>().localScale.y);
             health_bar.GetComponent<Transform>().position = new Vector2(GetComponent<Transform>().position.x - healthBarLocalPosition,health_bar.GetComponent<Transform>().position.y);
-            Debug.Log(gameObject.name + "is hit" + opponentHealth);
+            //Debug.Log(gameObject.name + "is hit" + opponentHealth);
 			}
 			else if(opponentHealth < 20){
 			health_bar.GetComponent<Transform>().localScale = new Vector2(0,health_bar.GetComponent<Transform>().localScale.y);

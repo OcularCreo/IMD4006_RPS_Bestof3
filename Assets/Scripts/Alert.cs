@@ -40,7 +40,7 @@ public class Health : MonoBehaviour
       
         health = gameObject.GetComponent<Combat>().health;
         lives = gameObject.GetComponent<Combat>().lives;
-        Debug.Log(gameObject.name + " health is: " + health);
+        //Debug.Log(gameObject.name + " health is: " + health);
 
         //health_alert();
 

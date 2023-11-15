@@ -19,9 +19,13 @@ public class FallOffStage : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		//Debug.Log("Check in");
-		if (collision.gameObject.GetComponent<Combat>() != null)
+		if (collision.gameObject.GetComponent<Combat>() != null && collision.gameObject.GetComponent<Combat>().hasRespawned == true)
 		{
-			collision.gameObject.GetComponent<Combat>().Die();
-		}
+            //collision.gameObject.GetComponent<Combat>().hasRespawned = false;
+            //collision.gameObject.GetComponent<Combat>().Die();
+            collision.gameObject.GetComponent<Combat>().health = 0;
+            //Debug.Log("Call");
+
+        }
 	}
 }
