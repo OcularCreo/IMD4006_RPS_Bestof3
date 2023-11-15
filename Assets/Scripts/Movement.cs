@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 //using System.Diagnostics.Eventing.Reader;
 using System.Security;
 using UnityEditor.Presets;
@@ -16,6 +15,9 @@ public class Movement : MonoBehaviour
 
     private bool jumping = false;   // check whether the player has jumped
     private int jumpCount = 0;      // counter for double jump
+
+    // variables for slam does damage
+    public bool slammed = false;
 
 	public bool facingRight = true; // check what direction player is facing
 
@@ -82,7 +84,6 @@ public class Movement : MonoBehaviour
                 }
             }
 
-
             //////// COMBAT STATE /////////
             if(gameManager.state == GameState.battle)
             {
@@ -93,9 +94,10 @@ public class Movement : MonoBehaviour
                     if (GetComponent<RPS_Switching>().character == Character.rock)
                     {
                         rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
+                        slammed = true;
                     }
                     // if player is scissors, diagonal motion
-                    if (GetComponent<RPS_Switching>().character == Character.scissors)
+                    else if (GetComponent<RPS_Switching>().character == Character.scissors)
                     {
                         if (!facingRight) // diagonal towards the left if player is facing left
                         {
@@ -105,6 +107,7 @@ public class Movement : MonoBehaviour
                         {
                             rb.velocity = new Vector2((2f) * jumpSpeed, (-2f) * jumpSpeed);
                         }
+                        slammed = true;
                     }
                 }
             }
@@ -174,6 +177,7 @@ public class Movement : MonoBehaviour
                     if (GetComponent<RPS_Switching>().character == Character.rock)
                     {
                         rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
+                        slammed = true;
                     }
                     // if player is scissors, diagonal motion
                     if (GetComponent<RPS_Switching>().character == Character.scissors)
@@ -186,6 +190,7 @@ public class Movement : MonoBehaviour
                         {
                             rb.velocity = new Vector2((2f) * jumpSpeed, (-2f) * jumpSpeed);
                         }
+                        slammed = true;
                     }
                 }
 
@@ -199,6 +204,12 @@ public class Movement : MonoBehaviour
                     rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
                 }
             }
+        }
+
+
+        if (GetComponent<Combat>().slamOver)
+        {
+            slammed = false;
         }
 
     }

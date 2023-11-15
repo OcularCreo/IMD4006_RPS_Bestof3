@@ -30,7 +30,6 @@ public class Combat : MonoBehaviour
 
 	private bool doubleDamage = false;
 	private float debuffTime = 3.0f;
-	[SerializeField] public GameObject armourIcon;
 
 	//[SerializeField] private GameObject weapon;
 	[SerializeField] private GameObject respawnPointsObject;
@@ -39,6 +38,8 @@ public class Combat : MonoBehaviour
 	private bool canHit = false;
 	private bool hitting = false;
 	private bool alreadyHit = false;
+
+	public bool slamOver = false;
 
 	public GameObject enemy;
 
@@ -58,13 +59,33 @@ public class Combat : MonoBehaviour
 			CheckForHitAnimation();
 
 			//If the player is attacking and is in range of the other player
+			// Hitting -> Is the animation playing
+			// canHit -> Is the enemy in the hitbox
+			// attackActive -> Within attack time frame
 			if (hitting && canHit && attackActive) {
 				//Figure out how to hit enemy
+				// alreadyHit -> prevents being hit multiple times by 1 attack
 				if (!alreadyHit) {
 					HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
 					alreadyHit = true;
 				}
 			}
+
+			// Slam does damage
+			if(canHit && GetComponent<Movement>().slammed) // if enemy in hitbox and has been slammed
+            {
+				// enemy takes damage
+					HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
+				//Debug.Log("SLAM DID DAMAGE");
+				slamOver = true;
+			}
+            if (!GetComponent<Movement>().slammed) // if slam is over, reset slamOver
+            {
+				slamOver = false;
+                //Debug.Log("SLAM IS OVER");
+
+            }
+
 		}
 
 		if (health <= 0) {
@@ -268,11 +289,9 @@ public class Combat : MonoBehaviour
 
 	private IEnumerator StartDebuffTime()
 	{
-		armourIcon.SetActive(true);
 		doubleDamage = true;
 		yield return new WaitForSeconds(debuffTime);
 		doubleDamage = false;
-		armourIcon.SetActive(false);
 	}
 
 	/*public void WeaponEnable() {
