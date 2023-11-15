@@ -163,6 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b0f8e7625ef464a85acb436a99c29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  rb: {fileID: 0}
+  moveSpeed: 3
+  jumpSpeed: 5
+  facingRight: 1
+  isBeingKnockedBack: 0
+  changeSlamNum: 0
 --- !u!114 &6182496353712229886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +182,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef7a017e090fb849ac3a7caa864023a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthUI: {fileID: 0}
+  livesUI: {fileID: 0}
+  lives: 3
+  maxHealth: 100
+  characterDamage: 5
+  advantageMultiplier: 1.5
+  disadvantageMultiplier: 0.5
+  armourIcon: {fileID: 0}
+  respawnPointsObject: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!114 &2247399954551441233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,3 +204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e9af3bfe8b16a04e9d72751b37e51e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  player: 0
+  character: 0
+  rock: {fileID: 0}
+  paper: {fileID: 0}
+  scissors: {fileID: 0}

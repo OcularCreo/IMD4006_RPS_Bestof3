@@ -14,10 +14,10 @@ public class Combat : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI healthUI;
 	[SerializeField] private TextMeshProUGUI livesUI;
 
-	[SerializeField] private int lives = 3;
+	[SerializeField] public int lives = 3;
 	[SerializeField] private int maxHealth = 100;
-	[SerializeField] private int health;
-    [SerializeField] private int characterDamage = 5;
+	[SerializeField] public  int health;
+    [SerializeField] protected int characterDamage = 5;
     [SerializeField] private float advantageMultiplier = 1.5f;
 	[SerializeField] private float disadvantageMultiplier = 0.5f;
 	private float attackSpeed = 0.3f;
@@ -37,11 +37,19 @@ public class Combat : MonoBehaviour
 
 	private bool canHit = false;
 	private bool hitting = false;
-	private bool alreadyHit = false;
+	public bool alreadyHit = false;
 
 	public bool slamOver = false;
 
 	public GameObject enemy;
+
+
+	[SerializeField] private GameObject health_bar;
+
+	private float healthBarNum;
+	private float healthBarLocalPosition;
+	private float opponentHealth;
+
 
 	void Start()
     {
@@ -49,10 +57,17 @@ public class Combat : MonoBehaviour
 		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
 		healthUI.text = health.ToString();
 		livesUI.text = lives.ToString();
+
+		
+		healthBarNum = health_bar.GetComponent<Transform>().localScale.x;
+        healthBarLocalPosition = health_bar.GetComponent<Transform>().position.x;
+		opponentHealth = health_bar.transform.parent.gameObject.GetComponent<Combat>().health;
+		
 	}
 
     void Update()
     {
+		Debug.Log("combat script: "+ health);
 		if (GetComponent<RPS_Switching>().gameManager.state != GameState.RPS){ 
 		
 			//If player attacks play animation
@@ -188,6 +203,7 @@ public class Combat : MonoBehaviour
 		//hit enemy
 
 		int enemyHealth = enemy.GetComponent<Combat>().health;
+		// int enemyHealth = Combat.health;
 		int damageDealt = 0;
 
 		//Scissors to Rock
@@ -247,6 +263,8 @@ public class Combat : MonoBehaviour
 		enemy.GetComponent<Combat>().health = enemyHealth;
         enemy.GetComponent<Combat>().healthUI.text = enemyHealth.ToString();
         //Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);*/
+
+		//healtBar();
 	}
 
 	public void Die()
@@ -368,5 +386,24 @@ public class Combat : MonoBehaviour
 
 		GetComponent<Movement>().isBeingKnockedBack = false;
 		//Debug.Log(GetComponent<Movement>().isBeingKnockedBack);
+	}
+
+
+	private void healtBar(){
+
+            if(opponentHealth >20 && opponentHealth < 100){
+            healthBarNum = health_bar.GetComponent<Transform>().localScale.x - (1-(opponentHealth/100f));
+            healthBarLocalPosition =  (health/100f);
+            health_bar.GetComponent<Transform>().localScale = new Vector2(healthBarNum,health_bar.GetComponent<Transform>().localScale.y);
+            health_bar.GetComponent<Transform>().position = new Vector2(GetComponent<Transform>().position.x - healthBarLocalPosition,health_bar.GetComponent<Transform>().position.y);
+            Debug.Log(gameObject.name + "is hit" + opponentHealth);
+			}
+			else if(opponentHealth < 20){
+			health_bar.GetComponent<Transform>().localScale = new Vector2(0,health_bar.GetComponent<Transform>().localScale.y);
+			}
+			else if(opponentHealth == 100){
+			health_bar.GetComponent<Transform>().localScale = new Vector2(3f,health_bar.GetComponent<Transform>().localScale.y);
+			}
+        
 	}
 }
