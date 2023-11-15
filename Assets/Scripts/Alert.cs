@@ -42,9 +42,9 @@ public class Health : MonoBehaviour
         lives = gameObject.GetComponent<Combat>().lives;
         Debug.Log(gameObject.name + " health is: " + health);
 
-        health_alert();
+        //health_alert();
 
-        lives_aleart();
+        //lives_aleart();
 
         isHit = gameObject.GetComponent<Combat>().alreadyHit;
 

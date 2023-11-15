@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6469898331717305300}
   - component: {fileID: 7723166564887917688}
   m_Layer: 0
-  m_Name: armorBroke
+  m_Name: Vulnerable_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -940,6 +940,8 @@ GameObject:
   - component: {fileID: 7884441233949426789}
   - component: {fileID: 1521416363925835935}
   - component: {fileID: 1800599435404332921}
+  - component: {fileID: 4030185185971145316}
+  - component: {fileID: 732755535972966385}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1117,9 +1119,9 @@ MonoBehaviour:
   characterDamage: 5
   advantageMultiplier: 1.5
   disadvantageMultiplier: 0.5
-  armourIcon: {fileID: 514499304475416472}
   respawnPointsObject: {fileID: 0}
   alreadyHit: 0
+  slamOver: 0
   enemy: {fileID: 0}
   health_bar: {fileID: 0}
 --- !u!114 &1521416363925835935
@@ -1138,6 +1140,8 @@ MonoBehaviour:
   rb: {fileID: 843012776933033016}
   moveSpeed: 3
   jumpSpeed: 5
+  slammed: 0
+  playersCollided: 0
   facingRight: 1
   isBeingKnockedBack: 0
   changeSlamNum: 0
@@ -1159,6 +1163,36 @@ MonoBehaviour:
   scissorsAttack: {fileID: 3330877278541961161}
   paperIdle: {fileID: 2546415345243972953}
   paperAttack: {fileID: 9167321635161151355}
+--- !u!114 &4030185185971145316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310070276530836521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e9806fea14e554b8afc821f32f7dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vulnerableIcon: {fileID: 514499304475416472}
+  lowLivesIcon: {fileID: 7345724181839990576}
+  loeHealthIcon: {fileID: 7756756680408454521}
+--- !u!114 &732755535972966385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310070276530836521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9671598a82faa467f84f4e595bc7f2f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alert_Health: {fileID: 7756756680408454521}
+  alert_Lives: {fileID: 7345724181839990576}
+  health_bar: {fileID: 7112803418491537919}
 --- !u!1 &5323039581232423196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,12 +1624,12 @@ GameObject:
   - component: {fileID: 5828608033332482070}
   - component: {fileID: 7949453257911864107}
   m_Layer: 0
-  m_Name: Alert_lowLife
+  m_Name: LowLives_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5828608033332482070
 Transform:
   m_ObjectHideFlags: 0
@@ -1605,8 +1639,8 @@ Transform:
   m_GameObject: {fileID: 7345724181839990576}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.47, y: 1.3936, z: 0}
-  m_LocalScale: {x: -1.2684, y: 1.2245001, z: 0}
+  m_LocalPosition: {x: 0.948, y: 0.6858, z: 0}
+  m_LocalScale: {x: -0.35632968, y: 0.34399694, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8577613251417895009}
@@ -1683,7 +1717,7 @@ GameObject:
   - component: {fileID: 7988762837472981052}
   - component: {fileID: 3837500305781180542}
   m_Layer: 0
-  m_Name: Alert_lowEnergy
+  m_Name: LowHealth_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1698,8 +1732,8 @@ Transform:
   m_GameObject: {fileID: 7756756680408454521}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.47, y: 1.53, z: 0}
-  m_LocalScale: {x: -0.12, y: 0.31, z: 1}
+  m_LocalPosition: {x: 0.615, y: 0.704, z: 0}
+  m_LocalScale: {x: -0.030904798, y: 0.0798374, z: 0.25754}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4214886665346497971}

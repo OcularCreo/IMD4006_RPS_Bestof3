@@ -279,6 +279,10 @@ public class Combat : MonoBehaviour
 		else {
 			Respawn();
 		}
+
+		if (lives < 2) {
+            GetComponent<PlayerIcons>().EnableLowLivesIcon();
+        }
 	}
 
 	public void Respawn()
@@ -287,7 +291,9 @@ public class Combat : MonoBehaviour
 		health = maxHealth;
 		healthUI.text = health.ToString();
 
-		GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+		GetComponent<PlayerIcons>().DisableLowHealthIcon();
+
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
 		int randSpawn = UnityEngine.Random.Range(1, respawnPoints.Length);
 		//Debug.Log(randSpawn);
@@ -374,6 +380,9 @@ public class Combat : MonoBehaviour
 		healthUI.text = health.ToString();
 		//Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
 
+		if (health < 20) {
+            GetComponent<PlayerIcons>().EnableLowHealthIcon();
+        }
 		
 	}
 
