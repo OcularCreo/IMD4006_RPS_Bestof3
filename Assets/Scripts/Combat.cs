@@ -71,19 +71,18 @@ public class Combat : MonoBehaviour
 				}
 			}
 
+
+
 			// Slam does damage
-			if(canHit && GetComponent<Movement>().slammed) // if enemy in hitbox and has been slammed
+			if(GetComponent<Movement>().playersCollided && GetComponent<Movement>().slammed) // if players have collided and slam has been done
             {
 				// enemy takes damage
-					HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
-				//Debug.Log("SLAM DID DAMAGE");
+				HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
 				slamOver = true;
 			}
             if (!GetComponent<Movement>().slammed) // if slam is over, reset slamOver
             {
 				slamOver = false;
-                //Debug.Log("SLAM IS OVER");
-
             }
 
 		}

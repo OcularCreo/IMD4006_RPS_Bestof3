@@ -18,6 +18,7 @@ public class Movement : MonoBehaviour
 
     // variables for slam does damage
     public bool slammed = false;
+    public bool playersCollided = false;
 
 	public bool facingRight = true; // check what direction player is facing
 
@@ -206,10 +207,11 @@ public class Movement : MonoBehaviour
             }
         }
 
-
+        // reset slammed and playersCollided after the slam has done damage
         if (GetComponent<Combat>().slamOver)
         {
             slammed = false;
+            playersCollided = false;
         }
 
     }
@@ -234,8 +236,12 @@ public class Movement : MonoBehaviour
             jumping = false;
             jumpCount = 0;
 
+            playersCollided = false;
+            slammed = false;
+
+
             //During the swithcing stage
-            if(gameManager.state == GameState.RPS)
+            if (gameManager.state == GameState.RPS)
             {
 
                 int collisionID = collision.gameObject.GetComponent<ObjectID>().getID();
@@ -261,6 +267,12 @@ public class Movement : MonoBehaviour
             }
             
         }
+
+        // check if players have collided with each other
+        if(collision.gameObject.GetComponent<Combat>() != null)
+        {
+            playersCollided = true;
+        }
     }
 
     // check if the player has collided with the platform
@@ -281,6 +293,13 @@ public class Movement : MonoBehaviour
             }
 
         }
+
+        // once the collision ends between the 2 players, set playersCollided to false
+        if (collision.gameObject.GetComponent<Combat>() != null)
+        {
+            playersCollided = false;
+        }
+
     }
 
     private void Flip()
