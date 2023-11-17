@@ -59,5 +59,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40c805e94a58aa54db6cd210cb78869c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8137143714194569112}
   m_SourcePrefab: {fileID: 100100000, guid: 40c805e94a58aa54db6cd210cb78869c, type: 3}
+--- !u!1 &6023080949649214198 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40c805e94a58aa54db6cd210cb78869c, type: 3}
+  m_PrefabInstance: {fileID: 6869997035505760167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8137143714194569112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023080949649214198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18b0f8e7625ef464a85acb436a99c29d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  rb: {fileID: 0}
+  moveSpeed: 3
+  jumpSpeed: 5
+  slammed: 0
+  playersCollided: 0
+  facingRight: 1
+  isBeingKnockedBack: 0
+  changeSlamNum: 0
