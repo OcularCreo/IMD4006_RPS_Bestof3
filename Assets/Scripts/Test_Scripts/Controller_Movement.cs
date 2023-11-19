@@ -9,35 +9,38 @@ public class Controller_Movement : MonoBehaviour
 {
 
     //***** GROUND CHECK VARIABLES *****
-    private Rigidbody2D rb;                         //rigid body of object script is attached to
+    [Header("Ground Check Variables")]
     [SerializeField] public Transform groundCheck;  //getting transform of empty object used for player ground checking
     [SerializeField] public LayerMask groundLayer;  //referencing unity layer mask name ground
+    private Rigidbody2D rb;                         //rigid body of object script is attached to
 
     //***** GENERAL MOVEMENT VARIABLES *****
-    private float horizontal;           //variable used for horizontal (left and right) movement
-    private float speed = 10f;           //variable used to determine speed of player
-    private float jumpingPower = 12f;    //variable used to determine how high player jumps
-    private float slamPower = 16f;      //variable used to determine how strong slams are
+    [Header("Movement Variables")]
+    [SerializeField] private float horizontal;           //variable used for horizontal (left and right) movement
+    [SerializeField] private float speed = 10f;          //variable used to determine speed of player
+    [SerializeField] private float acceleration = 7f;    //sets acceleration of the player
+    [SerializeField] private float decceleration = 7f;   //sets the deceleration of the player
+    [SerializeField] private float velPower = 0.9f;      //sets the velocity power of the plyaer
+    [SerializeField] private float frictionAmount = 2f;  //sets the amount of friciton the player has to the floor when deccelerating
+    
+    private float slamPower = 50f;      //variable used to determine how strong slams are
+    private bool slamming;              //tells us if the player his holding the slamming button
     private bool isFacingRight = true;  //variable used for determining player orentations
 
-    //movement testing
-    [Header("Movement Variables")]
-    [SerializeField] private float acceleration = 7f; 
-    [SerializeField] private float decceleration = 7f; 
-    [SerializeField] private float velPower = 0.9f; 
-    [SerializeField] private float frictionAmount = 2f; 
-
     //***** JUMP VARIABLES *****
+    [Header("Jump Variables")]
 
     //Number of extra jump variables (double, triple, etc)
-    private int extraJumps;             //variable keeps track of how many extra jumps a player can do (double, triple, etc.)
-    public int extraJumpValues;         //variable used to set the number of character's extra jumps. Connected to extraJumps
-    
-    //Jump height variables (contributes to how high a player jumps when holding the jump button)
-    private float jumpTimeCounter;      //used to keep track of how long a player is "jumping" or holding down the jump button
-    public float jumpTime;              //variable used to dictate how long a player can hold down the jump button to go higher
-    private bool jumping;               //variable used to determine if the player is "jumping" or holding down the jump button
+    [SerializeField] public int extraJumpValues;    //variable used to set the number of character's extra jumps. Connected to extraJumps
+    private int extraJumps;                         //variable keeps track of how many extra jumps a player can do (double, triple, etc.)
 
+    //Jump height variables (contributes to how high a player jumps when holding the jump button)
+    [SerializeField] private float jumpingPower;            //variable used to determine how high player jumps
+    [SerializeField] public float jumpTime;                 //variable used to dictate how long a player can hold down the jump button to go higher
+    private float jumpTimeCounter;                          //used to keep track of how long a player is "jumping" or holding down the jump button
+    private bool jumping;                                   //variable used to determine if the player is "jumping" or holding down the jump button
+
+    //coyote time jump variables
     private float coyoteTime = 0.2f;    //determines how long coyotetime is
     private float coyoteTimeCounter;    //keep track of current coyoteTime (subtracting time.deltatime)
 
@@ -48,6 +51,9 @@ public class Controller_Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         extraJumps = extraJumpValues;
+
+        //setting up default variable values
+        slamming = false;
     }
 
     // Update is called once per frame
@@ -68,6 +74,7 @@ public class Controller_Movement : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
 
+        //*** TO DO: PROBABLY MOVE THIS TO THE FIXED UPDATE FUNCTON ***
         //this block of code allows player to jump higher if they hold down the south gamepad button (A on Xbox)
         //if the player is jumping
         if (jumping)
@@ -114,6 +121,21 @@ public class Controller_Movement : MonoBehaviour
 
             rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);                      //applying friction force in opposite direction as movement
         }
+
+        //when the player is holding the slam button
+        if (slamming)
+        {
+            Debug.Log("slamming now");
+            rb.AddForce(Vector2.down * slamPower); //keep applying the downward force times the slamming power
+
+            //when the player finally reaches the ground
+            if (isGrounded())
+            {
+                slamming = false;
+            }
+        }
+
+        
     }
 
     //function returns true if the gameObject attached to this script is grounded
@@ -179,10 +201,17 @@ public class Controller_Movement : MonoBehaviour
     //funciton used to read in when player hits the slam button
     public void onSlam(InputAction.CallbackContext context)
     {
+        //when the player lifts the trigger
+        if (context.canceled)
+        {
+            slamming = false;
+        }
+        
         //when the player presses the right trigger have them move down at a speed determined by slam power
         if (context.action.triggered)
         {
-            rb.velocity = Vector2.down * slamPower;
+            //rb.AddForce(Vector2.down * slamPower); //old code
+            slamming = true;
         }
         
     }
