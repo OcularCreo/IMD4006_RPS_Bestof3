@@ -16,7 +16,7 @@ public class Controller_Movement : MonoBehaviour
     //***** GENERAL MOVEMENT VARIABLES *****
     private float horizontal;           //variable used for horizontal (left and right) movement
     private float speed = 10f;           //variable used to determine speed of player
-    private float jumpingPower = 1.5f;    //variable used to determine how high player jumps
+    private float jumpingPower = 12f;    //variable used to determine how high player jumps
     private float slamPower = 16f;      //variable used to determine how strong slams are
     private bool isFacingRight = true;  //variable used for determining player orentations
 
@@ -76,8 +76,9 @@ public class Controller_Movement : MonoBehaviour
             if(jumpTimeCounter > 0)
             {
 
-                //rb.velocity = new Vector2(rb.velocity.x, jumpingPower); //old code
-                rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
+				//rb.velocity = new Vector2(rb.velocity.x, jumpingPower); //old code
+				rb.velocity = new Vector2(rb.velocity.x, 0); //reset up value before applying jump
+				rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
                 
                 jumpTimeCounter -= Time.deltaTime;
             } 
