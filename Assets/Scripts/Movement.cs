@@ -16,6 +16,8 @@ public class Movement : MonoBehaviour
     private bool jumping = false;   // check whether the player has jumped
     private int jumpCount = 0;      // counter for double jump
 
+    private bool resetPaperJump = true;    //special variable to allow papers tripple jump 
+
     // variables for slam does damage
     public bool slammed = false;
     public bool playersCollided = false;
@@ -74,22 +76,25 @@ public class Movement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                 jumpCount += 1;
 
-                // if the character is paper, allow triple jump
-                if(GetComponent<RPS_Switching>().character == Character.paper)
-                {
-                    jumping = checkJump(3);
-                }
-                else // otherwise only double jump
-                {
-                    jumping = checkJump(2);
-                }
+                // Double Jump
+                jumping = checkJump(2);
             }
 
-            //////// COMBAT STATE /////////
-            if(gameManager.state == GameState.battle)
+            //Paper Special Ability (Triple Jump)
+			if (Input.GetKeyDown("e") && GetComponent<RPS_Switching>().character == Character.paper)
+			{
+				if (resetPaperJump)
+				{
+					resetPaperJump = false;
+					rb.velocity = new Vector2(rb.velocity.x, jumpSpeed * 2);
+				}
+			}
+
+			//////// COMBAT STATE /////////
+			if (gameManager.state == GameState.battle)
             {
                 // if player presses s
-                if (Input.GetKeyDown("s"))
+                if (Input.GetKeyDown("e"))
                 {
                     // if player is rock, drop down
                     if (GetComponent<RPS_Switching>().character == Character.rock)
@@ -113,14 +118,15 @@ public class Movement : MonoBehaviour
                 }
             }
             //////// SWITCHING STATE /////////
-            else if(gameManager.state == GameState.RPS)
+            //old
+            /*else if(gameManager.state == GameState.RPS)
             {
                 // if player presses s
                 if (Input.GetKeyDown("s"))
                 {
                     rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
                 }
-            }
+            }*/
             
         }
 
@@ -157,22 +163,26 @@ public class Movement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                 jumpCount += 1;
 
-                // if the character is paper, allow triple jump
-                if (GetComponent<RPS_Switching>().character == Character.paper)
-                {
-                    jumping = checkJump(3);
-                }
-                else // otherwise only double jump
-                {
-                    jumping = checkJump(2);
-                }
+                // Double Jump
+                jumping = checkJump(2);
+                
             }
 
-            //////// COMBAT STATE /////////
-            if (gameManager.state == GameState.battle)
+			//Paper Special Ability (Triple Jump)
+			if (Input.GetKeyDown(KeyCode.Slash) && GetComponent<RPS_Switching>().character == Character.paper)
+			{
+                if (resetPaperJump)
+                {
+                    resetPaperJump = false;
+					rb.velocity = new Vector2(rb.velocity.x, jumpSpeed * 2);
+				}
+			}
+
+			//////// COMBAT STATE /////////
+			if (gameManager.state == GameState.battle)
             {
                 // if player presses down arrow
-                if (Input.GetKeyDown(KeyCode.DownArrow))
+                if (Input.GetKeyDown(KeyCode.Slash))
                 {
                     // if player is rock, drop down
                     if (GetComponent<RPS_Switching>().character == Character.rock)
@@ -197,14 +207,15 @@ public class Movement : MonoBehaviour
 
             }
             //////// SWITCHING STATE /////////
-            else if (gameManager.state == GameState.RPS)
+            //old
+            /*else if (gameManager.state == GameState.RPS)
             {
                 // if player presses s
                 if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     rb.velocity = new Vector2(0, (-3f) * jumpSpeed);
                 }
-            }
+            }*/
         }
 
         // reset slammed and playersCollided after the slam has done damage
@@ -235,6 +246,7 @@ public class Movement : MonoBehaviour
             // reset jump variables
             jumping = false;
             jumpCount = 0;
+            resetPaperJump = true;
 
             playersCollided = false;
             slammed = false;
