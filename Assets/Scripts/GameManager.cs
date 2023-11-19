@@ -86,13 +86,13 @@ public class Manager : MonoBehaviour
     void Update()
     {
         //when in the rock paper scissors state
-        if(state == GameState.RPS)
+        if (state == GameState.RPS)
         {
             //start to count down the time
             RPS_time -= Time.deltaTime;
-            
+
             time.GetComponent<Transform>().localScale = new Vector2(RPS_time, 1f);
-            time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
+            time.GetComponent<SpriteRenderer>().color = new Vector4(0.1863f, 0.7452f, 0.3768f, 1f);
 
             // change label to 
             stateLabelUI.text = "RPS Time!";
@@ -116,17 +116,17 @@ public class Manager : MonoBehaviour
                 stateLabelUI.text = "Battle Time!";
 
             }
-        } 
+        }
         //when in the battle state
         else if (state == GameState.battle)
         {
 
             battleTime -= Time.deltaTime;
             time.GetComponent<Transform>().localScale = new Vector2(battleTime, 1f);
-            time.GetComponent<SpriteRenderer>().color =  new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
-           
-            
-            if(battleTime < 0)
+            time.GetComponent<SpriteRenderer>().color = new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
+
+
+            if (battleTime < 0)
             {
                 //change to the 
                 state = GameState.RPS;
@@ -140,15 +140,23 @@ public class Manager : MonoBehaviour
 
                 UnityEngine.Debug.Log("battle over. Now for some RPS!");
 
-                
-                
+
+
             }
+
+
+            // if a player has lost all their lives, then game over
+            if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
+            {
+                state = GameState.gameOver; // switch to game over state
+            }
+
 
         } 
         //going to assume the only other possible state is game over
         else
         {
-            //fill out game over stuff here
+            // display game over screen
         }
 
     }

@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     [SerializeField] public Manager gameManager;   //get the script from the game manager
     public Rigidbody2D rb;                         // the player rigid body
     [SerializeField] private float moveSpeed = 3f; // speed moving left and right
-    [SerializeField] private float jumpSpeed = 5f; // speed or strength of jump
+    public float jumpSpeed = 5f; // speed or strength of jump
 
     private bool jumping = false;   // check whether the player has jumped
     private int jumpCount = 0;      // counter for double jump
@@ -248,22 +248,22 @@ public class Movement : MonoBehaviour
 
                 //when the player remains remains in the same x position as their initial jump
                 //add to the change slam, otherwise reset it to 0.
-                if (jumpXPos == gameObject.transform.position.x && collisionID == platformChange)
-                {
-                    changeSlamNum++;
-                }
-                else if(jumpXPos != gameObject.transform.position.x)
-                {
-                    changeSlamNum = 0;
-                }
+                //if (jumpXPos == gameObject.transform.position.x && collisionID == platformChange)
+                //{
+                //    changeSlamNum++;
+                //}
+                //else if(jumpXPos != gameObject.transform.position.x)
+                //{
+                //    changeSlamNum = 0;
+                //}
 
                 //when change slam is at 3
-                if(changeSlamNum > 2)
-                {
-                    changeSlamNum = 0; //reset the game slam number
-                    GetComponent<RPS_Switching>().changeCharacter();
+                //if(changeSlamNum > 2)
+                //{
+                //    changeSlamNum = 0; //reset the game slam number
+                //    GetComponent<RPS_Switching>().changeCharacter();
 
-                }
+                //}
             }
             
         }
@@ -283,14 +283,14 @@ public class Movement : MonoBehaviour
         {
             jumpXPos = gameObject.transform.position.x;
 
-            int collisionID = collision.gameObject.GetComponent<ObjectID>().getID();
+            //int collisionID = collision.gameObject.GetComponent<ObjectID>().getID();
             
-            if((collisionID == 0 && gameObject.transform.position.y >= -0.109872) || (collisionID == 1 && gameObject.transform.position.y >= 1.98807) ||
-                (collisionID == 2 && gameObject.transform.position.y >= 1.819661) || (collisionID == 3 && gameObject.transform.position.y >= 1.98807))
-            {
-                platformChange = collisionID;
-                UnityEngine.Debug.Log("Top of platform");
-            }
+            //if((collisionID == 0 && gameObject.transform.position.y >= -0.109872) || (collisionID == 1 && gameObject.transform.position.y >= 1.98807) ||
+            //    (collisionID == 2 && gameObject.transform.position.y >= 1.819661) || (collisionID == 3 && gameObject.transform.position.y >= 1.98807))
+            //{
+            //    platformChange = collisionID;
+            //    UnityEngine.Debug.Log("Top of platform");
+            //}
 
         }
 
