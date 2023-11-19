@@ -15,15 +15,17 @@ public class Controller_Movement : MonoBehaviour
 
     //***** GENERAL MOVEMENT VARIABLES *****
     private float horizontal;           //variable used for horizontal (left and right) movement
-    private float speed = 8f;           //variable used to determine speed of player
-    private float jumpingPower = 8f;    //variable used to determine how high player jumps
+    private float speed = 10f;           //variable used to determine speed of player
+    private float jumpingPower = 1.5f;    //variable used to determine how high player jumps
     private float slamPower = 16f;      //variable used to determine how strong slams are
     private bool isFacingRight = true;  //variable used for determining player orentations
 
-    //Additional movement variables
-    [SerializeField] private float acceleration;
-    [SerializeField] private float decceleration;
-    [SerializeField] private float currentSpeed;
+    //movement testing
+    [Header("Movement Variables")]
+    [SerializeField] private float acceleration = 7f; 
+    [SerializeField] private float decceleration = 7f; 
+    [SerializeField] private float velPower = 0.9f; 
+    [SerializeField] private float frictionAmount = 2f; 
 
     //***** JUMP VARIABLES *****
 
@@ -52,8 +54,9 @@ public class Controller_Movement : MonoBehaviour
 
     void Update()
     {
+        
         //moves player by setting it's rigidbody a velcoity based off of player inputs
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        //rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
 
         //when the player touches the ground again reset the extra jump height
         if (isGrounded())
@@ -73,9 +76,9 @@ public class Controller_Movement : MonoBehaviour
             if(jumpTimeCounter > 0)
             {
 
-                //rb.velocity = Vector2.up * jumpingPower; //old code
-                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-
+                //rb.velocity = new Vector2(rb.velocity.x, jumpingPower); //old code
+                rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
+                
                 jumpTimeCounter -= Time.deltaTime;
             } 
             //if the timer runs out then cancel the jump to stop them from going higher and have them begin to fall
@@ -86,6 +89,30 @@ public class Controller_Movement : MonoBehaviour
             
         }
 
+    }
+
+    //Used for phsyics calcuations since the function has the same frequencey as the physics system
+    void FixedUpdate()
+    {
+        //**** using forces for player movements ****
+
+        float targetSpeed = horizontal * speed;                                                         //Get the desired desired velocity
+        float speedDif = targetSpeed - rb.velocity.x;                                                   //Get the difference between the current velocity and our desired velocity
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : decceleration;              //If the absolute value of the tharget speed is greater than 0.1 set accel rate to accel
+                                                                                                        //otherwise set it to decel
+
+        float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);   //calculate the movement
+
+        rb.AddForce(movement * Vector2.right);                                                          //apply the movement
+
+        //when the player is grounded and they've stoped moving the left stick
+        if(isGrounded() && Mathf.Abs(horizontal) < 0.01f)
+        {
+            float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));  //set the friction amount to the smaller value (between the velocity and set friction amount)
+            amount *= Mathf.Sign(rb.velocity.x);                                            //applies movement direction
+
+            rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);                      //applying friction force in opposite direction as movement
+        }
     }
 
     //function returns true if the gameObject attached to this script is grounded
@@ -100,10 +127,13 @@ public class Controller_Movement : MonoBehaviour
     public void onMove(InputAction.CallbackContext context)
     {
 
+        //when the player is no longer moving on the controller left stick have the horizontal be 0
         if (context.canceled)
         {
             horizontal = 0f;
-        } else
+        } 
+        //when the player is moving on the controller left stick, read it's vector value
+        else
         {
             horizontal = context.ReadValue<Vector2>().x;
         }
