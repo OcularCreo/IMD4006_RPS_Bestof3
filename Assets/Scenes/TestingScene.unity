@@ -160,12 +160,15 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  horizontal: 0
+  speed: 10
   acceleration: 7
   decceleration: 7
   velPower: 0.9
   frictionAmount: 0.2
   extraJumpValues: 1
-  jumpTime: 0.1
+  jumpingPower: 10
+  jumpTime: 0.2
 --- !u!50 &530911043
 Rigidbody2D:
   serializedVersion: 4
@@ -191,7 +194,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &530911044
 MonoBehaviour:
