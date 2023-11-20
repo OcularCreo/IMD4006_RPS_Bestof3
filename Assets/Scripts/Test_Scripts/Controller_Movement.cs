@@ -61,11 +61,11 @@ public class Controller_Movement : MonoBehaviour
     void Update()
     {
         
-        //moves player by setting it's rigidbody a velcoity based off of player inputs
-        //rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+		//moves player by setting it's rigidbody a velcoity based off of player inputs
+		//rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
 
-        //when the player touches the ground again reset the extra jump height
-        if (isGrounded())
+		//when the player touches the ground again reset the extra jump height
+		if (isGrounded())
         {
             extraJumps = extraJumpValues;
             coyoteTimeCounter = coyoteTime;
@@ -97,10 +97,22 @@ public class Controller_Movement : MonoBehaviour
             
         }
 
-    }
+        //Player 1 Movement
+        //if (GetComponent<RPS_Switching>().player == Player.P1)
+        //{
+        //Player1Keyboard();
+		//}
 
-    //Used for phsyics calcuations since the function has the same frequencey as the physics system
-    void FixedUpdate()
+		//Player 2 Movement
+		//if (GetComponent<RPS_Switching>().player == Player.P2)
+		//{
+		//Player2Keyboard();
+		//}
+
+	}
+
+	//Used for phsyics calcuations since the function has the same frequencey as the physics system
+	void FixedUpdate()
     {
         //**** using forces for player movements ****
 
@@ -159,12 +171,28 @@ public class Controller_Movement : MonoBehaviour
         else
         {
             horizontal = context.ReadValue<Vector2>().x;
-        }
+            Debug.Log(context.ReadValue<Vector2>().x);
+		}
 
     }
 
-    //function called when the south controller button is pressed
-    public void onJump(InputAction.CallbackContext context)
+	public void onMoveKeyboard(int val)
+	{
+        horizontal = 0f;
+		//when the player is moving on the controller left stick, read it's vector value
+		if(val == 1)
+		{
+			horizontal = val;
+		}
+		else if (val == -1)
+		{
+			horizontal = val;
+		}
+
+	}
+
+	//function called when the south controller button is pressed
+	public void onJump(InputAction.CallbackContext context)
     {
 
         //context.cancelled works for button up
@@ -198,8 +226,42 @@ public class Controller_Movement : MonoBehaviour
         }
     }
 
-    //funciton used to read in when player hits the slam button
-    public void onSlam(InputAction.CallbackContext context)
+	public void onJumpKeyboard(int val)
+	{
+
+		//context.cancelled works for button up
+		//If this happens then we cancell the jump input
+		if (val == 0)
+		{
+			jumping = false;
+			coyoteTimeCounter = 0f;
+
+		}
+
+		//make sure that the player is not jumping still
+		if (!jumping)
+		{
+			//context.performed returns true when the input has been pressed
+			//this case it is the south gamepad button (xbox = A button)
+			if (val == 1 && extraJumps > 0)
+			{
+				//rb.velocity = Vector2.up * jumpingPower; //old code
+				jumpTimeCounter = jumpTime;
+				jumping = true;
+				extraJumps--;
+
+			}
+			//When the player doesn't have any extra jumps, still let them jump once (remember that it is called extra jumps and not number of jumps)
+			else if (val == 1 && extraJumps == 0 && coyoteTimeCounter > 0f /*isGrounded()*/)
+			{
+				jumpTimeCounter = jumpTime;
+				jumping = true;
+			}
+		}
+	}
+
+	//funciton used to read in when player hits the slam button
+	public void onSlam(InputAction.CallbackContext context)
     {
         //when the player lifts the trigger
         if (context.canceled)
@@ -216,8 +278,26 @@ public class Controller_Movement : MonoBehaviour
         
     }
 
-    //when the player object collides with something
-    public void OnCollisionEnter2D(Collision2D collision)
+	//funciton used to read in when player hits the slam button
+	public void onSlamKeyboard(int val)
+	{
+		//when the player lifts the trigger
+		if (val == 0)
+		{
+			slamming = false;
+		}
+
+		//when the player presses the right trigger have them move down at a speed determined by slam power
+		if (val == 1)
+		{
+			//rb.AddForce(Vector2.down * slamPower); //old code
+			slamming = true;
+		}
+
+	}
+
+	//when the player object collides with something
+	public void OnCollisionEnter2D(Collision2D collision)
     {
 
         //when a player lands on another player at a velocity greater than 11f
@@ -228,4 +308,46 @@ public class Controller_Movement : MonoBehaviour
         }
         
     }
+
+    //Movement Function for Keyboard Player 1
+    public void Player1Keyboard()
+    {
+        //Movement
+		int moveVal = 0;
+		if (Input.GetKey("a"))
+		{
+			moveVal = -1;
+		}
+		if (Input.GetKey("d"))
+		{
+			moveVal = 1;
+		}
+		if (Input.GetKey("d") && Input.GetKey("a"))
+		{
+			moveVal = 0;
+		}
+		onMoveKeyboard(moveVal);
+
+        //Jump
+		int jumpVal = 0;
+		if (Input.GetKey("w"))
+		{
+			jumpVal = 1;
+		}
+		onJumpKeyboard(jumpVal);
+
+        //Slam
+		int abilityVal = 0;
+		if (Input.GetKey("e"))
+		{
+			abilityVal = 1;
+		}
+		onSlamKeyboard(abilityVal);
+	}
+
+	//Movement Function for Keyboard Player 2
+	public void Player2Keyboard()
+	{
+		
+	}
 }
