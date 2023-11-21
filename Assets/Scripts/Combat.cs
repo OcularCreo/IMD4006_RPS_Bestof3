@@ -52,6 +52,9 @@ public class Combat : MonoBehaviour
 	private float healthBarLocalPosition;
 	private float opponentHealth;
 
+	[SerializeField] private ParticleSystem hitParticle;
+	[SerializeField] private ParticleSystem hitParticleBig;
+	[SerializeField] private ParticleSystem hitParticleLittle;
 
 	void Start()
     {
@@ -212,34 +215,48 @@ public class Combat : MonoBehaviour
 		if (thisPlayer == Character.scissors && enemyPlayer == Character.rock)
 		{
 			damageDealt = (int)(characterDamage * disadvantageMultiplier);
+			//Paricle Effect
+			Instantiate(hitParticleLittle, enemy.transform.position, enemy.transform.rotation);
 		}
 		//Scissors to Paper
 		else if (thisPlayer == Character.scissors && enemyPlayer == Character.paper)
 		{
 			damageDealt = (int)(characterDamage * advantageMultiplier);
+			//Paricle Effect
+			Instantiate(hitParticleBig, enemy.transform.position, enemy.transform.rotation);
 		}
 		//Rock to Paper
 		else if (thisPlayer == Character.rock && enemyPlayer == Character.paper)
 		{
 			damageDealt = (int)(characterDamage * disadvantageMultiplier);
+			//Paricle Effect
+			Instantiate(hitParticleLittle, enemy.transform.position, enemy.transform.rotation);
 		}
 		//Rock to Scissors
 		else if (thisPlayer == Character.rock && enemyPlayer == Character.scissors)
 		{
 			damageDealt = (int)(characterDamage * advantageMultiplier);
+			//Paricle Effect
+			Instantiate(hitParticleBig, enemy.transform.position, enemy.transform.rotation);
 		}
 		//Paper to Rock
 		else if (thisPlayer == Character.paper && enemyPlayer == Character.rock)
 		{
 			damageDealt = (int)(characterDamage * advantageMultiplier);
+			//Paricle Effect
+			Instantiate(hitParticleBig, enemy.transform.position, enemy.transform.rotation);
 		}
 		//Paper to Scissors
 		else if (thisPlayer == Character.paper && enemyPlayer == Character.scissors)
 		{
 			damageDealt = (int)(characterDamage * disadvantageMultiplier);
+			//Paricle Effect
+			Instantiate(hitParticleLittle, enemy.transform.position, enemy.transform.rotation);
 		}
 		else {
 			damageDealt = characterDamage;
+			//Paricle Effect
+			Instantiate(hitParticle, enemy.transform.position, enemy.transform.rotation);
 		}
 
 		//enemyHealth -= damageDealt;
