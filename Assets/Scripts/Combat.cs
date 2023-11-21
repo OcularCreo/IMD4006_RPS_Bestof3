@@ -46,11 +46,14 @@ public class Combat : MonoBehaviour
 	public GameObject enemy;
 
 
-	[SerializeField] private GameObject health_bar;
+	// [SerializeField] private GameObject health_bar;
 
-	private float healthBarNum;
-	private float healthBarLocalPosition;
-	private float opponentHealth;
+	// private float healthBarNum;
+	// private float healthBarLocalPosition;
+	
+	//HEALTH BAR
+	[SerializeField] private HealthBar healthBar_thisCharacter;
+	[SerializeField] private HealthBar healthBar_enemyCharacter;
 
 	[SerializeField] private ParticleSystem hitParticle;
 	[SerializeField] private ParticleSystem hitParticleBig;
@@ -63,10 +66,14 @@ public class Combat : MonoBehaviour
 		healthUI.text = health.ToString();
 		livesUI.text = lives.ToString();
 
+		//set both character health bar to maxvalue
+		healthBar_thisCharacter.setMaxHealth(maxHealth);
+		healthBar_enemyCharacter.setMaxHealth(maxHealth);
+
 		
-		healthBarNum = health_bar.GetComponent<Transform>().localScale.x;
-        healthBarLocalPosition = health_bar.GetComponent<Transform>().position.x;
-		opponentHealth = health_bar.transform.parent.gameObject.GetComponent<Combat>().health;
+		// healthBarNum = health_bar.GetComponent<Transform>().localScale.x;
+        // healthBarLocalPosition = health_bar.GetComponent<Transform>().position.x;
+		// opponentHealth = health_bar.transform.parent.gameObject.GetComponent<Combat>().health;
 		
 	}
 
@@ -265,6 +272,8 @@ public class Combat : MonoBehaviour
 
 		enemy.GetComponent<Combat>().takeDamage(damageDealt);
 
+		
+
 		/*//knockback
 		Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
 		float characterFacing = 1;
@@ -393,6 +402,8 @@ public class Combat : MonoBehaviour
 		{
 			health = health - (dmg * 2);
 			//Debug.Log(dmg * 2);
+			//when do damage 
+			
 		}
 		else {
 			health = health - dmg;
@@ -404,6 +415,8 @@ public class Combat : MonoBehaviour
 		if (health < 20) {
             GetComponent<PlayerIcons>().EnableLowHealthIcon();
         }
+
+		healthBar_thisCharacter.setHealth(health);
 		
 	}
 
@@ -419,21 +432,21 @@ public class Combat : MonoBehaviour
 	}
 
 
-	private void healtBar(){
+	// private void healtBar(){
 
-            if(opponentHealth >20 && opponentHealth < 100){
-            healthBarNum = health_bar.GetComponent<Transform>().localScale.x - (1-(opponentHealth/100f));
-            healthBarLocalPosition =  (health/100f);
-            health_bar.GetComponent<Transform>().localScale = new Vector2(healthBarNum,health_bar.GetComponent<Transform>().localScale.y);
-            health_bar.GetComponent<Transform>().position = new Vector2(GetComponent<Transform>().position.x - healthBarLocalPosition,health_bar.GetComponent<Transform>().position.y);
-            //Debug.Log(gameObject.name + "is hit" + opponentHealth);
-			}
-			else if(opponentHealth < 20){
-			health_bar.GetComponent<Transform>().localScale = new Vector2(0,health_bar.GetComponent<Transform>().localScale.y);
-			}
-			else if(opponentHealth == 100){
-			health_bar.GetComponent<Transform>().localScale = new Vector2(3f,health_bar.GetComponent<Transform>().localScale.y);
-			}
+    //         if(opponentHealth >20 && opponentHealth < 100){
+    //         healthBarNum = health_bar.GetComponent<Transform>().localScale.x - (1-(opponentHealth/100f));
+    //         healthBarLocalPosition =  (health/100f);
+    //         health_bar.GetComponent<Transform>().localScale = new Vector2(healthBarNum,health_bar.GetComponent<Transform>().localScale.y);
+    //         health_bar.GetComponent<Transform>().position = new Vector2(GetComponent<Transform>().position.x - healthBarLocalPosition,health_bar.GetComponent<Transform>().position.y);
+    //         //Debug.Log(gameObject.name + "is hit" + opponentHealth);
+	// 		}
+	// 		else if(opponentHealth < 20){
+	// 		health_bar.GetComponent<Transform>().localScale = new Vector2(0,health_bar.GetComponent<Transform>().localScale.y);
+	// 		}
+	// 		else if(opponentHealth == 100){
+	// 		health_bar.GetComponent<Transform>().localScale = new Vector2(3f,health_bar.GetComponent<Transform>().localScale.y);
+	// 		}
         
-	}
+	// }
 }

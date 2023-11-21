@@ -15,8 +15,8 @@ public class Health : MonoBehaviour
     float alertBlinkstart;
     float alertEvery; 
 
-    float healthBarNum;
-    float healthBarLocalPosition;
+    // float healthBarNum;
+    // float healthBarLocalPosition;
 
     bool isHit;
 
@@ -28,8 +28,8 @@ public class Health : MonoBehaviour
        alertBlinkstart = 0f; //seconds
        alertEvery = 0.4f; // seconds
 
-       healthBarNum = health_bar.GetComponent<Transform>().localScale.x;
-       healthBarLocalPosition = health_bar.GetComponent<Transform>().position.x;
+    //    healthBarNum = health_bar.GetComponent<Transform>().localScale.x;
+    //    healthBarLocalPosition = health_bar.GetComponent<Transform>().position.x;
 
        
     }
