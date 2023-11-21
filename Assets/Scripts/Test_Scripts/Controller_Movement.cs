@@ -26,9 +26,15 @@ public class Controller_Movement : MonoBehaviour
     private float slamPower = 50f;      //variable used to determine how strong slams are
     private bool slamming;              //tells us if the player his holding the slamming button
     private bool isFacingRight = true;  //variable used for determining player orentations
+	
+    //Movement Particles
+	[Header("Particles")]
+	[SerializeField] private ParticleSystem walkDust;      //what dust particle to use
+	[SerializeField] private GameObject walkDustPos;       //position of particles spawn
+	[SerializeField] private ParticleSystem jumpParticle;  //jump particle
 
-    //***** JUMP VARIABLES *****
-    [Header("Jump Variables")]
+	//***** JUMP VARIABLES *****
+	[Header("Jump Variables")]
 
     //Number of extra jump variables (double, triple, etc)
     [SerializeField] public int extraJumpValues;    //variable used to set the number of character's extra jumps. Connected to extraJumps
@@ -171,7 +177,33 @@ public class Controller_Movement : MonoBehaviour
         else
         {
             horizontal = context.ReadValue<Vector2>().x;
-            Debug.Log(context.ReadValue<Vector2>().x);
+			//Debug.Log(context.ReadValue<Vector2>().x);
+			if (isFacingRight && context.ReadValue<Vector2>().x < -0.5f)
+			{
+				Flip();
+				isFacingRight = false;
+
+                //create dust when switching directions
+				if (isGrounded())
+				{
+					CreateDust();
+					//Debug.Log(context.ReadValue<Vector2>().x);
+				}
+			}
+            else if(!isFacingRight && context.ReadValue<Vector2>().x > 0.5f)
+			{
+				Flip();
+				isFacingRight = true;
+
+				//create dust when switching directions
+				if (isGrounded())
+                {
+					CreateDust();
+					//Debug.Log(context.ReadValue<Vector2>().x);
+				}
+
+			}
+
 		}
 
     }
@@ -206,23 +238,25 @@ public class Controller_Movement : MonoBehaviour
 
         //make sure that the player is not jumping still
         if (!jumping)
-        {
-            //context.performed returns true when the input has been pressed
-            //this case it is the south gamepad button (xbox = A button)
-            if (context.action.triggered && extraJumps > 0)
+		{
+			//context.performed returns true when the input has been pressed
+			//this case it is the south gamepad button (xbox = A button)
+			if (context.action.triggered && extraJumps > 0)
             {
                 //rb.velocity = Vector2.up * jumpingPower; //old code
                 jumpTimeCounter = jumpTime;
                 jumping = true;
                 extraJumps--;
 
-            }
+				CreateJumpParticles();
+
+			}
             //When the player doesn't have any extra jumps, still let them jump once (remember that it is called extra jumps and not number of jumps)
             else if (context.action.triggered && extraJumps == 0 && coyoteTimeCounter > 0f /*isGrounded()*/)
             {
                 jumpTimeCounter = jumpTime;
                 jumping = true;
-            } 
+			} 
         }
     }
 
@@ -309,8 +343,23 @@ public class Controller_Movement : MonoBehaviour
         
     }
 
-    //Movement Function for Keyboard Player 1
-    public void Player1Keyboard()
+	private void Flip()
+	{
+		//Debug.Log(transform.localPosition);
+		//transform.localPosition = new Vector3(-transform.localPosition.x, 0, 0);
+		transform.Rotate(0, 180, 0);
+	}
+
+    private void CreateDust() {
+        Instantiate(walkDust, walkDustPos.transform.position, walkDustPos.transform.rotation);
+    }
+	private void CreateJumpParticles()
+	{
+		Instantiate(jumpParticle, walkDustPos.transform.position, walkDustPos.transform.rotation);
+	}
+
+	//Movement Function for Keyboard Player 1
+	public void Player1Keyboard()
     {
         //Movement
 		int moveVal = 0;
