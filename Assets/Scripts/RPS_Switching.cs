@@ -35,6 +35,8 @@ public class RPS_Switching : MonoBehaviour
     bool applyedChange;
     public GameObject rock, paper, scissors;    //variable to take in the different character objects/types
 
+    private bool playerOnPlatform;              //boolean to check if the player is on a platform
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,7 +76,7 @@ public class RPS_Switching : MonoBehaviour
         //checking the game manager's state
         //when in RPS mode and player has not started to do a change slam, allow the player to change their character
         //if(gameManager.state == GameState.RPS && GetComponent<Movement>().changeSlamNum < 1)
-        if (gameManager.state == GameState.RPS)
+        if (gameManager.state == GameState.RPS && playerOnPlatform)
         {
 
             //change the character type
@@ -183,6 +185,29 @@ public class RPS_Switching : MonoBehaviour
         }
     }
 
-    // maybe use forces/acceleration instead of velocity for the animation? 
-    // do we want to restrict left/right movement when the animation is playing?
+    // check if the player has collided with the platform
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        // if collided, set variable to true
+        if (collision.gameObject.tag == "Platform")
+        {
+            playerOnPlatform = true;
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        // if end of collision, set variable to false
+        if (collision.gameObject.tag == "Platform")
+        {
+            playerOnPlatform = false;
+        }
+
+    }
+
+    // notes:
+    // maybe use forces instead of velocity for the animation? 
+    // restrict left/right movement when the animation is playing
+    // when changing characters, will need to change movement stuff specific to each character
+
 }
