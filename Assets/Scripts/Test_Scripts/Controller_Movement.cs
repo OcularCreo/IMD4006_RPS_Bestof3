@@ -41,7 +41,7 @@ public class Controller_Movement : MonoBehaviour
     private int extraJumps;                         //variable keeps track of how many extra jumps a player can do (double, triple, etc.)
 
     //Jump height variables (contributes to how high a player jumps when holding the jump button)
-    [SerializeField] private float jumpingPower;            //variable used to determine how high player jumps
+    [SerializeField] public float jumpingPower;            //variable used to determine how high player jumps
     [SerializeField] public float jumpTime;                 //variable used to dictate how long a player can hold down the jump button to go higher
     private float jumpTimeCounter;                          //used to keep track of how long a player is "jumping" or holding down the jump button
     private bool jumping;                                   //variable used to determine if the player is "jumping" or holding down the jump button

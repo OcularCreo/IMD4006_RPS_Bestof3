@@ -25,7 +25,7 @@ public class Combat : MonoBehaviour
 	private float attackActiveTime = 0.1f;
 	private bool attackActive = false;
 
-	private float knockback = 1f;
+	private float knockback = 10f;
 	private float knockbackMultiplier;
 	private float knockbackTime = 0.5f;
 

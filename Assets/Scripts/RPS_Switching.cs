@@ -180,22 +180,28 @@ public class RPS_Switching : MonoBehaviour
             {
                 case Character.rock:
                     GetComponent<PlayerGFX>().rockIdle.SetActive(active);
-                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
-                    controllerMovement.acceleration = 7;
-                    controllerMovement.decceleration = 10;
-                    break;
+					controllerMovement.acceleration = 5;
+                    controllerMovement.decceleration = 13;
+					controllerMovement.jumpingPower = 15;
+					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
+					gameObject.GetComponent<Rigidbody2D>().mass = 2;
+					break;
                 case Character.paper:
-                    GetComponent<PlayerGFX>().paperIdle.SetActive(active);
-                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 3;
-                    controllerMovement.acceleration = 5;
-                    controllerMovement.decceleration = 5;
-                    break;
+					GetComponent<PlayerGFX>().paperIdle.SetActive(active);
+					controllerMovement.acceleration = 3;
+					controllerMovement.decceleration = 3;
+					controllerMovement.jumpingPower = 8;
+					gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
+					gameObject.GetComponent<Rigidbody2D>().mass = 1;
+					break;
                 case Character.scissors:
-                    GetComponent<PlayerGFX>().scissorsIdle.SetActive(active);
-                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
-                    controllerMovement.acceleration = 10;
-                    controllerMovement.decceleration = 7;
-                    break;
+					GetComponent<PlayerGFX>().scissorsIdle.SetActive(active);
+					controllerMovement.acceleration = 13;
+					controllerMovement.decceleration = 7;
+					controllerMovement.jumpingPower = 12;
+					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
+					gameObject.GetComponent<Rigidbody2D>().mass = 1.5f;
+					break;
             }
         }
         else {
@@ -203,22 +209,28 @@ public class RPS_Switching : MonoBehaviour
 			{
 				case Character.rock:
 					GetComponent<PlayerGFX>().rockIdle2.SetActive(active);
-                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
-                    controllerMovement.acceleration = 7;
-                    controllerMovement.decceleration = 10;
-                    break;
+					controllerMovement.acceleration = 5;
+					controllerMovement.decceleration = 13;
+					controllerMovement.jumpingPower = 15;
+					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
+					gameObject.GetComponent<Rigidbody2D>().mass = 2;
+					break;
 				case Character.paper:
 					GetComponent<PlayerGFX>().paperIdle2.SetActive(active);
-                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 3;
-                    controllerMovement.acceleration = 5;
-                    controllerMovement.decceleration = 5;
-                    break;
+					controllerMovement.acceleration = 3;
+					controllerMovement.decceleration = 3;
+					controllerMovement.jumpingPower = 8;
+					gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
+					gameObject.GetComponent<Rigidbody2D>().mass = 1;
+					break;
 				case Character.scissors:
 					GetComponent<PlayerGFX>().scissorsIdle2.SetActive(active);
-                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
-                    controllerMovement.acceleration = 10;
-                    controllerMovement.decceleration = 7;
-                    break;
+					controllerMovement.acceleration = 13;
+					controllerMovement.decceleration = 7;
+					controllerMovement.jumpingPower = 12;
+					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
+					gameObject.GetComponent<Rigidbody2D>().mass = 1.5f;
+					break;
 			}
 		}
         
