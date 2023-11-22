@@ -38,6 +38,9 @@ public class Manager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera virtualCam;
     [SerializeField] private CinemachineTargetGroup cameraTargetGroup;
 
+    [SerializeField] private GameObject fightGraphic;
+    [SerializeField] private GameObject rpsGraphic;
+    private bool shownGraphic;
 
     //funciton used to handle different game states
     /*public void updateGameState(GameState newState)
@@ -106,6 +109,7 @@ public class Manager : MonoBehaviour
             if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 1))
             {
                 state = GameState.RPS;
+                shownGraphic = false;
                 menuColliders.SetActive(false);
                 virtualCam.Follow = cameraTargetGroup.transform;
             }
@@ -113,6 +117,13 @@ public class Manager : MonoBehaviour
         
         if (state == GameState.RPS)
         {
+
+            //show the rps graphic
+            if (!shownGraphic)
+            {
+                StartCoroutine(RPSGraphicReveal());
+            }
+
             //start to count down the time
             RPS_time -= Time.deltaTime;
 
@@ -130,6 +141,7 @@ public class Manager : MonoBehaviour
             {
                 //change the state
                 state = GameState.battle;
+                shownGraphic = false;
 
                 //reset the timer
                 RPS_time = 10f;
@@ -149,6 +161,12 @@ public class Manager : MonoBehaviour
         else if (state == GameState.battle)
         {
 
+            //show the rps graphic
+            if (!shownGraphic)
+            {
+                StartCoroutine(fightGraphicReveal());
+            }
+
             battleTime -= Time.deltaTime;
             time.GetComponent<Transform>().localScale = new Vector2(battleTime, 1f);
             time.GetComponent<SpriteRenderer>().color = new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
@@ -158,6 +176,7 @@ public class Manager : MonoBehaviour
             {
                 //change to the 
                 state = GameState.RPS;
+                shownGraphic = false;
 
                 //reset timer
                 battleTime = 15f;
@@ -188,6 +207,29 @@ public class Manager : MonoBehaviour
         }
 
     }
+
+    private IEnumerator fightGraphicReveal()
+    {
+        fightGraphic.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(3f);
+
+        fightGraphic.gameObject.SetActive(false);
+        shownGraphic = true;
+
+    }
+    private IEnumerator RPSGraphicReveal()
+    {
+        rpsGraphic.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(3f);
+
+        rpsGraphic.gameObject.SetActive(false);
+        shownGraphic = true;
+
+    }
+
+
 
 }
 
