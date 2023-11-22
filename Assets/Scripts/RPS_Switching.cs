@@ -27,6 +27,7 @@ public class RPS_Switching : MonoBehaviour
     [SerializeField] public Manager gameManager;//get the script from the game manager
     [SerializeField] public Player player;      //determine which player the character belongs to
     private Combat combat;                      //getting the combat script
+    private Controller_Movement controllerMovement;
 
     string[] RPS_cntrl = new string[3];         //creating empty character array
     
@@ -49,9 +50,10 @@ public class RPS_Switching : MonoBehaviour
 
         //getting the combat script from the game object itself
         combat = gameObject.GetComponent<Combat>();
+        controllerMovement = gameObject.GetComponent<Controller_Movement>();
 
         //set the controls dependong on if they are player 1 or 2
-        if(player == Player.P1)
+        if (player == Player.P1)
         {
             RPS_cntrl[0] = "z";
             RPS_cntrl[1] = "x";
@@ -151,12 +153,21 @@ public class RPS_Switching : MonoBehaviour
             {
                 case Character.rock:
                     GetComponent<PlayerGFX>().rockIdle.SetActive(active);
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
+                    controllerMovement.acceleration = 7;
+                    controllerMovement.decceleration = 10;
                     break;
                 case Character.paper:
                     GetComponent<PlayerGFX>().paperIdle.SetActive(active);
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 3;
+                    controllerMovement.acceleration = 5;
+                    controllerMovement.decceleration = 5;
                     break;
                 case Character.scissors:
                     GetComponent<PlayerGFX>().scissorsIdle.SetActive(active);
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
+                    controllerMovement.acceleration = 10;
+                    controllerMovement.decceleration = 7;
                     break;
             }
         }
@@ -165,13 +176,22 @@ public class RPS_Switching : MonoBehaviour
 			{
 				case Character.rock:
 					GetComponent<PlayerGFX>().rockIdle2.SetActive(active);
-					break;
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
+                    controllerMovement.acceleration = 7;
+                    controllerMovement.decceleration = 10;
+                    break;
 				case Character.paper:
 					GetComponent<PlayerGFX>().paperIdle2.SetActive(active);
-					break;
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 3;
+                    controllerMovement.acceleration = 5;
+                    controllerMovement.decceleration = 5;
+                    break;
 				case Character.scissors:
 					GetComponent<PlayerGFX>().scissorsIdle2.SetActive(active);
-					break;
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
+                    controllerMovement.acceleration = 10;
+                    controllerMovement.decceleration = 7;
+                    break;
 			}
 		}
         
