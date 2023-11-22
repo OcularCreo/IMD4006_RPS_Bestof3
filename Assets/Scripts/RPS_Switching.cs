@@ -1,3 +1,4 @@
+using System;
 using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,6 +40,8 @@ public class RPS_Switching : MonoBehaviour
 
     private bool playerOnPlatform;              //boolean to check if the player is on a platform
     private string switchButton;
+
+    //[SerializeField] private GameObject controlLayout;
 
     // Start is called before the first frame update
     void Start()
@@ -84,6 +87,7 @@ public class RPS_Switching : MonoBehaviour
         //if(gameManager.state == GameState.RPS && GetComponent<Movement>().changeSlamNum < 1)
         if (gameManager.state == GameState.RPS && playerOnPlatform)
         {
+            //controlLayout.SetActive(true);
 
             //change the character type
             if (switchButton == "buttonWest")
@@ -113,6 +117,7 @@ public class RPS_Switching : MonoBehaviour
         else
         {
             applyedChange = false;
+            //controlLayout.SetActive(false);
         }
 
     }

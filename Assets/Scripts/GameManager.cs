@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using TMPro;
-using System;
+//using System;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using Unity.VisualScripting;
@@ -38,9 +38,16 @@ public class Manager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera virtualCam;
     [SerializeField] private CinemachineTargetGroup cameraTargetGroup;
 
+	[SerializeField] private GameObject menuBackground;
+	[SerializeField] private GameObject canvas;
 
-    //funciton used to handle different game states
-    /*public void updateGameState(GameState newState)
+	[SerializeField] private GameObject switchIcons;
+	[SerializeField] private GameObject hp1;
+	[SerializeField] private GameObject hp2;
+
+
+	//funciton used to handle different game states
+	/*public void updateGameState(GameState newState)
     {
         state = newState;   //get the new state of the game
 
@@ -57,8 +64,8 @@ public class Manager : MonoBehaviour
 
     }*/
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
 
         action.Enable();
@@ -108,11 +115,18 @@ public class Manager : MonoBehaviour
                 state = GameState.RPS;
                 menuColliders.SetActive(false);
                 virtualCam.Follow = cameraTargetGroup.transform;
+
+                menuBackground.SetActive(false);
+                canvas.SetActive(true);
             }
         }
         
         if (state == GameState.RPS)
         {
+            hp1.SetActive(false);
+            hp2.SetActive(false);
+            switchIcons.SetActive(true);
+
             //start to count down the time
             RPS_time -= Time.deltaTime;
 
@@ -123,13 +137,17 @@ public class Manager : MonoBehaviour
             stateLabelUI.text = "RPS Time!";
 
             // hide menu
-            GameObject.Find("Menu_P1_EmptyHealth").GetComponent<Renderer>().enabled = false;
+            //GameObject.Find("Menu_P1_EmptyHealth").GetComponent<Renderer>().enabled = false;
 
             //when the time runs out
             if (RPS_time < 0)
             {
-                //change the state
-                state = GameState.battle;
+				hp1.SetActive(true);
+				hp2.SetActive(true);
+				switchIcons.SetActive(false);
+
+				//change the state
+				state = GameState.battle;
 
                 //reset the timer
                 RPS_time = 10f;
