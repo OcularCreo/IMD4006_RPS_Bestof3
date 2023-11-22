@@ -24,7 +24,7 @@ public class Controller_Movement : MonoBehaviour
     [SerializeField] private float frictionAmount = 2f;  //sets the amount of friciton the player has to the floor when deccelerating
     
     private float slamPower = 50f;      //variable used to determine how strong slams are
-    private bool slamming;              //tells us if the player his holding the slamming button
+    public bool slamming;              //tells us if the player his holding the slamming button
     public bool isFacingRight = true;  //variable used for determining player orentations
 	
     //Movement Particles
@@ -300,11 +300,11 @@ public class Controller_Movement : MonoBehaviour
 	//funciton used to read in when player hits the slam button
 	public void onSlam(InputAction.CallbackContext context)
     {
-        //when the player lifts the trigger
+        /*//when the player lifts the trigger
         if (context.canceled)
         {
             slamming = false;
-        }
+        }*/
         
         //when the player presses the right trigger have them move down at a speed determined by slam power
         if (context.action.triggered)
@@ -315,8 +315,8 @@ public class Controller_Movement : MonoBehaviour
         
     }
 
-	//funciton used to read in when player hits the slam button
-	public void onSlamKeyboard(int val)
+    //funciton used to read in when player hits the slam button
+    public void onSlamKeyboard(int val)
 	{
 		//when the player lifts the trigger
 		if (val == 0)
@@ -332,19 +332,6 @@ public class Controller_Movement : MonoBehaviour
 		}
 
 	}
-
-	//when the player object collides with something
-	public void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        //when a player lands on another player at a velocity greater than 11f
-        //remove health from the player that was landed on
-        if(collision.gameObject.tag == "Player" && collision.relativeVelocity.y > 11f)
-        {
-            //collision.gameObject.GetComponent<Controller_Movement>().health -= 10;
-        }
-        
-    }
 
 	private void Flip()
 	{
