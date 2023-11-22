@@ -1124,10 +1124,12 @@ MonoBehaviour:
   slamOver: 0
   hasRespawned: 1
   enemy: {fileID: 0}
-  health_bar: {fileID: 0}
+  healthBar_thisCharacter: {fileID: 0}
+  healthBar_enemyCharacter: {fileID: 0}
   hitParticle: {fileID: 5076444897473476155, guid: 0a7f850426bdd8540adbfbfff115749d, type: 3}
   hitParticleBig: {fileID: 5076444897473476155, guid: cbe8da99ff7637a4ebc850fde43bbd7c, type: 3}
   hitParticleLittle: {fileID: 5076444897473476155, guid: 3b0ab74b5f32abf478b4bbb7ddb047f6, type: 3}
+  debuffParticles: {fileID: 1816164915614094655, guid: 105071f223b44ea4e8c487d1495ef083, type: 3}
 --- !u!114 &1521416363925835935
 MonoBehaviour:
   m_ObjectHideFlags: 0
