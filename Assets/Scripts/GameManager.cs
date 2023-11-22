@@ -99,9 +99,9 @@ public class Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(state == GameState.menu)
+        if (state == GameState.menu)
         {
-            if (action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 1)
+            if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 1))
             {
                 state = GameState.RPS;
                 menuColliders.SetActive(false);
@@ -123,6 +123,9 @@ public class Manager : MonoBehaviour
             // change label to 
             stateLabelUI.enabled = true;
             stateLabelUI.text = "RPS Time!";
+
+            // hide menu
+            GameObject.Find("Menu_P1_EmptyHealth").GetComponent<Renderer>().enabled = false;
 
             //when the time runs out
             if (RPS_time < 0)
