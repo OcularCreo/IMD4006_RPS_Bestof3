@@ -8,11 +8,12 @@ using TMPro;
 using Unity.Mathematics;
 using System;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine.InputSystem;
 
 public class Combat : MonoBehaviour
 {
-	[SerializeField] private TextMeshProUGUI healthUI;
-	[SerializeField] private TextMeshProUGUI livesUI;
+	//[SerializeField] private TextMeshProUGUI healthUI;
+	//[SerializeField] private TextMeshProUGUI livesUI;
 
 	[SerializeField] public int lives = 3;
 	[SerializeField] private int maxHealth = 100;
@@ -32,7 +33,7 @@ public class Combat : MonoBehaviour
 	private float debuffTime = 3.0f;
 
 	//[SerializeField] private GameObject weapon;
-	[SerializeField] private GameObject respawnPointsObject;
+	[SerializeField] public GameObject respawnPointsObject;
 	private Transform[] respawnPoints;
 
 	private bool canHit = false;
@@ -52,8 +53,8 @@ public class Combat : MonoBehaviour
 	// private float healthBarLocalPosition;
 	
 	//HEALTH BAR
-	[SerializeField] private HealthBar healthBar_thisCharacter;
-	[SerializeField] private HealthBar healthBar_enemyCharacter;
+	[SerializeField] public HealthBar healthBar_thisCharacter;
+	//[SerializeField] private HealthBar healthBar_enemyCharacter;
 
 	[SerializeField] private ParticleSystem hitParticle;
 	[SerializeField] private ParticleSystem hitParticleBig;
@@ -64,12 +65,12 @@ public class Combat : MonoBehaviour
     {
 		health = maxHealth;
 		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
-		healthUI.text = health.ToString();
-		livesUI.text = lives.ToString();
+		//healthUI.text = health.ToString();
+		//livesUI.text = lives.ToString();
 
 		//set both character health bar to maxvalue
 		healthBar_thisCharacter.setMaxHealth(maxHealth);
-		healthBar_enemyCharacter.setMaxHealth(maxHealth);
+		//healthBar_enemyCharacter.setMaxHealth(maxHealth);
 
 		
 		// healthBarNum = health_bar.GetComponent<Transform>().localScale.x;
@@ -84,7 +85,7 @@ public class Combat : MonoBehaviour
 		if (GetComponent<RPS_Switching>().gameManager.state != GameState.RPS){ 
 		
 			//If player attacks play animation
-			CheckForHitAnimation();
+			//CheckForHitAnimation();
 
 			//If the player is attacking and is in range of the other player
 			// Hitting -> Is the animation playing
@@ -139,8 +140,27 @@ public class Combat : MonoBehaviour
 		}
 	}
 
+	public void onAttack(InputAction.CallbackContext context)
+	{
+		//when the player lifts the trigger
+		/*if (context.canceled)
+		{
+			slamming = false;
+		}*/
+
+		//when the player presses B attack
+		if (context.action.triggered)
+		{
+			if (!hitting)
+			{
+				StartCoroutine(StartCooldown());
+			}
+		}
+
+	}
+
 	//If player attacks play attack animation
-	private void CheckForHitAnimation()
+	/*private void CheckForHitAnimation()
 	{
 		if (GetComponent<RPS_Switching>().player == Player.P1)
 		{
@@ -157,7 +177,7 @@ public class Combat : MonoBehaviour
 				StartCoroutine(StartCooldown());
 			}
 		}
-	}
+	}*/
 
 	// Animation for the attack
 	private IEnumerator StartCooldown()
@@ -165,47 +185,94 @@ public class Combat : MonoBehaviour
 		hitting = true;
 		attackActive = true;
 
-		//Animate attack
-		//weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, -90);
-		if (GetComponent<RPS_Switching>().character == Character.rock)
+
+		if (GetComponent<RPS_Switching>().player == Player.P1) 
 		{
-			GetComponent<PlayerGFX>().rockAttack.SetActive(true);
-			GetComponent<PlayerGFX>().rockIdle.SetActive(false);
-		}
-		else if (GetComponent<RPS_Switching>().character == Character.scissors)
-		{
-			GetComponent<PlayerGFX>().scissorsAttack.SetActive(true);
-			GetComponent<PlayerGFX>().scissorsIdle.SetActive(false);
-		}
-		else if (GetComponent<RPS_Switching>().character == Character.paper)
-		{
-			GetComponent<PlayerGFX>().paperAttack.SetActive(true);
-			GetComponent<PlayerGFX>().paperIdle.SetActive(false);
+			//Animate attack
+			//weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, -90);
+			if (GetComponent<RPS_Switching>().character == Character.rock)
+			{
+				GetComponent<PlayerGFX>().rockAttack.SetActive(true);
+				GetComponent<PlayerGFX>().rockIdle.SetActive(false);
+			}
+			else if (GetComponent<RPS_Switching>().character == Character.scissors)
+			{
+				GetComponent<PlayerGFX>().scissorsAttack.SetActive(true);
+				GetComponent<PlayerGFX>().scissorsIdle.SetActive(false);
+			}
+			else if (GetComponent<RPS_Switching>().character == Character.paper)
+			{
+				GetComponent<PlayerGFX>().paperAttack.SetActive(true);
+				GetComponent<PlayerGFX>().paperIdle.SetActive(false);
+			}
+
+			yield return new WaitForSeconds(attackActiveTime);
+			attackActive = false; ;
+
+			yield return new WaitForSeconds(attackSpeed);
+
+			//animate idle
+			//weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, 90);
+			if (GetComponent<RPS_Switching>().character == Character.rock)
+			{
+				GetComponent<PlayerGFX>().rockAttack.SetActive(false);
+				GetComponent<PlayerGFX>().rockIdle.SetActive(true);
+			}
+			else if (GetComponent<RPS_Switching>().character == Character.scissors)
+			{
+				GetComponent<PlayerGFX>().scissorsAttack.SetActive(false);
+				GetComponent<PlayerGFX>().scissorsIdle.SetActive(true);
+			}
+			else if (GetComponent<RPS_Switching>().character == Character.paper)
+			{
+				GetComponent<PlayerGFX>().paperAttack.SetActive(false);
+				GetComponent<PlayerGFX>().paperIdle.SetActive(true);
+			}
 		}
 
-		yield return new WaitForSeconds(attackActiveTime);
-		attackActive = false; ;
-
-		yield return new WaitForSeconds(attackSpeed);
-
-		//animate idle
-		//weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, 90);
-		if (GetComponent<RPS_Switching>().character == Character.rock)
+		if (GetComponent<RPS_Switching>().player == Player.P2)
 		{
-			GetComponent<PlayerGFX>().rockAttack.SetActive(false);
-			GetComponent<PlayerGFX>().rockIdle.SetActive(true);
-		}
-		else if (GetComponent<RPS_Switching>().character == Character.scissors)
-		{
-			GetComponent<PlayerGFX>().scissorsAttack.SetActive(false);
-			GetComponent<PlayerGFX>().scissorsIdle.SetActive(true);
-		}
-		else if (GetComponent<RPS_Switching>().character == Character.paper)
-		{
-			GetComponent<PlayerGFX>().paperAttack.SetActive(false);
-			GetComponent<PlayerGFX>().paperIdle.SetActive(true);
-		}
+			//Animate attack
+			//weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, -90);
+			if (GetComponent<RPS_Switching>().character == Character.rock)
+			{
+				GetComponent<PlayerGFX>().rockAttack2.SetActive(true);
+				GetComponent<PlayerGFX>().rockIdle2.SetActive(false);
+			}
+			else if (GetComponent<RPS_Switching>().character == Character.scissors)
+			{
+				GetComponent<PlayerGFX>().scissorsAttack2.SetActive(true);
+				GetComponent<PlayerGFX>().scissorsIdle2.SetActive(false);
+			}
+			else if (GetComponent<RPS_Switching>().character == Character.paper)
+			{
+				GetComponent<PlayerGFX>().paperAttack2.SetActive(true);
+				GetComponent<PlayerGFX>().paperIdle2.SetActive(false);
+			}
 
+			yield return new WaitForSeconds(attackActiveTime);
+			attackActive = false; ;
+
+			yield return new WaitForSeconds(attackSpeed);
+
+			//animate idle
+			//weapon.GetComponent<Weapon>().weaponPivot.transform.Rotate(0, 0, 90);
+			if (GetComponent<RPS_Switching>().character == Character.rock)
+			{
+				GetComponent<PlayerGFX>().rockAttack2.SetActive(false);
+				GetComponent<PlayerGFX>().rockIdle2.SetActive(true);
+			}
+			else if (GetComponent<RPS_Switching>().character == Character.scissors)
+			{
+				GetComponent<PlayerGFX>().scissorsAttack2.SetActive(false);
+				GetComponent<PlayerGFX>().scissorsIdle2.SetActive(true);
+			}
+			else if (GetComponent<RPS_Switching>().character == Character.paper)
+			{
+				GetComponent<PlayerGFX>().paperAttack2.SetActive(false);
+				GetComponent<PlayerGFX>().paperIdle2.SetActive(true);
+			}
+		}
 
 		hitting = false;
 		alreadyHit = false;
@@ -299,7 +366,7 @@ public class Combat : MonoBehaviour
 	public void Die()
 	{
         lives -= 1;
-        livesUI.text = lives.ToString();
+        //livesUI.text = lives.ToString();
 		//Debug.Log("Life Lost");
 		if (lives <= 0)
 		{
@@ -318,7 +385,7 @@ public class Combat : MonoBehaviour
 	{
 		//Debug.Log("Respawn");
 		health = maxHealth;
-		healthUI.text = health.ToString();
+		//healthUI.text = health.ToString();
 
 		GetComponent<PlayerIcons>().DisableLowHealthIcon();
 
@@ -386,7 +453,7 @@ public class Combat : MonoBehaviour
 		StartCoroutine(KnockbackTimer());
 		float enemyFacing = 1;
 		//Debug.Log(GetComponent<Movement>().facingRight);
-		if (enemy.GetComponent<Movement>().facingRight == true)
+		if (enemy.GetComponent<Controller_Movement>().isFacingRight == true)
 		{
 			//right
 			enemyFacing = 1;
@@ -414,7 +481,7 @@ public class Combat : MonoBehaviour
 			health = health - dmg;
 			//Debug.Log(dmg);
 		}
-		healthUI.text = health.ToString();
+		//healthUI.text = health.ToString();
 		//Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
 
 		if (health < 20) {
@@ -427,12 +494,12 @@ public class Combat : MonoBehaviour
 
 	private IEnumerator KnockbackTimer()
 	{
-		GetComponent<Movement>().isBeingKnockedBack = true;
+		GetComponent<Controller_Movement>().isBeingKnockedBack = true;
 		//Debug.Log(GetComponent<Movement>().isBeingKnockedBack);
 
 		yield return new WaitForSeconds(knockbackTime);
 
-		GetComponent<Movement>().isBeingKnockedBack = false;
+		GetComponent<Controller_Movement>().isBeingKnockedBack = false;
 		//Debug.Log(GetComponent<Movement>().isBeingKnockedBack);
 	}
 

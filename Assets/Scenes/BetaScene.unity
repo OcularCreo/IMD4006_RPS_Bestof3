@@ -3938,6 +3938,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 5310070276530836521, guid: 28801e239077b8448b0cd004ae8f3607, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7884441233949426789, guid: 28801e239077b8448b0cd004ae8f3607, type: 3}
       propertyPath: livesUI
       value: 
@@ -4020,13 +4024,33 @@ PrefabInstance:
       value: Managers
       objectReference: {fileID: 0}
     - target: {fileID: 4663543962109499667, guid: a20462899c62356418e5cd2ac974122f, type: 3}
+      propertyPath: hpP1
+      value: 
+      objectReference: {fileID: 1222835879}
+    - target: {fileID: 4663543962109499667, guid: a20462899c62356418e5cd2ac974122f, type: 3}
+      propertyPath: hpP2
+      value: 
+      objectReference: {fileID: 20612105}
+    - target: {fileID: 4663543962109499667, guid: a20462899c62356418e5cd2ac974122f, type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 303785794}
     - target: {fileID: 4663543962109499667, guid: a20462899c62356418e5cd2ac974122f, type: 3}
+      propertyPath: spawnPoints
+      value: 
+      objectReference: {fileID: 3037234942126557251}
+    - target: {fileID: 4663543962109499667, guid: a20462899c62356418e5cd2ac974122f, type: 3}
+      propertyPath: respawnPoints
+      value: 
+      objectReference: {fileID: 3037234942126557251}
+    - target: {fileID: 4663543962109499667, guid: a20462899c62356418e5cd2ac974122f, type: 3}
       propertyPath: cameraTargetGroup
       value: 
       objectReference: {fileID: 1951704191}
+    - target: {fileID: 4663543962109499667, guid: a20462899c62356418e5cd2ac974122f, type: 3}
+      propertyPath: gameManagerObject
+      value: 
+      objectReference: {fileID: 1289651757}
     - target: {fileID: 6537667632532698410, guid: a20462899c62356418e5cd2ac974122f, type: 3}
       propertyPath: time
       value: 
