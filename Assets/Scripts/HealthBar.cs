@@ -23,7 +23,7 @@ public class HealthBar : MonoBehaviour
     public void setHealth(int health){
         //slider.value = health;
         healthMeter.fillAmount = (float)health/100;
-        Debug.Log((float)health / 100);
+        //Debug.Log((float)health / 100);
 
 	}
 
