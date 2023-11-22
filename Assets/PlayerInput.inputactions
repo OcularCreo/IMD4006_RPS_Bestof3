@@ -42,9 +42,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Start",
+                    "name": "Switch",
                     "type": "Button",
-                    "id": "50ca80c0-fda1-4a9f-b85a-d02997fba3ff",
+                    "id": "9064b0bd-f61f-4565-a63d-e01b5c2af0f8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -87,23 +87,45 @@
                 },
                 {
                     "name": "",
-                    "id": "53fe0ca4-f0cd-462d-8b3e-fc29a177be64",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Start",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "3009b65d-a99d-4fce-a33a-ae648848ae77",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91045a2b-05d3-482f-b2c7-c7f56fba2791",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e7f2b11d-102e-4f8a-8a6b-00d2203e5066",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec33717f-d57d-47c8-bea4-5009d19aec69",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

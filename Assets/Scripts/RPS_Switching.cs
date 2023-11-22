@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //easily determine which character the player is playing as
 public enum Character
@@ -37,10 +38,13 @@ public class RPS_Switching : MonoBehaviour
     public GameObject rock, paper, scissors;    //variable to take in the different character objects/types
 
     private bool playerOnPlatform;              //boolean to check if the player is on a platform
+    private string switchButton;
 
     // Start is called before the first frame update
     void Start()
     {
+        switchButton = "none";
+        
         //defaulting players to rock character
         character = Character.rock;
         toggleCharacter(true, Character.rock);
@@ -82,21 +86,21 @@ public class RPS_Switching : MonoBehaviour
         {
 
             //change the character type
-            if (Input.GetKeyDown(RPS_cntrl[0]))
+            if (switchButton == "buttonWest")
             {
                 selectionCharacter = Character.rock;
 
                 // start animation
                 StartCoroutine(changeCharacterAnimation(0));
             }
-            else if (Input.GetKeyDown(RPS_cntrl[1]))
+            else if (switchButton == "buttonNorth")
             {
                 selectionCharacter = Character.paper;
 
                 // start animation
                 StartCoroutine(changeCharacterAnimation(1));
             }
-            else if (Input.GetKeyDown(RPS_cntrl[2]))
+            else if (switchButton == "buttonEast")
             {
                 selectionCharacter = Character.scissors;
 
@@ -112,7 +116,29 @@ public class RPS_Switching : MonoBehaviour
         }
 
     }
-    
+
+    public void onSwitching(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            switchButton = "none";
+        }
+
+        if (context.action.triggered)
+        {
+            switchButton = context.control.name;
+            
+            /*switch (context.control.name)
+            {
+                case "buttonWest":
+                    break;
+                case "buttonNorth":
+                    break;
+                case "buttonEast":
+                    break;
+            }*/
+        }
+    }
 
     //function called after players have chosen their character
     public void changeCharacter()
@@ -203,7 +229,7 @@ public class RPS_Switching : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             // play animation only if the game is still RPS state and the player is still holding down the key
-            if (gameManager.state == GameState.RPS && Input.GetKey(RPS_cntrl[rpsCntrlKey])) 
+            if (gameManager.state == GameState.RPS && switchButton != "none") 
             {
 				// jump
 				gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 6f);
@@ -217,7 +243,7 @@ public class RPS_Switching : MonoBehaviour
             }
         }
         // change character if game is still in RPS state and if the player is still holding down the key
-        if (gameManager.state == GameState.RPS && Input.GetKey(RPS_cntrl[rpsCntrlKey]))
+        if (gameManager.state == GameState.RPS && switchButton != "none")
         {
             changeCharacter();
         }
