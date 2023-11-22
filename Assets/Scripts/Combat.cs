@@ -58,6 +58,7 @@ public class Combat : MonoBehaviour
 	[SerializeField] private ParticleSystem hitParticle;
 	[SerializeField] private ParticleSystem hitParticleBig;
 	[SerializeField] private ParticleSystem hitParticleLittle;
+	[SerializeField] private ParticleSystem debuffParticles;
 
 	void Start()
     {
@@ -337,6 +338,10 @@ public class Combat : MonoBehaviour
 		//health = health - 20;
 		//healthUI.text = health.ToString();
 
+		//Start Particles
+		var debuffP = Instantiate(debuffParticles, this.transform.position, this.transform.rotation);
+		debuffP.transform.parent = gameObject.transform;
+		//Start Coroutine
 		StartCoroutine(StartDebuffTime());
 	}
 

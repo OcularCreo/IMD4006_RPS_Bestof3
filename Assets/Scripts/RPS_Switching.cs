@@ -135,8 +135,8 @@ public class RPS_Switching : MonoBehaviour
             //set the character of the player to the new character
             character = selectionCharacter;
 
-            //subtract 5 health
-            gameObject.GetComponent<Combat>().switchDamage(); // do we still want to do this?
+            //Take double damage for 3 Seconds
+            gameObject.GetComponent<Combat>().switchDamage(); // do we still want to do this? ye probably
         }
 
     }
