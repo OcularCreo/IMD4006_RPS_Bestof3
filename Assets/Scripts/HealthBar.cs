@@ -7,6 +7,9 @@ public class HealthBar : MonoBehaviour
 {
     //[SerializeField] private Slider slider;
     [SerializeField] private Image healthMeter;
+	[SerializeField] private GameObject heart1;
+	[SerializeField] private GameObject heart2;
+	[SerializeField] private GameObject heart3;
 	//set slider maxValue
 	public void setMaxHealth(int maxHealth){
         
@@ -23,4 +26,21 @@ public class HealthBar : MonoBehaviour
         Debug.Log((float)health / 100);
 
 	}
+
+    public void loseLife(int livesLeft) {
+		if (livesLeft < 3)
+		{
+			heart1.SetActive(false);
+
+		}
+		if (livesLeft < 2) 
+        {
+			heart2.SetActive(false);
+
+		}
+        if (livesLeft < 1)
+        {
+			heart3.SetActive(false);
+		}
+    }
 }

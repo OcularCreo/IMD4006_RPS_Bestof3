@@ -366,7 +366,8 @@ public class Combat : MonoBehaviour
 	public void Die()
 	{
         lives -= 1;
-        //livesUI.text = lives.ToString();
+		healthBar_thisCharacter.GetComponent<HealthBar>().loseLife(lives);
+		//livesUI.text = lives.ToString();
 		//Debug.Log("Life Lost");
 		if (lives <= 0)
 		{
@@ -386,10 +387,11 @@ public class Combat : MonoBehaviour
 		//Debug.Log("Respawn");
 		health = maxHealth;
 		//healthUI.text = health.ToString();
+		healthBar_thisCharacter.GetComponent<HealthBar>().setHealth(health);
 
 		/*GetComponent<PlayerIcons>().DisableLowHealthIcon();*/
 
-        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+		GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
 		int randSpawn = UnityEngine.Random.Range(1, respawnPoints.Length);
 		//Debug.Log(randSpawn);
