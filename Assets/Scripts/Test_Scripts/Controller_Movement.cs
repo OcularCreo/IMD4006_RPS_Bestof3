@@ -18,8 +18,8 @@ public class Controller_Movement : MonoBehaviour
     [Header("Movement Variables")]
     [SerializeField] private float horizontal;           //variable used for horizontal (left and right) movement
     [SerializeField] private float speed = 10f;          //variable used to determine speed of player
-    [SerializeField] private float acceleration = 7f;    //sets acceleration of the player
-    [SerializeField] private float decceleration = 7f;   //sets the deceleration of the player
+    public float acceleration = 7f;    //sets acceleration of the player
+    public float decceleration = 7f;   //sets the deceleration of the player
     [SerializeField] private float velPower = 0.9f;      //sets the velocity power of the plyaer
     [SerializeField] private float frictionAmount = 2f;  //sets the amount of friciton the player has to the floor when deccelerating
     
