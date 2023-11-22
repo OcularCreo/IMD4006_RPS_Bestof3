@@ -106,6 +106,9 @@ public class Manager : MonoBehaviour
                 state = GameState.RPS;
                 menuColliders.SetActive(false);
                 virtualCam.Follow = cameraTargetGroup.transform;
+
+                // hide label
+                stateLabelUI.enabled = false;
             }
         }
         
@@ -118,6 +121,7 @@ public class Manager : MonoBehaviour
             time.GetComponent<SpriteRenderer>().color = new Vector4(0.1863f, 0.7452f, 0.3768f, 1f);
 
             // change label to 
+            stateLabelUI.enabled = true;
             stateLabelUI.text = "RPS Time!";
 
             //when the time runs out
