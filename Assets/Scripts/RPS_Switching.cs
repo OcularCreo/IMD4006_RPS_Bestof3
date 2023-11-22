@@ -153,12 +153,21 @@ public class RPS_Switching : MonoBehaviour
             {
                 case Character.rock:
                     GetComponent<PlayerGFX>().rockIdle.SetActive(active);
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
+                    controllerMovement.acceleration = 7;
+                    controllerMovement.decceleration = 10;
                     break;
                 case Character.paper:
                     GetComponent<PlayerGFX>().paperIdle.SetActive(active);
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 3;
+                    controllerMovement.acceleration = 5;
+                    controllerMovement.decceleration = 5;
                     break;
                 case Character.scissors:
                     GetComponent<PlayerGFX>().scissorsIdle.SetActive(active);
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
+                    controllerMovement.acceleration = 10;
+                    controllerMovement.decceleration = 7;
                     break;
             }
         }
@@ -167,13 +176,22 @@ public class RPS_Switching : MonoBehaviour
 			{
 				case Character.rock:
 					GetComponent<PlayerGFX>().rockIdle2.SetActive(active);
-					break;
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
+                    controllerMovement.acceleration = 7;
+                    controllerMovement.decceleration = 10;
+                    break;
 				case Character.paper:
 					GetComponent<PlayerGFX>().paperIdle2.SetActive(active);
-					break;
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 3;
+                    controllerMovement.acceleration = 5;
+                    controllerMovement.decceleration = 5;
+                    break;
 				case Character.scissors:
 					GetComponent<PlayerGFX>().scissorsIdle2.SetActive(active);
-					break;
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
+                    controllerMovement.acceleration = 10;
+                    controllerMovement.decceleration = 7;
+                    break;
 			}
 		}
         
