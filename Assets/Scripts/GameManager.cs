@@ -4,13 +4,17 @@ using System.Threading;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.InputSystem;
+using Cinemachine;
+using Unity.VisualScripting;
 
 //different states the game can be in
 public enum GameState
 {
     RPS,
     battle,
-    gameOver
+    gameOver, 
+    menu
 }
 
 public class Manager : MonoBehaviour
@@ -27,6 +31,13 @@ public class Manager : MonoBehaviour
     public GameObject time;
 
     public TextMeshProUGUI stateLabelUI;
+    public InputAction action;
+    
+    [SerializeField] private GameObject inputPlayerManager;
+    [SerializeField] private GameObject menuColliders;
+    [SerializeField] private CinemachineVirtualCamera virtualCam;
+    [SerializeField] private CinemachineTargetGroup cameraTargetGroup;
+
 
     //funciton used to handle different game states
     /*public void updateGameState(GameState newState)
@@ -49,8 +60,11 @@ public class Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        action.Enable();
+
         //start the game with the rock paper scissors state
-        state = GameState.RPS;
+        state = GameState.menu;
 
         //begining values for timers
         battleTime = 15f;
@@ -85,7 +99,16 @@ public class Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //when in the rock paper scissors state
+        if(state == GameState.menu)
+        {
+            if (action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 1)
+            {
+                state = GameState.RPS;
+                menuColliders.SetActive(false);
+                virtualCam.Follow = cameraTargetGroup.transform;
+            }
+        }
+        
         if (state == GameState.RPS)
         {
             //start to count down the time
@@ -152,7 +175,7 @@ public class Manager : MonoBehaviour
             }
 
 
-        } 
+        }
         //going to assume the only other possible state is game over
         else
         {
