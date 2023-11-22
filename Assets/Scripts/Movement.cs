@@ -237,6 +237,7 @@ public class Movement : MonoBehaviour
         return false;
     }
 
+    /*
     // check if the player has collided with the platform
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -286,7 +287,10 @@ public class Movement : MonoBehaviour
             playersCollided = true;
         }
     }
+    */
 
+
+    /*
     // check if the player has collided with the platform
     public void OnCollisionExit2D(Collision2D collision)
     {
@@ -313,6 +317,8 @@ public class Movement : MonoBehaviour
         }
 
     }
+
+    */
 
     private void Flip()
 	{

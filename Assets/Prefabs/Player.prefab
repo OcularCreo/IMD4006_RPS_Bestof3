@@ -1109,9 +1109,9 @@ GameObject:
   - component: {fileID: 843012776933033016}
   - component: {fileID: 4442866443342105497}
   - component: {fileID: 2281928565991457526}
-  - component: {fileID: 8227625300661927342}
   - component: {fileID: 7884441233949426789}
   - component: {fileID: 1521416363925835935}
+  - component: {fileID: 8227625300661927342}
   - component: {fileID: 1800599435404332921}
   - component: {fileID: 4030185185971145316}
   - component: {fileID: 732755535972966385}
@@ -1251,24 +1251,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7079382, y: 0.62298113}
   m_EdgeRadius: 0
---- !u!114 &8227625300661927342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5310070276530836521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e9af3bfe8b16a04e9d72751b37e51e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
-  player: 0
-  character: 0
-  rock: {fileID: 0}
-  paper: {fileID: 0}
-  scissors: {fileID: 0}
 --- !u!114 &7884441233949426789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,6 +1300,25 @@ MonoBehaviour:
   facingRight: 1
   isBeingKnockedBack: 0
   changeSlamNum: 0
+--- !u!114 &8227625300661927342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310070276530836521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9af3bfe8b16a04e9d72751b37e51e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  player: 0
+  controllerMovement: {fileID: -2064724191323337345}
+  character: 0
+  rock: {fileID: 0}
+  paper: {fileID: 0}
+  scissors: {fileID: 0}
 --- !u!114 &1800599435404332921
 MonoBehaviour:
   m_ObjectHideFlags: 0

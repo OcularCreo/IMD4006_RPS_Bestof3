@@ -28,7 +28,7 @@ public class RPS_Switching : MonoBehaviour
     [SerializeField] public Manager gameManager;//get the script from the game manager
     [SerializeField] public Player player;      //determine which player the character belongs to
     private Combat combat;                      //getting the combat script
-    private Controller_Movement controllerMovement;
+    [SerializeField] private Controller_Movement controllerMovement;
 
     string[] RPS_cntrl = new string[3];         //creating empty character array
     
@@ -54,7 +54,7 @@ public class RPS_Switching : MonoBehaviour
 
         //getting the combat script from the game object itself
         combat = gameObject.GetComponent<Combat>();
-        controllerMovement = gameObject.GetComponent<Controller_Movement>();
+        //controllerMovement = gameObject.GetComponent<Controller_Movement>();
 
         //set the controls dependong on if they are player 1 or 2
         if (player == Player.P1)
@@ -128,6 +128,7 @@ public class RPS_Switching : MonoBehaviour
         {
             switchButton = context.control.name;
             
+            UnityEngine.Debug.Log(switchButton);
             /*switch (context.control.name)
             {
                 case "buttonWest":
