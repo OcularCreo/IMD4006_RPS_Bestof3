@@ -151,7 +151,7 @@ public class Combat : MonoBehaviour
 		//when the player presses B attack
 		if (context.action.triggered)
 		{
-			if (!hitting)
+			if (!hitting && GetComponent<RPS_Switching>().gameManager.state != GameState.RPS)
 			{
 				StartCoroutine(StartCooldown());
 			}
