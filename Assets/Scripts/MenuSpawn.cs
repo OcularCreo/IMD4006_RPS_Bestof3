@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using UnityEditor.Tilemaps;
 
 public class MenuSpawn : MonoBehaviour
 {
@@ -13,8 +14,8 @@ public class MenuSpawn : MonoBehaviour
 
 	[SerializeField] private Manager gameManagerObject;
 	[SerializeField] private GameObject respawnPoints;
-	[SerializeField] private HealthBar hpP1;
-	[SerializeField] private HealthBar hpP2;
+	[SerializeField] private GameObject hpP1;
+	[SerializeField] private GameObject hpP2;
 
 
 	public int numPlayers = 0;                                          //keep track of the number of players. Used to start game
@@ -33,7 +34,7 @@ public class MenuSpawn : MonoBehaviour
         {
 			playerInput.GetComponent<RPS_Switching>().player = Player.P2;
 			playerInput.GetComponent<RPS_Switching>().gameManager = gameManagerObject;
-			playerInput.GetComponent<Combat>().healthBar_thisCharacter = hpP1;
+			playerInput.GetComponent<Combat>().healthBar_thisCharacter = hpP2;
 			playerInput.GetComponent<Combat>().respawnPointsObject = respawnPoints;
 
 		}

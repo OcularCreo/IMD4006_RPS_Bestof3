@@ -25,7 +25,7 @@ public class Combat : MonoBehaviour
 	private float attackActiveTime = 0.1f;
 	private bool attackActive = false;
 
-	private float knockback = 3f;
+	private float knockback = 1f;
 	private float knockbackMultiplier;
 	private float knockbackTime = 0.5f;
 
@@ -53,7 +53,7 @@ public class Combat : MonoBehaviour
 	// private float healthBarLocalPosition;
 	
 	//HEALTH BAR
-	[SerializeField] public HealthBar healthBar_thisCharacter;
+	[SerializeField] public GameObject healthBar_thisCharacter;
 	//[SerializeField] private HealthBar healthBar_enemyCharacter;
 
 	[SerializeField] private ParticleSystem hitParticle;
@@ -69,7 +69,7 @@ public class Combat : MonoBehaviour
 		//livesUI.text = lives.ToString();
 
 		//set both character health bar to maxvalue
-		healthBar_thisCharacter.setMaxHealth(maxHealth);
+		healthBar_thisCharacter.GetComponent<HealthBar>().setHealth(maxHealth);
 		//healthBar_enemyCharacter.setMaxHealth(maxHealth);
 
 		
@@ -376,9 +376,9 @@ public class Combat : MonoBehaviour
 			Respawn();
         }
 
-		if (lives < 2) {
+		/*if (lives < 2) {
             GetComponent<PlayerIcons>().EnableLowLivesIcon();
-        }
+        }*/
 	}
 
 	public void Respawn()
@@ -387,7 +387,7 @@ public class Combat : MonoBehaviour
 		health = maxHealth;
 		//healthUI.text = health.ToString();
 
-		GetComponent<PlayerIcons>().DisableLowHealthIcon();
+		/*GetComponent<PlayerIcons>().DisableLowHealthIcon();*/
 
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
@@ -484,11 +484,11 @@ public class Combat : MonoBehaviour
 		//healthUI.text = health.ToString();
 		//Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
 
-		if (health < 20) {
+		/*if (health < 20) {
             GetComponent<PlayerIcons>().EnableLowHealthIcon();
-        }
+        }*/
 
-		healthBar_thisCharacter.setHealth(health);
+		healthBar_thisCharacter.GetComponent<HealthBar>().setHealth(health);
 		
 	}
 
