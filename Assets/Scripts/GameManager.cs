@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using TMPro;
-using System;
+//using System;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using Unity.VisualScripting;
+using System.Numerics;
+using System.Timers;
 
 //different states the game can be in
 public enum GameState
 {
     RPS,
     battle,
-    gameOver, 
+    gameOver,
     menu
 }
 
@@ -32,15 +34,19 @@ public class Manager : MonoBehaviour
 
     public TextMeshProUGUI stateLabelUI;
     public InputAction action;
-    
+
     [SerializeField] private GameObject inputPlayerManager;
     [SerializeField] private GameObject menuColliders;
     [SerializeField] private CinemachineVirtualCamera virtualCam;
     [SerializeField] private CinemachineTargetGroup cameraTargetGroup;
 
-    [SerializeField] private GameObject fightGraphic;
-    [SerializeField] private GameObject rpsGraphic;
-    private bool shownGraphic;
+    [SerializeField] private GameObject menuBackground;
+    [SerializeField] private GameObject canvas;
+
+    [SerializeField] private GameObject switchIcons;
+    [SerializeField] private GameObject hp1;
+    [SerializeField] private GameObject hp2;
+
 
     //funciton used to handle different game states
     /*public void updateGameState(GameState newState)
@@ -75,7 +81,7 @@ public class Manager : MonoBehaviour
 
         //UI timer variable
         time.GetComponent<Transform>().localScale = new Vector2(15.8f, 1f);
-        time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
+        time.GetComponent<SpriteRenderer>().color = new Vector4(0.1863f, 0.7452f, 0.3768f, 1f);
         time.GetComponent<SpriteRenderer>().enabled = true;
 
         //stateLabelUI = GameObject.Find("State Label").GetComponent<TextMeshProUGUI>();
@@ -98,8 +104,8 @@ public class Manager : MonoBehaviour
 		player2.transform.GetChild(4).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
 		player2.transform.GetChild(5).gameObject.GetComponent<SpriteRenderer>().color = p2Color;*/
 
-		//player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
-	}
+        //player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
+    }
 
     // Update is called once per frame
     void Update()
@@ -109,20 +115,19 @@ public class Manager : MonoBehaviour
             if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 1))
             {
                 state = GameState.RPS;
-                shownGraphic = false;
                 menuColliders.SetActive(false);
                 virtualCam.Follow = cameraTargetGroup.transform;
+
+                menuBackground.SetActive(false);
+                canvas.SetActive(true);
             }
         }
-        
+
         if (state == GameState.RPS)
         {
-
-            //show the rps graphic
-            if (!shownGraphic)
-            {
-                StartCoroutine(RPSGraphicReveal());
-            }
+            hp1.SetActive(false);
+            hp2.SetActive(false);
+            switchIcons.SetActive(true);
 
             //start to count down the time
             RPS_time -= Time.deltaTime;
@@ -134,14 +139,17 @@ public class Manager : MonoBehaviour
             stateLabelUI.text = "RPS Time!";
 
             // hide menu
-            GameObject.Find("Menu_P1_EmptyHealth").GetComponent<Renderer>().enabled = false;
+            //GameObject.Find("Menu_P1_EmptyHealth").GetComponent<Renderer>().enabled = false;
 
             //when the time runs out
             if (RPS_time < 0)
             {
+                hp1.SetActive(true);
+                hp2.SetActive(true);
+                switchIcons.SetActive(false);
+
                 //change the state
                 state = GameState.battle;
-                shownGraphic = false;
 
                 //reset the timer
                 RPS_time = 10f;
@@ -161,12 +169,6 @@ public class Manager : MonoBehaviour
         else if (state == GameState.battle)
         {
 
-            //show the rps graphic
-            if (!shownGraphic)
-            {
-                StartCoroutine(fightGraphicReveal());
-            }
-
             battleTime -= Time.deltaTime;
             time.GetComponent<Transform>().localScale = new Vector2(battleTime, 1f);
             time.GetComponent<SpriteRenderer>().color = new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
@@ -176,7 +178,6 @@ public class Manager : MonoBehaviour
             {
                 //change to the 
                 state = GameState.RPS;
-                shownGraphic = false;
 
                 //reset timer
                 battleTime = 15f;
@@ -208,28 +209,6 @@ public class Manager : MonoBehaviour
 
     }
 
-    private IEnumerator fightGraphicReveal()
-    {
-        fightGraphic.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(3f);
-
-        fightGraphic.gameObject.SetActive(false);
-        shownGraphic = true;
-
-    }
-    private IEnumerator RPSGraphicReveal()
-    {
-        rpsGraphic.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(3f);
-
-        rpsGraphic.gameObject.SetActive(false);
-        shownGraphic = true;
-
-    }
-
-
-
 }
+
 
