@@ -17,7 +17,7 @@ public class Combat : MonoBehaviour
 
 	[SerializeField] public int lives = 3;
 	[SerializeField] private int maxHealth = 100;
-	[SerializeField] public  int health;
+	[SerializeField] public int health;
     [SerializeField] protected int characterDamage = 5;
     [SerializeField] private float advantageMultiplier = 1.5f;
 	[SerializeField] private float disadvantageMultiplier = 0.5f;
@@ -101,6 +101,11 @@ public class Combat : MonoBehaviour
 			}
 
 
+
+			if (gameObject.GetComponent<Controller_Movement>().slamming)
+			{
+
+			}
 
 			// Slam does damage
 			if(GetComponent<Movement>().playersCollided && GetComponent<Movement>().slammed) // if players have collided and slam has been done
@@ -421,7 +426,7 @@ public class Combat : MonoBehaviour
 		doubleDamage = false;
 	}
 
-	/*public void WeaponEnable() {
+    /*public void WeaponEnable() {
 		weapon.SetActive(true);
 	}
 
@@ -430,7 +435,27 @@ public class Combat : MonoBehaviour
 		weapon.SetActive(false);
 	}*/
 
-	private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(gameObject.GetComponent<Controller_Movement>().slamming && collision.gameObject.tag == "Player")
+		{
+
+			UnityEngine.Debug.Log("Slammed an enemy");
+
+			if(gameObject.GetComponent<RPS_Switching>().character == Character.rock)
+			{
+                enemy.GetComponent<Combat>().takeDamage(15);
+            } else if (gameObject.GetComponent<RPS_Switching>().character == Character.scissors) {
+                enemy.GetComponent<Combat>().takeDamage(10);
+            }
+
+			//gameObject.GetComponent<Controller_Movement>().slamming = false;
+		}
+		
+		
+	}
+
+    private void OnTriggerEnter2D(Collider2D collision)
 	{
 		//Debug.Log("Check in");
 		if (collision.gameObject.GetComponent<Combat>() != null)
