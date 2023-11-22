@@ -75,6 +75,8 @@ public class Manager : MonoBehaviour
         time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
         time.GetComponent<SpriteRenderer>().enabled = true;
 
+        //stateLabelUI = GameObject.Find("State Label").GetComponent<TextMeshProUGUI>();
+
         //assigned colour to the player
         /*Vector4 p1Color = new Vector4(1f, 0.6181373f, 0.3820755f, 1f);
 		Vector4 p2Color = new Vector4(0.3726415f, 0.7f, 1f, 1f);
@@ -106,9 +108,6 @@ public class Manager : MonoBehaviour
                 state = GameState.RPS;
                 menuColliders.SetActive(false);
                 virtualCam.Follow = cameraTargetGroup.transform;
-
-                // hide label
-                stateLabelUI.enabled = false;
             }
         }
         
@@ -121,7 +120,6 @@ public class Manager : MonoBehaviour
             time.GetComponent<SpriteRenderer>().color = new Vector4(0.1863f, 0.7452f, 0.3768f, 1f);
 
             // change label to 
-            stateLabelUI.enabled = true;
             stateLabelUI.text = "RPS Time!";
 
             // hide menu
