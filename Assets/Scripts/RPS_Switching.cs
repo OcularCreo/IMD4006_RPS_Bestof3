@@ -145,18 +145,36 @@ public class RPS_Switching : MonoBehaviour
     private void toggleCharacter(bool active, Character activeChar)
     {
         //find the character type and activate or deactiveate it depending on function parameter inputs
-        switch (activeChar)
+        if (player == Player.P1)
         {
-            case Character.rock:
-				GetComponent<PlayerGFX>().rockIdle.SetActive(active);
-				break;
-            case Character.paper:
-				GetComponent<PlayerGFX>().paperIdle.SetActive(active);
-				break;
-            case Character.scissors:
-				GetComponent<PlayerGFX>().scissorsIdle.SetActive(active);
-				break;
+            switch (activeChar)
+            {
+                case Character.rock:
+                    GetComponent<PlayerGFX>().rockIdle.SetActive(active);
+                    break;
+                case Character.paper:
+                    GetComponent<PlayerGFX>().paperIdle.SetActive(active);
+                    break;
+                case Character.scissors:
+                    GetComponent<PlayerGFX>().scissorsIdle.SetActive(active);
+                    break;
+            }
         }
+        else {
+			switch (activeChar)
+			{
+				case Character.rock:
+					GetComponent<PlayerGFX>().rockIdle2.SetActive(active);
+					break;
+				case Character.paper:
+					GetComponent<PlayerGFX>().paperIdle2.SetActive(active);
+					break;
+				case Character.scissors:
+					GetComponent<PlayerGFX>().scissorsIdle2.SetActive(active);
+					break;
+			}
+		}
+        
     }
 
     // plays an animation of the character doing 3 jumps + slams, then calls changeCharacter() function
@@ -167,12 +185,12 @@ public class RPS_Switching : MonoBehaviour
             // play animation only if the game is still RPS state and the player is still holding down the key
             if (gameManager.state == GameState.RPS && Input.GetKey(RPS_cntrl[rpsCntrlKey])) 
             {
-                // jump
-                GetComponent<Movement>().rb.velocity = new Vector2(0, 6f);
+				// jump
+				gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 6f);
                 yield return new WaitForSeconds(0.3f);
 
                 //slam
-                GetComponent<Movement>().rb.velocity = new Vector2(0, -6f);
+                gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -6f);
                 yield return new WaitForSeconds(0.3f);
 
 

@@ -25,7 +25,7 @@ public class Controller_Movement : MonoBehaviour
     
     private float slamPower = 50f;      //variable used to determine how strong slams are
     private bool slamming;              //tells us if the player his holding the slamming button
-    private bool isFacingRight = true;  //variable used for determining player orentations
+    public bool isFacingRight = true;  //variable used for determining player orentations
 	
     //Movement Particles
 	[Header("Particles")]
@@ -50,8 +50,11 @@ public class Controller_Movement : MonoBehaviour
     private float coyoteTime = 0.2f;    //determines how long coyotetime is
     private float coyoteTimeCounter;    //keep track of current coyoteTime (subtracting time.deltatime)
 
-    // Start is called before the first frame update
-    void Start()
+	//Knockback
+	public bool isBeingKnockedBack = false;
+
+	// Start is called before the first frame update
+	void Start()
     {
         //getting values from player object
         rb = GetComponent<Rigidbody2D>();
@@ -174,7 +177,7 @@ public class Controller_Movement : MonoBehaviour
             horizontal = 0f;
         } 
         //when the player is moving on the controller left stick, read it's vector value
-        else
+        else if(!isBeingKnockedBack)
         {
             horizontal = context.ReadValue<Vector2>().x;
 			//Debug.Log(context.ReadValue<Vector2>().x);

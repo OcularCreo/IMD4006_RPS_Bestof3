@@ -76,7 +76,7 @@ public class Manager : MonoBehaviour
         time.GetComponent<SpriteRenderer>().enabled = true;
 
         //assigned colour to the player
-        Vector4 p1Color = new Vector4(1f, 0.6181373f, 0.3820755f, 1f);
+        /*Vector4 p1Color = new Vector4(1f, 0.6181373f, 0.3820755f, 1f);
 		Vector4 p2Color = new Vector4(0.3726415f, 0.7f, 1f, 1f);
 
 		player1.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
@@ -91,7 +91,7 @@ public class Manager : MonoBehaviour
         player2.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
 		player2.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
 		player2.transform.GetChild(4).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-		player2.transform.GetChild(5).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
+		player2.transform.GetChild(5).gameObject.GetComponent<SpriteRenderer>().color = p2Color;*/
 
 		//player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
 	}
