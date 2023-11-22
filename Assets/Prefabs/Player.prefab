@@ -1119,7 +1119,7 @@ GameObject:
   - component: {fileID: 891909332205106847}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1401,6 +1401,7 @@ MonoBehaviour:
   decceleration: 10
   velPower: 0.9
   frictionAmount: 2
+  slamming: 0
   isFacingRight: 1
   walkDust: {fileID: 8125542900305836771, guid: 33f96407d4bb9b044b07f50a1ed5c244, type: 3}
   walkDustPos: {fileID: 4479182111377180222}
