@@ -56,10 +56,13 @@ public class Combat : MonoBehaviour
 	[SerializeField] public GameObject healthBar_thisCharacter;
 	//[SerializeField] private HealthBar healthBar_enemyCharacter;
 
+	
+
 	[SerializeField] private ParticleSystem hitParticle;
 	[SerializeField] private ParticleSystem hitParticleBig;
 	[SerializeField] private ParticleSystem hitParticleLittle;
 	[SerializeField] private ParticleSystem debuffParticles;
+
 
 	void Start()
     {
@@ -70,6 +73,7 @@ public class Combat : MonoBehaviour
 
 		//set both character health bar to maxvalue
 		healthBar_thisCharacter.GetComponent<HealthBar>().setHealth(maxHealth);
+	
 		//healthBar_enemyCharacter.setMaxHealth(maxHealth);
 
 		
@@ -81,7 +85,7 @@ public class Combat : MonoBehaviour
 
     void Update()
     {
-		//Debug.Log("combat script: "+ health);
+		//Debug.Log("combat scsript: "+ health);
 		if (GetComponent<RPS_Switching>().gameManager.state != GameState.RPS){ 
 		
 			//If player attacks play animation

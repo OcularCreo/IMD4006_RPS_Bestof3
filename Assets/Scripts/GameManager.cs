@@ -30,6 +30,9 @@ public class Manager : MonoBehaviour
 
     public GameObject time;
 
+    //NEW TIME
+    public TimeBar timebar;
+
     public TextMeshProUGUI stateLabelUI;
     public InputAction action;
     
@@ -86,6 +89,10 @@ public class Manager : MonoBehaviour
         time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
         time.GetComponent<SpriteRenderer>().enabled = true;
 
+        //NEWBAR
+        //WHEN START SET TO MAX RPS TIME
+        timebar.setMaxTime(RPS_time);
+
         //stateLabelUI = GameObject.Find("State Label").GetComponent<TextMeshProUGUI>();
 
         //assigned colour to the player
@@ -114,6 +121,7 @@ public class Manager : MonoBehaviour
     {
         if (state == GameState.menu)
         {
+            //if the controller is triggered and two players are in the game, enter RPS state, trun of the menu
             if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 1))
             {
                 state = GameState.RPS;
@@ -143,6 +151,9 @@ public class Manager : MonoBehaviour
 
             time.GetComponent<Transform>().localScale = new Vector2(RPS_time, 1f);
             time.GetComponent<SpriteRenderer>().color = new Vector4(0.1863f, 0.7452f, 0.3768f, 1f);
+
+            //NEW TIME BAR
+            timebar.setTime(RPS_time);
 
             // change label to 
             stateLabelUI.text = "RPS Time!";
@@ -189,6 +200,8 @@ public class Manager : MonoBehaviour
             time.GetComponent<Transform>().localScale = new Vector2(battleTime, 1f);
             time.GetComponent<SpriteRenderer>().color = new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
 
+            //NEW TIME BAR
+            timebar.setTime(battleTime);
 
             if (battleTime < 0)
             {
@@ -205,7 +218,7 @@ public class Manager : MonoBehaviour
 
                 UnityEngine.Debug.Log("battle over. Now for some RPS!");
 
-
+                timebar.setTime(battleTime);
 
             }
 
