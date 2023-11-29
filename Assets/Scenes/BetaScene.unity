@@ -387,6 +387,11 @@ Transform:
   - {fileID: 1504089516}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &197769517 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 585382319348657528, guid: 06179406c9ba6af4d965259ea63a61d7, type: 3}
+  m_PrefabInstance: {fileID: 7914516119999736766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &199640366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,6 +1962,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6119418814096239045, guid: 06179406c9ba6af4d965259ea63a61d7, type: 3}
   m_PrefabInstance: {fileID: 7914516119999736766}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1734695954 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5758591935020133674, guid: 06179406c9ba6af4d965259ea63a61d7, type: 3}
+  m_PrefabInstance: {fileID: 7914516119999736766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1754459899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2718,6 +2728,14 @@ PrefabInstance:
       propertyPath: menuBackground
       value: 
       objectReference: {fileID: 199640366}
+    - target: {fileID: 6537667632532698410, guid: a20462899c62356418e5cd2ac974122f, type: 3}
+      propertyPath: victoryGraphic1
+      value: 
+      objectReference: {fileID: 197769517}
+    - target: {fileID: 6537667632532698410, guid: a20462899c62356418e5cd2ac974122f, type: 3}
+      propertyPath: victoryGraphic2
+      value: 
+      objectReference: {fileID: 1734695954}
     - target: {fileID: 6537667632532698410, guid: a20462899c62356418e5cd2ac974122f, type: 3}
       propertyPath: cameraTargetGroup
       value: 
