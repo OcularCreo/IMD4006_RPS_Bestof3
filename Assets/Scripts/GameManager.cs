@@ -30,6 +30,9 @@ public class Manager : MonoBehaviour
 
     public GameObject time;
 
+    //NEW TIME
+    public TimeBar timebar;
+
     public TextMeshProUGUI stateLabelUI;
     public InputAction action;
     
@@ -45,9 +48,13 @@ public class Manager : MonoBehaviour
 	[SerializeField] private GameObject hp1;
 	[SerializeField] private GameObject hp2;
 
+    [SerializeField] private GameObject fightGraphic;
+    [SerializeField] private GameObject rpsGraphic;
+    private bool shownGraphic;
 
-	//funciton used to handle different game states
-	/*public void updateGameState(GameState newState)
+
+    //funciton used to handle different game states
+    /*public void updateGameState(GameState newState)
     {
         state = newState;   //get the new state of the game
 
@@ -64,8 +71,8 @@ public class Manager : MonoBehaviour
 
     }*/
 
-	// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+    void Start()
     {
 
         action.Enable();
@@ -81,6 +88,10 @@ public class Manager : MonoBehaviour
         time.GetComponent<Transform>().localScale = new Vector2(15.8f, 1f);
         time.GetComponent<SpriteRenderer>().color =  new Vector4(0.1863f,0.7452f,0.3768f,1f);
         time.GetComponent<SpriteRenderer>().enabled = true;
+
+        //NEWBAR
+        //WHEN START SET TO MAX RPS TIME
+        timebar.setMaxTime(RPS_time);
 
         //stateLabelUI = GameObject.Find("State Label").GetComponent<TextMeshProUGUI>();
 
@@ -110,9 +121,11 @@ public class Manager : MonoBehaviour
     {
         if (state == GameState.menu)
         {
+            //if the controller is triggered and two players are in the game, enter RPS state, trun of the menu
             if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 1))
             {
                 state = GameState.RPS;
+                shownGraphic = false;
                 menuColliders.SetActive(false);
                 virtualCam.Follow = cameraTargetGroup.transform;
 
@@ -123,6 +136,12 @@ public class Manager : MonoBehaviour
         
         if (state == GameState.RPS)
         {
+            //show the rps graphic
+            if (!shownGraphic)
+            {
+                StartCoroutine(RPSGraphicReveal());
+            }
+
             hp1.SetActive(false);
             hp2.SetActive(false);
             switchIcons.SetActive(true);
@@ -132,6 +151,9 @@ public class Manager : MonoBehaviour
 
             time.GetComponent<Transform>().localScale = new Vector2(RPS_time, 1f);
             time.GetComponent<SpriteRenderer>().color = new Vector4(0.1863f, 0.7452f, 0.3768f, 1f);
+
+            //NEW TIME BAR
+            timebar.setTime(RPS_time);
 
             // change label to 
             stateLabelUI.text = "RPS Time!";
@@ -148,6 +170,7 @@ public class Manager : MonoBehaviour
 
 				//change the state
 				state = GameState.battle;
+                shownGraphic = false;
 
                 //reset the timer
                 RPS_time = 10f;
@@ -167,15 +190,24 @@ public class Manager : MonoBehaviour
         else if (state == GameState.battle)
         {
 
+            //show the rps graphic
+            if (!shownGraphic)
+            {
+                StartCoroutine(fightGraphicReveal());
+            }
+
             battleTime -= Time.deltaTime;
             time.GetComponent<Transform>().localScale = new Vector2(battleTime, 1f);
             time.GetComponent<SpriteRenderer>().color = new Vector4(0.8301f, 0.2388f, 0.2388f, 1f);
 
+            //NEW TIME BAR
+            timebar.setTime(battleTime);
 
             if (battleTime < 0)
             {
                 //change to the 
                 state = GameState.RPS;
+                shownGraphic = false;
 
                 //reset timer
                 battleTime = 15f;
@@ -186,7 +218,7 @@ public class Manager : MonoBehaviour
 
                 UnityEngine.Debug.Log("battle over. Now for some RPS!");
 
-
+                timebar.setTime(battleTime);
 
             }
 
@@ -195,15 +227,40 @@ public class Manager : MonoBehaviour
             if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
             {
                 state = GameState.gameOver; // switch to game over state
+                Debug.Log("game over");
             }
-
+            //Debug.Log("player 1 lives: " + player1.GetComponent<Combat>().lives);
+            //Debug.Log("player 2 lives: " + player2.GetComponent<Combat>().lives);
 
         }
         //going to assume the only other possible state is game over
-        else
+        else if (state == GameState.gameOver)
         {
             // display game over screen
+            // change label to 
+            stateLabelUI.text = "GAME OVER";
         }
+
+    }
+
+    private IEnumerator fightGraphicReveal()
+    {
+        fightGraphic.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(3f);
+
+        fightGraphic.gameObject.SetActive(false);
+        shownGraphic = true;
+
+    }
+    private IEnumerator RPSGraphicReveal()
+    {
+        rpsGraphic.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(3f);
+
+        rpsGraphic.gameObject.SetActive(false);
+        shownGraphic = true;
 
     }
 

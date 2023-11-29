@@ -190,12 +190,14 @@ public class RPS_Switching : MonoBehaviour
 					controllerMovement.jumpingPower = 15;
 					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
 					gameObject.GetComponent<Rigidbody2D>().mass = 2;
-					break;
+                    controllerMovement.extraJumpValues = 1;
+                    break;
                 case Character.paper:
 					GetComponent<PlayerGFX>().paperIdle.SetActive(active);
 					controllerMovement.acceleration = 3;
 					controllerMovement.decceleration = 3;
 					controllerMovement.jumpingPower = 8;
+                    controllerMovement.extraJumpValues = 2;
 					gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
 					gameObject.GetComponent<Rigidbody2D>().mass = 1;
 					break;
@@ -206,7 +208,8 @@ public class RPS_Switching : MonoBehaviour
 					controllerMovement.jumpingPower = 12;
 					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
 					gameObject.GetComponent<Rigidbody2D>().mass = 1.5f;
-					break;
+                    controllerMovement.extraJumpValues = 1;
+                    break;
             }
         }
         else {
@@ -219,13 +222,15 @@ public class RPS_Switching : MonoBehaviour
 					controllerMovement.jumpingPower = 15;
 					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
 					gameObject.GetComponent<Rigidbody2D>().mass = 2;
-					break;
+                    controllerMovement.extraJumpValues = 1;
+                    break;
 				case Character.paper:
 					GetComponent<PlayerGFX>().paperIdle2.SetActive(active);
 					controllerMovement.acceleration = 3;
 					controllerMovement.decceleration = 3;
 					controllerMovement.jumpingPower = 8;
-					gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
+                    controllerMovement.extraJumpValues = 2;
+                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
 					gameObject.GetComponent<Rigidbody2D>().mass = 1;
 					break;
 				case Character.scissors:
@@ -235,7 +240,8 @@ public class RPS_Switching : MonoBehaviour
 					controllerMovement.jumpingPower = 12;
 					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
 					gameObject.GetComponent<Rigidbody2D>().mass = 1.5f;
-					break;
+                    controllerMovement.extraJumpValues = 1;
+                    break;
 			}
 		}
         
