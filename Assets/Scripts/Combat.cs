@@ -25,7 +25,7 @@ public class Combat : MonoBehaviour
 	private float attackActiveTime = 0.1f;
 	private bool attackActive = false;
 
-	private float knockback = 10f;
+	private float knockback = 6f;
 	private float knockbackMultiplier;
 	private float knockbackTime = 0.5f;
 
@@ -64,7 +64,8 @@ public class Combat : MonoBehaviour
 	[SerializeField] private ParticleSystem debuffParticles;
 
 
-	void Start()
+
+    void Start()
     {
 		health = maxHealth;
 		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
@@ -380,6 +381,7 @@ public class Combat : MonoBehaviour
 		//Debug.Log("Life Lost");
 		if (lives <= 0)
 		{
+			GetComponent<RPS_Switching>().gameManager.GetComponent<Manager>().EndGame(GetComponent<RPS_Switching>().player);
 			gameObject.SetActive(false);
 		}
 		else {
