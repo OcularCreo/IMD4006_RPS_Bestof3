@@ -114,7 +114,7 @@ public class Manager : MonoBehaviour
     {
         if (state == GameState.menu)
         {
-            if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 0))
+            if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 1))
             {
                 state = GameState.RPS;
                 shownGraphic = false;
