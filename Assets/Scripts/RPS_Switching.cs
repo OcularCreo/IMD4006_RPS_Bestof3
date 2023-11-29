@@ -162,7 +162,7 @@ public class RPS_Switching : MonoBehaviour
         {
             
             //turn off the previously active character
-            //toggleCharacter(false, character);
+            toggleCharacter(false, character);
 
             //turn on the new character
             toggleCharacter(true, selectionCharacter);
@@ -313,6 +313,7 @@ public class RPS_Switching : MonoBehaviour
         if (gameManager.state == GameState.RPS && switchButton != "none")
         {
             //change sprite back to off
+            swapSprites(true, character);
             changeCharacter();
         }
     }
