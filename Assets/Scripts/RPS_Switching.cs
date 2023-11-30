@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +22,6 @@ public enum Player
     P1, 
     P2
 }
-
 
 public class RPS_Switching : MonoBehaviour
 {
@@ -46,6 +46,7 @@ public class RPS_Switching : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         switchButton = "none";
         
         //defaulting players to rock character
@@ -165,7 +166,7 @@ public class RPS_Switching : MonoBehaviour
 
             //turn on the new character
             toggleCharacter(true, selectionCharacter);
-            
+
             //set the character of the player to the new character
             character = selectionCharacter;
 
@@ -178,6 +179,35 @@ public class RPS_Switching : MonoBehaviour
     //function used to either turn a character on or off
     private void toggleCharacter(bool active, Character activeChar)
     {
+        //change the character stats only looking at the character 
+        switch (activeChar)
+        {
+            case Character.rock:
+                controllerMovement.acceleration = 5;
+                controllerMovement.decceleration = 13;
+                controllerMovement.jumpingPower = 15;
+                gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
+                gameObject.GetComponent<Rigidbody2D>().mass = 2;
+                controllerMovement.extraJumpValues = 1;
+                break;
+            case Character.paper:
+                controllerMovement.acceleration = 3;
+                controllerMovement.decceleration = 3;
+                controllerMovement.jumpingPower = 8;
+                controllerMovement.extraJumpValues = 2;
+                gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
+                gameObject.GetComponent<Rigidbody2D>().mass = 1;
+                break;
+            case Character.scissors:
+                controllerMovement.acceleration = 13;
+                controllerMovement.decceleration = 7;
+                controllerMovement.jumpingPower = 12;
+                gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
+                gameObject.GetComponent<Rigidbody2D>().mass = 1.5f;
+                controllerMovement.extraJumpValues = 1;
+                break;
+        }
+
         //find the character type and activate or deactiveate it depending on function parameter inputs
         if (player == Player.P1)
         {
@@ -185,30 +215,12 @@ public class RPS_Switching : MonoBehaviour
             {
                 case Character.rock:
                     GetComponent<PlayerGFX>().rockIdle.SetActive(active);
-					controllerMovement.acceleration = 5;
-                    controllerMovement.decceleration = 13;
-					controllerMovement.jumpingPower = 15;
-					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
-					gameObject.GetComponent<Rigidbody2D>().mass = 2;
-                    controllerMovement.extraJumpValues = 1;
                     break;
                 case Character.paper:
 					GetComponent<PlayerGFX>().paperIdle.SetActive(active);
-					controllerMovement.acceleration = 3;
-					controllerMovement.decceleration = 3;
-					controllerMovement.jumpingPower = 8;
-                    controllerMovement.extraJumpValues = 2;
-					gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
-					gameObject.GetComponent<Rigidbody2D>().mass = 1;
 					break;
                 case Character.scissors:
-					GetComponent<PlayerGFX>().scissorsIdle.SetActive(active);
-					controllerMovement.acceleration = 13;
-					controllerMovement.decceleration = 7;
-					controllerMovement.jumpingPower = 12;
-					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
-					gameObject.GetComponent<Rigidbody2D>().mass = 1.5f;
-                    controllerMovement.extraJumpValues = 1;
+                    GetComponent<PlayerGFX>().scissorsIdle.SetActive(active);
                     break;
             }
         }
@@ -217,39 +229,65 @@ public class RPS_Switching : MonoBehaviour
 			{
 				case Character.rock:
 					GetComponent<PlayerGFX>().rockIdle2.SetActive(active);
-					controllerMovement.acceleration = 5;
-					controllerMovement.decceleration = 13;
-					controllerMovement.jumpingPower = 15;
-					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
-					gameObject.GetComponent<Rigidbody2D>().mass = 2;
-                    controllerMovement.extraJumpValues = 1;
                     break;
 				case Character.paper:
 					GetComponent<PlayerGFX>().paperIdle2.SetActive(active);
-					controllerMovement.acceleration = 3;
-					controllerMovement.decceleration = 3;
-					controllerMovement.jumpingPower = 8;
-                    controllerMovement.extraJumpValues = 2;
-                    gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
-					gameObject.GetComponent<Rigidbody2D>().mass = 1;
 					break;
 				case Character.scissors:
 					GetComponent<PlayerGFX>().scissorsIdle2.SetActive(active);
-					controllerMovement.acceleration = 13;
-					controllerMovement.decceleration = 7;
-					controllerMovement.jumpingPower = 12;
-					gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
-					gameObject.GetComponent<Rigidbody2D>().mass = 1.5f;
-                    controllerMovement.extraJumpValues = 1;
                     break;
 			}
 		}
         
     }
 
+    private void swapSprites(bool idle, Character charType)
+    {
+        //change sprites depending on who the player is
+        if (player == Player.P1)
+        {
+            switch (charType)
+            {
+                case Character.rock:
+                    GetComponent<PlayerGFX>().rockIdle.SetActive(idle);
+                    GetComponent<PlayerGFX>().rockChange.SetActive(!idle);
+                    break;
+                case Character.paper:
+                    GetComponent<PlayerGFX>().paperIdle.SetActive(idle);
+                    GetComponent<PlayerGFX>().paperChange.SetActive(!idle);
+                    break;
+                case Character.scissors:
+                    GetComponent<PlayerGFX>().scissorsIdle.SetActive(idle);
+                    GetComponent<PlayerGFX>().scissorsChange.SetActive(!idle);
+                    break;
+            }
+        }
+        else
+        {
+            switch (charType)
+            {
+                case Character.rock:
+                    GetComponent<PlayerGFX>().rockIdle2.SetActive(idle);
+                    GetComponent<PlayerGFX>().rockChange2.SetActive(!idle);
+                    break;
+                case Character.paper:
+                    GetComponent<PlayerGFX>().paperIdle2.SetActive(idle);
+                    GetComponent<PlayerGFX>().paperChange2.SetActive(!idle);
+                    break;
+                case Character.scissors:
+                    GetComponent<PlayerGFX>().scissorsIdle2.SetActive(idle);
+                    GetComponent<PlayerGFX>().scissorsChange2.SetActive(!idle);
+                    break;
+            }
+        }
+    }
+
     // plays an animation of the character doing 3 jumps + slams, then calls changeCharacter() function
     private IEnumerator changeCharacterAnimation(int rpsCntrlKey)
     {
+        //turn off the idle sprite and then turn on the changning sprite
+        swapSprites(false, character);
+
         for (int i = 0; i < 3; i++)
         {
             // play animation only if the game is still RPS state and the player is still holding down the key
@@ -264,11 +302,18 @@ public class RPS_Switching : MonoBehaviour
                 yield return new WaitForSeconds(0.3f);
 
 
+            } else
+            {
+               //if switching is stoped go back to the idle sprite
+               swapSprites(true, character);
             }
         }
+
         // change character if game is still in RPS state and if the player is still holding down the key
         if (gameManager.state == GameState.RPS && switchButton != "none")
         {
+            //change sprite back to off
+            swapSprites(true, character);
             changeCharacter();
         }
     }

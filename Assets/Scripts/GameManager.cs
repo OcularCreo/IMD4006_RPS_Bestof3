@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 //different states the game can be in
 public enum GameState
@@ -52,6 +53,9 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject rpsGraphic;
     private bool shownGraphic;
 
+    [SerializeField] private GameObject victoryGraphic1;
+    [SerializeField] private GameObject victoryGraphic2;
+
 
     //funciton used to handle different game states
     /*public void updateGameState(GameState newState)
@@ -81,7 +85,7 @@ public class Manager : MonoBehaviour
         state = GameState.menu;
 
         //begining values for timers
-        battleTime = 15f;
+        battleTime = 25f;
         RPS_time = 10f;
 
         //UI timer variable
@@ -264,5 +268,25 @@ public class Manager : MonoBehaviour
 
     }
 
+
+    public void EndGame (Player playerNum)
+    {
+        StartCoroutine(EndgameDelay(playerNum));
+    }
+
+    private  IEnumerator EndgameDelay(Player playerNum)
+    {
+        //inputPlayerManager.GetComponent<PlayerInputManager>().joiningEnabled = false;
+        if (playerNum == Player.P1)
+        {
+            victoryGraphic1.SetActive(true);
+        }
+        else
+        {
+            victoryGraphic2.SetActive(true);
+        }
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("BetaScene");
+    }
 }
 
