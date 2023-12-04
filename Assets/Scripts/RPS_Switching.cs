@@ -134,7 +134,7 @@ public class RPS_Switching : MonoBehaviour
         {
             switchButton = context.control.name;
             
-            UnityEngine.Debug.Log(switchButton);
+            //UnityEngine.Debug.Log(switchButton);
             /*switch (context.control.name)
             {
                 case "buttonWest":

@@ -84,7 +84,7 @@ public class Combat : MonoBehaviour
 		
 	}
 
-    void Update()
+    void FixedUpdate()
     {
 		//Debug.Log("combat scsript: "+ health);
 		if (GetComponent<RPS_Switching>().gameManager.state != GameState.RPS){ 
@@ -96,14 +96,14 @@ public class Combat : MonoBehaviour
 			// Hitting -> Is the animation playing
 			// canHit -> Is the enemy in the hitbox
 			// attackActive -> Within attack time frame
-			if (hitting && canHit && attackActive) {
+			/*if (hitting && canHit && attackActive) {
 				//Figure out how to hit enemy
 				// alreadyHit -> prevents being hit multiple times by 1 attack
 				if (!alreadyHit) {
 					HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
 					alreadyHit = true;
 				}
-			}
+			}*/
 
 
 
@@ -163,8 +163,19 @@ public class Combat : MonoBehaviour
 		{
 			if (!hitting && GetComponent<RPS_Switching>().gameManager.state != GameState.RPS)
 			{
-				StartCoroutine(StartCooldown());
-			}
+				StartCoroutine(AttackAnimation());
+
+                if (hitting && canHit && attackActive)
+                {
+                    //Figure out how to hit enemy
+                    // alreadyHit -> prevents being hit multiple times by 1 attack
+                    if (!alreadyHit)
+                    {
+                        alreadyHit = true;
+                        HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
+                    }
+                }
+            }
 		}
 
 	}
@@ -190,7 +201,7 @@ public class Combat : MonoBehaviour
 	}*/
 
 	// Animation for the attack
-	private IEnumerator StartCooldown()
+	private IEnumerator AttackAnimation()
 	{
 		hitting = true;
 		attackActive = true;
@@ -217,7 +228,7 @@ public class Combat : MonoBehaviour
 			}
 
 			yield return new WaitForSeconds(attackActiveTime);
-			attackActive = false; ;
+			attackActive = false;
 
 			yield return new WaitForSeconds(attackSpeed);
 
@@ -238,7 +249,10 @@ public class Combat : MonoBehaviour
 				GetComponent<PlayerGFX>().paperAttack.SetActive(false);
 				GetComponent<PlayerGFX>().paperIdle.SetActive(true);
 			}
-		}
+
+            hitting = false;
+            alreadyHit = false;
+        }
 
 		if (GetComponent<RPS_Switching>().player == Player.P2)
 		{
@@ -261,7 +275,7 @@ public class Combat : MonoBehaviour
 			}
 
 			yield return new WaitForSeconds(attackActiveTime);
-			attackActive = false; ;
+			attackActive = false;
 
 			yield return new WaitForSeconds(attackSpeed);
 
@@ -282,10 +296,12 @@ public class Combat : MonoBehaviour
 				GetComponent<PlayerGFX>().paperAttack2.SetActive(false);
 				GetComponent<PlayerGFX>().paperIdle2.SetActive(true);
 			}
-		}
 
-		hitting = false;
-		alreadyHit = false;
+            hitting = false;
+            alreadyHit = false;
+        }
+
+		
 	}
 
 	private void HitEnemy(Character thisPlayer, Character enemyPlayer)
@@ -463,11 +479,19 @@ public class Combat : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
 	{
+
+
 		//Debug.Log("Check in");
 		if (collision.gameObject.GetComponent<Combat>() != null)
 		{
 			CanHitEnterRange();
-			enemy = collision.gameObject;
+
+            /*if (!canHit)
+            {
+                //Debug.Log("Entered Range");
+                canHit = true;
+            }*/
+            enemy = collision.gameObject;
 		}
 	}
 
