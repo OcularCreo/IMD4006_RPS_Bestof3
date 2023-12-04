@@ -53,7 +53,10 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject rpsGraphic;
     private bool shownGraphic;
 
-    [SerializeField] private GameObject victoryGraphic1;
+	[SerializeField] private GameObject timerFightGraphic;
+	[SerializeField] private GameObject timerRpsGraphic;
+
+	[SerializeField] private GameObject victoryGraphic1;
     [SerializeField] private GameObject victoryGraphic2;
 
 
@@ -162,6 +165,8 @@ public class Manager : MonoBehaviour
             // change label to 
             stateLabelUI.text = "RPS Time!";
 
+            //timerRpsGraphic.SetActive(true);
+
             // hide menu
             //GameObject.Find("Menu_P1_EmptyHealth").GetComponent<Renderer>().enabled = false;
 
@@ -183,12 +188,17 @@ public class Manager : MonoBehaviour
                 //player1.GetComponent<Combat>().WeaponEnable();
                 //player2.GetComponent<Combat>().WeaponEnable();
 
-                UnityEngine.Debug.Log("RPS over. Battle time!");
+                //UnityEngine.Debug.Log("RPS over. Battle time!");
 
                 // change label to 
                 stateLabelUI.text = "Battle Time!";
 
-            }
+                //Timer changes
+				timebar.setMaxTime(battleTime);
+                timerRpsGraphic.SetActive(false);
+				timerFightGraphic.SetActive(true);
+
+			}
         }
         //when in the battle state
         else if (state == GameState.battle)
@@ -214,24 +224,29 @@ public class Manager : MonoBehaviour
                 shownGraphic = false;
 
                 //reset timer
-                battleTime = 15f;
+                battleTime = 25f;
 
                 //remove weapons
                 //player1.GetComponent<Combat>().WeaponDisable();
                 //player2.GetComponent<Combat>().WeaponDisable();
 
-                UnityEngine.Debug.Log("battle over. Now for some RPS!");
+                //UnityEngine.Debug.Log("battle over. Now for some RPS!");
 
                 timebar.setTime(battleTime);
+                
+                //Timer Changes
+				timebar.setMaxTime(RPS_time);
+				timerRpsGraphic.SetActive(true);
+				timerFightGraphic.SetActive(false);
 
-            }
+			}
 
 
             // if a player has lost all their lives, then game over
             if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
             {
                 state = GameState.gameOver; // switch to game over state
-                Debug.Log("game over");
+                //Debug.Log("game over");
             }
             //Debug.Log("player 1 lives: " + player1.GetComponent<Combat>().lives);
             //Debug.Log("player 2 lives: " + player2.GetComponent<Combat>().lives);
@@ -261,7 +276,7 @@ public class Manager : MonoBehaviour
     {
         rpsGraphic.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         rpsGraphic.gameObject.SetActive(false);
         shownGraphic = true;

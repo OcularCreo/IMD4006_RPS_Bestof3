@@ -146,7 +146,7 @@ public class Controller_Movement : MonoBehaviour
         //when the player is holding the slam button
         if (slamming)
         {
-            Debug.Log("slamming now");
+            //Debug.Log("slamming now");
             rb.AddForce(Vector2.down * slamPower); //keep applying the downward force times the slamming power
 
             //when the player finally reaches the ground
