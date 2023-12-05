@@ -166,7 +166,7 @@ public class Manager : MonoBehaviour
             //GameObject.Find("Menu_P1_EmptyHealth").GetComponent<Renderer>().enabled = false;
 
             //when the time runs out
-            if (RPS_time < 0)
+            if (RPS_time < 0 || Input.GetKeyDown("p")) // press p to change state (for dev)
             {
 				hp1.SetActive(true);
 				hp2.SetActive(true);
@@ -207,7 +207,7 @@ public class Manager : MonoBehaviour
             //NEW TIME BAR
             timebar.setTime(battleTime);
 
-            if (battleTime < 0)
+            if (battleTime < 0 || Input.GetKeyDown("p")) // press p to change state (for dev)
             {
                 //change to the 
                 state = GameState.RPS;
