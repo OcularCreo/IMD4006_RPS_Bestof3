@@ -387,7 +387,8 @@ public class RPS_Switching : MonoBehaviour
     // restrict left/right movement when the animation is playing
     // right now the animation plays after the button is released--needs to be when it's held down
     // sometimes it seems to get stuck in the switching sprite and then it won't switch characters anymore
-    // (possibly after one of the switching buttons is held down for a bit)
+    // (possibly after one of the switching buttons is held down for a bit) - but also other times too
     // right now the animation & switching plays into the battle state
+    // if you're in the switching animation then press another button, it changes to that right away and then things stop working
 
 }
