@@ -135,27 +135,20 @@ public class RPS_Switching : MonoBehaviour
 
     }
 
+    //function called via player controller input (type of component attached to the player game object)
     public void onSwitching(InputAction.CallbackContext context)
     {
+        //on button up (player no longer holding button)
         if (context.canceled)
         {
             switchButton = "none";
         }
 
+        //on button down (player has pressed the button)
         if (context.action.triggered)
         {
             switchButton = context.control.name;
-            
-            UnityEngine.Debug.Log(switchButton);
-            /*switch (context.control.name)
-            {
-                case "buttonWest":
-                    break;
-                case "buttonNorth":
-                    break;
-                case "buttonEast":
-                    break;
-            }*/
+
         }
     }
 
