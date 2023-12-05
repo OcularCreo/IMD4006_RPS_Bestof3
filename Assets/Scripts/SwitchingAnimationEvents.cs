@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class SwitchingAnimationEvents : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class SwitchingAnimationEvents : MonoBehaviour
     // animation event for the end of the animation
     private void changeCharacterAnimationEnd()
     {
+        rpsSwitching.swapSprites(true, rpsSwitching.character); // go back to the idle sprite
         rpsSwitching.changeCharacter(); // change character in rps switching
         rpsSwitching.swapSprites(true, rpsSwitching.character); //change sprite to new character and idle
         rpsSwitching.animator.SetBool("Switching", false); // stop the switching animation
