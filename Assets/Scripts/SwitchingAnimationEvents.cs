@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class SwitchingAnimationEvents : MonoBehaviour
 {
     [SerializeField] private RPS_Switching rpsSwitching;
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("RPS CHARACTER: " + rpsSwitching.character);
+        
     }
 
     // Update is called once per frame
@@ -21,10 +23,9 @@ public class SwitchingAnimationEvents : MonoBehaviour
     // animation event for the end of the animation
     private void changeCharacterAnimationEnd()
     {
-        
-        rpsSwitching.changeCharacter();
+        rpsSwitching.changeCharacter(); // change character in rps switching
         rpsSwitching.swapSprites(true, rpsSwitching.character); //change sprite to new character and idle
-        rpsSwitching.animator.SetBool("Switching", false);
+        rpsSwitching.animator.SetBool("Switching", false); // stop the switching animation
         //Debug.Log("CHANGED");
     }
 }

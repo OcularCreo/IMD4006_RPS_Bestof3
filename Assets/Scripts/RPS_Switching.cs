@@ -99,7 +99,7 @@ public class RPS_Switching : MonoBehaviour
 
                 // start animation
                 //StartCoroutine(changeCharacterAnimation(0));
-                changeCharacterAnimation(0);
+                changeCharacterAnimation();
             }
             else if (switchButton == "buttonNorth")
             {
@@ -107,7 +107,7 @@ public class RPS_Switching : MonoBehaviour
 
                 // start animation
                 //StartCoroutine(changeCharacterAnimation(1));
-                changeCharacterAnimation(1);
+                changeCharacterAnimation();
             }
             else if (switchButton == "buttonEast")
             {
@@ -115,7 +115,7 @@ public class RPS_Switching : MonoBehaviour
 
                 // start animation
                 //StartCoroutine(changeCharacterAnimation(2));
-                changeCharacterAnimation(2);
+                changeCharacterAnimation();
             }
             else if (switchButton == "none")
             {
@@ -327,31 +327,29 @@ public class RPS_Switching : MonoBehaviour
 
 
     //new animation function using unity animation
-    private void changeCharacterAnimation(int rpsCntrlKey)
+    private void changeCharacterAnimation()
     {
-
-        
-        animator.SetBool("Switching", true);
-        animator.StartPlayback();
 
         // change character if game is still in RPS state and if the player is still holding down the key
         if (gameManager.state == GameState.RPS && switchButton != "none")
         {
-            //turn off the idle sprite and then turn on the changning sprite
+            //turn off the idle sprite and then turn on the changing sprite
             swapSprites(false, character);
+            // play switching animation
+            animator.SetBool("Switching", true);
+            //animator.StartPlayback();
         }
         else
         {
-            //if switching is stopped go back to the idle sprite
-            swapSprites(true, character);
-            animator.SetBool("Switching", false);
+            //if switching is stopped go back to the idle sprite and stop switching animation
+            stopAnimation();
         }
     }
 
 
     private void stopAnimation()
     {
-        animator.StopPlayback(); //stop playing the animation
+        animator.SetBool("Switching", false); //animator.StopPlayback(); //stop playing the animation
         swapSprites(true, character); // go back to the idle sprite
     }
     
