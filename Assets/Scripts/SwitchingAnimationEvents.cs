@@ -8,7 +8,7 @@ public class SwitchingAnimationEvents : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("RPS CHARACTER: " + rpsSwitching.character);
+
     }
 
     // Update is called once per frame
