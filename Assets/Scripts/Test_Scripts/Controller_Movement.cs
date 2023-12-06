@@ -16,7 +16,7 @@ public class Controller_Movement : MonoBehaviour
 
     //***** GENERAL MOVEMENT VARIABLES *****
     [Header("Movement Variables")]
-    [SerializeField] private float horizontal;           //variable used for horizontal (left and right) movement
+    public float horizontal;           //variable used for horizontal (left and right) movement
     [SerializeField] private float speed = 10f;          //variable used to determine speed of player
     public float acceleration = 7f;    //sets acceleration of the player
     public float decceleration = 7f;   //sets the deceleration of the player
