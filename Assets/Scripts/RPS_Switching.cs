@@ -119,8 +119,12 @@ public class RPS_Switching : MonoBehaviour
             }
             else if (switchButton == "none")
             {
-                // if no buttons are pressed at the moment, don't play the animation & use idle sprite
-                stopAnimation();
+                // if no buttons are pressed at the moment and the changing sprite is being used
+                if (GetComponent<PlayerGFX>().rockChange.activeSelf || GetComponent<PlayerGFX>().paperChange.activeSelf || GetComponent<PlayerGFX>().scissorsChange.activeSelf)
+                {
+                    // don't play the animation & use idle sprite
+                    stopAnimation();
+                }
             }
 
         } 
@@ -376,10 +380,5 @@ public class RPS_Switching : MonoBehaviour
 
     // notes:
     // restrict left/right movement when the animation is playing
-    // right now the animation plays after the button is released--needs to be when it's held down
-    // sometimes it seems to get stuck in the switching sprite and then it won't switch characters anymore
-    // (possibly after one of the switching buttons is held down for a bit) - but also other times too
-    // right now the animation & switching plays into the battle state
-    // if you're in the switching animation then press another button, it changes to that right away and then things stop working
 
 }
