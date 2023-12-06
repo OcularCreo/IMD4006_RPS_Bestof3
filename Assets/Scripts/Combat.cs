@@ -33,7 +33,7 @@ public class Combat : MonoBehaviour
 	private float debuffTime = 3.0f;
 
 	//[SerializeField] private GameObject weapon;
-	[SerializeField] public GameObject respawnPointsObject;
+	//[SerializeField] public GameObject respawnPointsObject;
 	private Transform[] respawnPoints;
 
 	private bool canHit = false;
@@ -68,7 +68,7 @@ public class Combat : MonoBehaviour
     void Start()
     {
 		health = maxHealth;
-		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
+		//respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
 		//healthUI.text = health.ToString();
 		//livesUI.text = lives.ToString();
 
@@ -411,6 +411,9 @@ public class Combat : MonoBehaviour
 
 	public void Respawn()
 	{
+		if (respawnPoints == null) {
+            setRespawnPoints(GameObject.FindGameObjectWithTag("RespawnPoints"));
+        }
 		//Debug.Log("Respawn");
 		health = maxHealth;
 		//healthUI.text = health.ToString();
@@ -563,12 +566,12 @@ public class Combat : MonoBehaviour
 
 	// private void healtBar(){
 
-    //         if(opponentHealth >20 && opponentHealth < 100){
-    //         healthBarNum = health_bar.GetComponent<Transform>().localScale.x - (1-(opponentHealth/100f));
-    //         healthBarLocalPosition =  (health/100f);
-    //         health_bar.GetComponent<Transform>().localScale = new Vector2(healthBarNum,health_bar.GetComponent<Transform>().localScale.y);
-    //         health_bar.GetComponent<Transform>().position = new Vector2(GetComponent<Transform>().position.x - healthBarLocalPosition,health_bar.GetComponent<Transform>().position.y);
-    //         //Debug.Log(gameObject.name + "is hit" + opponentHealth);
+	//         if(opponentHealth >20 && opponentHealth < 100){
+	//         healthBarNum = health_bar.GetComponent<Transform>().localScale.x - (1-(opponentHealth/100f));
+	//         healthBarLocalPosition =  (health/100f);
+	//         health_bar.GetComponent<Transform>().localScale = new Vector2(healthBarNum,health_bar.GetComponent<Transform>().localScale.y);
+	//         health_bar.GetComponent<Transform>().position = new Vector2(GetComponent<Transform>().position.x - healthBarLocalPosition,health_bar.GetComponent<Transform>().position.y);
+	//         //Debug.Log(gameObject.name + "is hit" + opponentHealth);
 	// 		}
 	// 		else if(opponentHealth < 20){
 	// 		health_bar.GetComponent<Transform>().localScale = new Vector2(0,health_bar.GetComponent<Transform>().localScale.y);
@@ -576,6 +579,10 @@ public class Combat : MonoBehaviour
 	// 		else if(opponentHealth == 100){
 	// 		health_bar.GetComponent<Transform>().localScale = new Vector2(3f,health_bar.GetComponent<Transform>().localScale.y);
 	// 		}
-        
+
 	// }
+
+	public void setRespawnPoints(GameObject respawnPointsObject) {
+        respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
+    }
 }
