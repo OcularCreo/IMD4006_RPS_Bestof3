@@ -158,8 +158,9 @@ public class Manager : MonoBehaviour
                     players[i].GetComponent<Combat>().setRespawnPoints(GameObject.FindGameObjectWithTag("RespawnPoints"));
                 }*/
 
-                source.PlayOneShot(sound.sound_background_menu);
+                
             }
+            source.PlayOneShot(sound.sound_background_menu);
         }
         
         if (state == GameState.RPS)
