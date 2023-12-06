@@ -31,8 +31,6 @@ public class Manager : MonoBehaviour
 
     [SerializeField] public GameObject time;
 
-    public bool stopSwitchingAnimation; // boolean to stop the switching animation when rps state ends
-
     //NEW TIME
     public TimeBar timebar;
 
@@ -124,7 +122,6 @@ public class Manager : MonoBehaviour
 
         //player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
 
-        stopSwitchingAnimation = false;
 	}
 
     // Update is called once per frame
@@ -201,9 +198,6 @@ public class Manager : MonoBehaviour
 				timebar.setMaxTime(battleTime);
                 timerRpsGraphic.SetActive(false);
 				timerFightGraphic.SetActive(true);
-
-                // stop switching animation
-                stopSwitchingAnimation = true;
 
 			}
         }

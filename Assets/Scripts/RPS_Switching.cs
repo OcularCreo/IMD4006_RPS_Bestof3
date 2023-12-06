@@ -39,9 +39,11 @@ public class RPS_Switching : MonoBehaviour
     public GameObject rock, paper, scissors;    //variable to take in the different character objects/types
 
     private bool playerOnPlatform;              //boolean to check if the player is on a platform
+    private bool playerStationary;
     private string switchButton;
 
     public Animator animator;
+    private bool stoppedAnim;
 
     //[SerializeField] private GameObject controlLayout;
 
@@ -79,6 +81,8 @@ public class RPS_Switching : MonoBehaviour
 
             
         }
+
+        stoppedAnim = true;
     }
 
     // Update is called once per frame
@@ -86,10 +90,20 @@ public class RPS_Switching : MonoBehaviour
     {
         // check if player is on platform
         playerOnPlatform = gameObject.GetComponent<Controller_Movement>().isGrounded();
+        // check if player is moving controller stick
+        if(Mathf.Abs(gameObject.GetComponent<Controller_Movement>().horizontal) > 0.1)
+        {
+            playerStationary = false;
+            Debug.Log("player moving");
+        }
+        else 
+        {
+            playerStationary = true;
+            Debug.Log("player NOT moving");
+        }
+        
 
-        //checking the game manager's state
-        //when in RPS mode and player has not started to do a change slam, allow the player to change their character
-        //if(gameManager.state == GameState.RPS && GetComponent<Movement>().changeSlamNum < 1)
+        //when in RPS mode and player is on platform and player not moving L/R, allow the player to change their character
         if (gameManager.state == GameState.RPS && playerOnPlatform)
         {
             //controlLayout.SetActive(true);
@@ -138,16 +152,20 @@ public class RPS_Switching : MonoBehaviour
 
         } 
         //need to reset toggle bool once out of the switching characters state
-        else
+        else if (gameManager.state != GameState.RPS && !stoppedAnim)
         {
             applyedChange = false;
+
+            stopAnimation();
+            stoppedAnim = true;
+
             //controlLayout.SetActive(false);
             // once RPS state ends, stop animation & use idle sprite when not in switching state
-            if (gameManager.stopSwitchingAnimation)
-            {
-                stopAnimation();
-                gameManager.stopSwitchingAnimation = false;
-            }
+            //if (gameManager.stopSwitchingAnimation)
+            //{
+                //stopAnimation();
+                //gameManager.stopSwitchingAnimation = false;
+            //}
         }
 
     }
@@ -347,9 +365,9 @@ public class RPS_Switching : MonoBehaviour
     //new animation function using unity animation
     private void changeCharacterAnimation()
     {
-
+        stoppedAnim = false;
         // change character if game is still in RPS state and if the player is still holding down the key
-        if (gameManager.state == GameState.RPS && switchButton != "none")
+        if (gameManager.state == GameState.RPS && switchButton != "none" && playerStationary)
         {
             //turn off the idle sprite and then turn on the changing sprite
             swapSprites(false, character);
@@ -394,7 +412,5 @@ public class RPS_Switching : MonoBehaviour
 
     //}
 
-    // notes:
-    // restrict left/right movement when the animation is playing
 
 }
