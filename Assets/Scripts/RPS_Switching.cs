@@ -84,6 +84,8 @@ public class RPS_Switching : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // check if player is on platform
+        playerOnPlatform = gameObject.GetComponent<Controller_Movement>().isGrounded();
 
         //checking the game manager's state
         //when in RPS mode and player has not started to do a change slam, allow the player to change their character
@@ -371,26 +373,26 @@ public class RPS_Switching : MonoBehaviour
     
 
     // check if the player has collided with the platform
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        // if collided, set variable to true
-        if (collision.gameObject.tag == "Platform")
-        {
-            playerOnPlatform = true;
-            //Debug.Log(player + " ON PLATFORM");
-        }
-    }
+    //public void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    // if collided, set variable to true
+    //    if (collision.gameObject.tag == "Platform")
+    //    {
+    //        playerOnPlatform = true;
+    //        //Debug.Log(player + " ON PLATFORM");
+    //    }
+    //}
 
-    public void OnCollisionExit2D(Collision2D collision)
-    {
-        // if end of collision, set variable to false
-        if (collision.gameObject.tag == "Platform")
-        {
-            playerOnPlatform = false;
-            //Debug.Log(player + " NOT ON PLATFORM");
-        }
+    //public void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    // if end of collision, set variable to false
+    //    if (collision.gameObject.tag == "Platform")
+    //    {
+    //        playerOnPlatform = false;
+    //        //Debug.Log(player + " NOT ON PLATFORM");
+    //    }
 
-    }
+    //}
 
     // notes:
     // restrict left/right movement when the animation is playing
