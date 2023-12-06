@@ -39,7 +39,7 @@ public class MenuSpawn : MonoBehaviour
 			playerInput.GetComponent<RPS_Switching>().player = Player.P2;
 			playerInput.GetComponent<RPS_Switching>().gameManager = gameManagerObject;
 			playerInput.GetComponent<Combat>().healthBar_thisCharacter = hpP2;
-			playerInput.GetComponent<Combat>().respawnPointsObject = respawnPoints;
+			//playerInput.GetComponent<Combat>().respawnPointsObject = respawnPoints;
 
             p2Join.SetActive(false);
 			yStart.SetActive(true);
@@ -50,7 +50,7 @@ public class MenuSpawn : MonoBehaviour
 			playerInput.GetComponent<RPS_Switching>().player = Player.P1;
 			playerInput.GetComponent<RPS_Switching>().gameManager = gameManagerObject;
 			playerInput.GetComponent<Combat>().healthBar_thisCharacter = hpP1;
-			playerInput.GetComponent<Combat>().respawnPointsObject = respawnPoints;
+			//playerInput.GetComponent<Combat>().respawnPointsObject = respawnPoints;
 
 			p1Join.SetActive(false);
 		}

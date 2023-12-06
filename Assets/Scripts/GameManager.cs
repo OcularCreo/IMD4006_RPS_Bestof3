@@ -139,6 +139,16 @@ public class Manager : MonoBehaviour
 
                 menuBackground.SetActive(false);
                 canvas.SetActive(true);
+
+                //Load scene
+                SceneManager.LoadScene("DinoScene", LoadSceneMode.Additive);
+
+                //Set RespawnPoints
+                /*GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                for (int i = 0; i <= players.Length-1; i++) {
+                    Debug.Log(players[i].GetComponent<RPS_Switching>().player);
+                    players[i].GetComponent<Combat>().setRespawnPoints(GameObject.FindGameObjectWithTag("RespawnPoints"));
+                }*/
             }
         }
         
@@ -244,11 +254,12 @@ public class Manager : MonoBehaviour
 
 
             // if a player has lost all their lives, then game over
-            if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
-            {
-                state = GameState.gameOver; // switch to game over state
+            //if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
+            //if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
+            //{
+                //state = GameState.gameOver; // switch to game over state
                 //Debug.Log("game over");
-            }
+            //}
             //Debug.Log("player 1 lives: " + player1.GetComponent<Combat>().lives);
             //Debug.Log("player 2 lives: " + player2.GetComponent<Combat>().lives);
 
@@ -295,14 +306,14 @@ public class Manager : MonoBehaviour
         //inputPlayerManager.GetComponent<PlayerInputManager>().joiningEnabled = false;
         if (playerNum == Player.P1)
         {
-            victoryGraphic1.SetActive(true);
-        }
-        else
-        {
             victoryGraphic2.SetActive(true);
         }
+        else if (playerNum == Player.P2)
+        {
+            victoryGraphic1.SetActive(true);
+        }
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("BetaScene");
+        SceneManager.LoadScene("MenuScene");
     }
 }
 

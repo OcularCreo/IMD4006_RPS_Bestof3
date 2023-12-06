@@ -11,9 +11,9 @@ public class Health : MonoBehaviour
 
     int health;
     int lives;
-    float alertBlinkWaitTime; 
-    float alertBlinkstart;
-    float alertEvery; 
+    //float alertBlinkWaitTime; 
+    //float alertBlinkstart;
+    //float alertEvery; 
 
     // float healthBarNum;
     // float healthBarLocalPosition;
@@ -24,9 +24,9 @@ public class Health : MonoBehaviour
     void Start()
     {
        
-       alertBlinkWaitTime = 0.2f; //seconds
-       alertBlinkstart = 0f; //seconds
-       alertEvery = 0.4f; // seconds
+       //alertBlinkWaitTime = 0.2f; //seconds
+       //alertBlinkstart = 0f; //seconds
+       //alertEvery = 0.4f; // seconds
 
 
        

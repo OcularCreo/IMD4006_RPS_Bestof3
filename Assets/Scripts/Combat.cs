@@ -33,7 +33,7 @@ public class Combat : MonoBehaviour
 	private float debuffTime = 3.0f;
 
 	//[SerializeField] private GameObject weapon;
-	[SerializeField] public GameObject respawnPointsObject;
+	//[SerializeField] public GameObject respawnPointsObject;
 	private Transform[] respawnPoints;
 
 	private bool canHit = false;
@@ -68,7 +68,7 @@ public class Combat : MonoBehaviour
     void Start()
     {
 		health = maxHealth;
-		respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
+		//respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
 		//healthUI.text = health.ToString();
 		//livesUI.text = lives.ToString();
 
@@ -84,7 +84,7 @@ public class Combat : MonoBehaviour
 		
 	}
 
-    void Update()
+    void FixedUpdate()
     {
 		//Debug.Log("combat scsript: "+ health);
 		if (GetComponent<RPS_Switching>().gameManager.state != GameState.RPS){ 
@@ -96,14 +96,14 @@ public class Combat : MonoBehaviour
 			// Hitting -> Is the animation playing
 			// canHit -> Is the enemy in the hitbox
 			// attackActive -> Within attack time frame
-			if (hitting && canHit && attackActive) {
+			/*if (hitting && canHit && attackActive) {
 				//Figure out how to hit enemy
 				// alreadyHit -> prevents being hit multiple times by 1 attack
 				if (!alreadyHit) {
 					HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
 					alreadyHit = true;
 				}
-			}
+			}*/
 
 
 
@@ -163,8 +163,19 @@ public class Combat : MonoBehaviour
 		{
 			if (!hitting && GetComponent<RPS_Switching>().gameManager.state != GameState.RPS)
 			{
-				StartCoroutine(StartCooldown());
-			}
+				StartCoroutine(AttackAnimation());
+
+                if (hitting && canHit && attackActive)
+                {
+                    //Figure out how to hit enemy
+                    // alreadyHit -> prevents being hit multiple times by 1 attack
+                    if (!alreadyHit)
+                    {
+                        alreadyHit = true;
+                        HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
+                    }
+                }
+            }
 		}
 
 	}
@@ -190,7 +201,7 @@ public class Combat : MonoBehaviour
 	}*/
 
 	// Animation for the attack
-	private IEnumerator StartCooldown()
+	private IEnumerator AttackAnimation()
 	{
 		hitting = true;
 		attackActive = true;
@@ -217,7 +228,7 @@ public class Combat : MonoBehaviour
 			}
 
 			yield return new WaitForSeconds(attackActiveTime);
-			attackActive = false; ;
+			attackActive = false;
 
 			yield return new WaitForSeconds(attackSpeed);
 
@@ -238,7 +249,10 @@ public class Combat : MonoBehaviour
 				GetComponent<PlayerGFX>().paperAttack.SetActive(false);
 				GetComponent<PlayerGFX>().paperIdle.SetActive(true);
 			}
-		}
+
+            hitting = false;
+            alreadyHit = false;
+        }
 
 		if (GetComponent<RPS_Switching>().player == Player.P2)
 		{
@@ -261,7 +275,7 @@ public class Combat : MonoBehaviour
 			}
 
 			yield return new WaitForSeconds(attackActiveTime);
-			attackActive = false; ;
+			attackActive = false;
 
 			yield return new WaitForSeconds(attackSpeed);
 
@@ -282,10 +296,12 @@ public class Combat : MonoBehaviour
 				GetComponent<PlayerGFX>().paperAttack2.SetActive(false);
 				GetComponent<PlayerGFX>().paperIdle2.SetActive(true);
 			}
-		}
 
-		hitting = false;
-		alreadyHit = false;
+            hitting = false;
+            alreadyHit = false;
+        }
+
+		
 	}
 
 	private void HitEnemy(Character thisPlayer, Character enemyPlayer)
@@ -395,6 +411,9 @@ public class Combat : MonoBehaviour
 
 	public void Respawn()
 	{
+		if (respawnPoints == null) {
+            setRespawnPoints(GameObject.FindGameObjectWithTag("RespawnPoints"));
+        }
 		//Debug.Log("Respawn");
 		health = maxHealth;
 		//healthUI.text = health.ToString();
@@ -463,11 +482,19 @@ public class Combat : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
 	{
+
+
 		//Debug.Log("Check in");
 		if (collision.gameObject.GetComponent<Combat>() != null)
 		{
 			CanHitEnterRange();
-			enemy = collision.gameObject;
+
+            /*if (!canHit)
+            {
+                //Debug.Log("Entered Range");
+                canHit = true;
+            }*/
+            enemy = collision.gameObject;
 		}
 	}
 
@@ -539,12 +566,12 @@ public class Combat : MonoBehaviour
 
 	// private void healtBar(){
 
-    //         if(opponentHealth >20 && opponentHealth < 100){
-    //         healthBarNum = health_bar.GetComponent<Transform>().localScale.x - (1-(opponentHealth/100f));
-    //         healthBarLocalPosition =  (health/100f);
-    //         health_bar.GetComponent<Transform>().localScale = new Vector2(healthBarNum,health_bar.GetComponent<Transform>().localScale.y);
-    //         health_bar.GetComponent<Transform>().position = new Vector2(GetComponent<Transform>().position.x - healthBarLocalPosition,health_bar.GetComponent<Transform>().position.y);
-    //         //Debug.Log(gameObject.name + "is hit" + opponentHealth);
+	//         if(opponentHealth >20 && opponentHealth < 100){
+	//         healthBarNum = health_bar.GetComponent<Transform>().localScale.x - (1-(opponentHealth/100f));
+	//         healthBarLocalPosition =  (health/100f);
+	//         health_bar.GetComponent<Transform>().localScale = new Vector2(healthBarNum,health_bar.GetComponent<Transform>().localScale.y);
+	//         health_bar.GetComponent<Transform>().position = new Vector2(GetComponent<Transform>().position.x - healthBarLocalPosition,health_bar.GetComponent<Transform>().position.y);
+	//         //Debug.Log(gameObject.name + "is hit" + opponentHealth);
 	// 		}
 	// 		else if(opponentHealth < 20){
 	// 		health_bar.GetComponent<Transform>().localScale = new Vector2(0,health_bar.GetComponent<Transform>().localScale.y);
@@ -552,6 +579,10 @@ public class Combat : MonoBehaviour
 	// 		else if(opponentHealth == 100){
 	// 		health_bar.GetComponent<Transform>().localScale = new Vector2(3f,health_bar.GetComponent<Transform>().localScale.y);
 	// 		}
-        
+
 	// }
+
+	public void setRespawnPoints(GameObject respawnPointsObject) {
+        respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
+    }
 }
