@@ -29,7 +29,9 @@ public class Manager : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
 
-    public GameObject time;
+    [SerializeField] public GameObject time;
+
+    public bool stopSwitchingAnimation; // boolean to stop the switching animation when rps state ends
 
     //NEW TIME
     public TimeBar timebar;
@@ -120,7 +122,9 @@ public class Manager : MonoBehaviour
 		player2.transform.GetChild(4).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
 		player2.transform.GetChild(5).gameObject.GetComponent<SpriteRenderer>().color = p2Color;*/
 
-		//player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
+        //player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
+
+        stopSwitchingAnimation = false;
 	}
 
     // Update is called once per frame
@@ -171,7 +175,7 @@ public class Manager : MonoBehaviour
             //GameObject.Find("Menu_P1_EmptyHealth").GetComponent<Renderer>().enabled = false;
 
             //when the time runs out
-            if (RPS_time < 0)
+            if (RPS_time < 0 || Input.GetKeyDown("p")) // press p to change state (for dev)
             {
 				hp1.SetActive(true);
 				hp2.SetActive(true);
@@ -198,6 +202,9 @@ public class Manager : MonoBehaviour
                 timerRpsGraphic.SetActive(false);
 				timerFightGraphic.SetActive(true);
 
+                // stop switching animation
+                stopSwitchingAnimation = true;
+
 			}
         }
         //when in the battle state
@@ -217,7 +224,7 @@ public class Manager : MonoBehaviour
             //NEW TIME BAR
             timebar.setTime(battleTime);
 
-            if (battleTime < 0)
+            if (battleTime < 0 || Input.GetKeyDown("p")) // press p to change state (for dev)
             {
                 //change to the 
                 state = GameState.RPS;

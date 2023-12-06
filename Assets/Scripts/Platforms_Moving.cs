@@ -12,6 +12,8 @@ public class Platforms_Moving : MonoBehaviour
     {
         trexPlatform = GameObject.Find("trex");
         trexPlatform_mouthOpen = GameObject.Find("trex mouth open");
+        trexPlatform_mouthOpen.GetComponent<Renderer>().enabled = false;
+        // fix invisible box collider
     }
 
     // Update is called once per frame
@@ -35,6 +37,7 @@ public class Platforms_Moving : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         platform1.GetComponent<Renderer>().enabled = false;
+        platform1.transform.Rotate(0, 0, -(rotateDirection) * rotateAmount, Space.Self);
         platform2.GetComponent<Renderer>().enabled = true;
     }
 }

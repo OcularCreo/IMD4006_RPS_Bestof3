@@ -371,7 +371,7 @@ Transform:
   - {fileID: 6426280448628515493}
   - {fileID: 432480613094332802}
   - {fileID: 4317678569606658435}
-  m_Father: {fileID: 1192528527775886445}
+  m_Father: {fileID: 7999098566709630438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2504891485711578807
 GameObject:
@@ -576,7 +576,7 @@ Transform:
   - {fileID: 4127331567110838248}
   - {fileID: 6623160192047311356}
   - {fileID: 3392261511807855548}
-  m_Father: {fileID: 1192528527775886445}
+  m_Father: {fileID: 7999098566709630438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2676812432220172848
 GameObject:
@@ -697,7 +697,7 @@ Transform:
   - {fileID: 6872593854091987609}
   - {fileID: 3357233402965107088}
   - {fileID: 3433649614738383216}
-  m_Father: {fileID: 1192528527775886445}
+  m_Father: {fileID: 7999098566709630438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4052436982004716915
 GameObject:
@@ -1181,6 +1181,107 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5139053420865526289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7999098566709630438}
+  - component: {fileID: 2529676135959740994}
+  - component: {fileID: 1849425588852540116}
+  - component: {fileID: 4116527722683229660}
+  m_Layer: 0
+  m_Name: GFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7999098566709630438
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139053420865526289}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2346411777159218177}
+  - {fileID: 8090008543255318649}
+  - {fileID: 7088817410239127975}
+  m_Father: {fileID: 1192528527775886445}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2529676135959740994
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139053420865526289}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e9aa47977fc7af14ab4bb9626a139339, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1849425588852540116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139053420865526289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7032b29ec4bad42976cbc1d4b6fd47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rpsSwitching: {fileID: 8227625300661927342}
+--- !u!114 &4116527722683229660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139053420865526289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4769ed7498c8241a6883c9eeffa4e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockIdle: {fileID: 530276244565202676}
+  rockAttack: {fileID: 4472479017792926583}
+  rockChange: {fileID: 8673262405376285209}
+  scissorsIdle: {fileID: 8751152781445937276}
+  scissorsAttack: {fileID: 4775163086366208309}
+  scissorsChange: {fileID: 2506088616373108832}
+  paperIdle: {fileID: 4648373661884412186}
+  paperAttack: {fileID: 8742978811120544225}
+  paperChange: {fileID: 1760404037004230753}
+  rockIdle2: {fileID: 7028135621805163074}
+  rockAttack2: {fileID: 5539493433207918655}
+  rockChange2: {fileID: 4052436982004716915}
+  scissorsIdle2: {fileID: 2262850351525335690}
+  scissorsAttack2: {fileID: 2504891485711578807}
+  scissorsChange2: {fileID: 7052589401019494499}
+  paperIdle2: {fileID: 4836715495686554069}
+  paperAttack2: {fileID: 8770610981669913145}
+  paperChange2: {fileID: 2676812432220172848}
 --- !u!1 &5310070276530836521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,10 +1324,8 @@ Transform:
   m_Children:
   - {fileID: 4432165333589117818}
   - {fileID: 8886071070509252281}
-  - {fileID: 2346411777159218177}
-  - {fileID: 8090008543255318649}
-  - {fileID: 7088817410239127975}
   - {fileID: 4156464015417082900}
+  - {fileID: 7999098566709630438}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &843012776933033016
@@ -1404,7 +1503,7 @@ MonoBehaviour:
   rock: {fileID: 0}
   paper: {fileID: 0}
   scissors: {fileID: 0}
-  controlLayout: {fileID: 1178355606595694959}
+  animator: {fileID: 2529676135959740994}
 --- !u!114 &1800599435404332921
 MonoBehaviour:
   m_ObjectHideFlags: 0
