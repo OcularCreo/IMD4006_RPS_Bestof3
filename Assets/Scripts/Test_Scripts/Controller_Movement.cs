@@ -162,7 +162,7 @@ public class Controller_Movement : MonoBehaviour
     //function returns true if the gameObject attached to this script is grounded
     //using emptybody transform for groundcheck position
     //using Unity Layer Mask named ground for platforms
-    private bool isGrounded()
+    public bool isGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayer);
     }
