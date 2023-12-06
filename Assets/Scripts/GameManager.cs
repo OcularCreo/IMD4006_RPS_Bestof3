@@ -312,11 +312,11 @@ public class Manager : MonoBehaviour
         //inputPlayerManager.GetComponent<PlayerInputManager>().joiningEnabled = false;
         if (playerNum == Player.P1)
         {
-            victoryGraphic1.SetActive(true);
-        }
-        else
-        {
             victoryGraphic2.SetActive(true);
+        }
+        else if (playerNum == Player.P2)
+        {
+            victoryGraphic1.SetActive(true);
         }
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("MenuScene");
