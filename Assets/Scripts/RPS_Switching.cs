@@ -120,11 +120,18 @@ public class RPS_Switching : MonoBehaviour
             else if (switchButton == "none")
             {
                 // if no buttons are pressed at the moment and the changing sprite is being used
-                if (GetComponent<PlayerGFX>().rockChange.activeSelf || GetComponent<PlayerGFX>().paperChange.activeSelf || GetComponent<PlayerGFX>().scissorsChange.activeSelf)
-                {
-                    // don't play the animation & use idle sprite
-                    stopAnimation();
-                }
+                //if (gameObject.GetComponent<PlayerGFX>().rockChange.activeSelf || gameObject.GetComponent<PlayerGFX>().paperChange.activeSelf || gameObject.GetComponent<PlayerGFX>().scissorsChange.activeSelf)
+                //{
+                //    // don't play the animation & use idle sprite
+                //    stopAnimation();
+                //    Debug.Log(player + " STOP ANIMATION");
+                //}
+                //if(player == Player.P2)
+                //{
+                //    Debug.Log("P2 Booleans for changing sprites: ");
+                //    Debug.Log("Rock: " + gameObject.GetComponent<PlayerGFX>().rockChange.activeSelf + ", Paper: " + gameObject.GetComponent<PlayerGFX>().paperChange.activeSelf + ", Scissors: " + gameObject.GetComponent<PlayerGFX>().scissorsChange.activeSelf);
+                //}
+                
             }
 
         } 
@@ -133,8 +140,12 @@ public class RPS_Switching : MonoBehaviour
         {
             applyedChange = false;
             //controlLayout.SetActive(false);
-            // stop animation & use idle sprite when not in switching state
-            stopAnimation();
+            // once RPS state ends, stop animation & use idle sprite when not in switching state
+            if (gameManager.stopSwitchingAnimation)
+            {
+                stopAnimation();
+                gameManager.stopSwitchingAnimation = false;
+            }
         }
 
     }
@@ -146,6 +157,7 @@ public class RPS_Switching : MonoBehaviour
         if (context.canceled)
         {
             switchButton = "none";
+            stopAnimation();
         }
 
         //on button down (player has pressed the button)
@@ -351,7 +363,7 @@ public class RPS_Switching : MonoBehaviour
     }
 
 
-    private void stopAnimation()
+    public void stopAnimation()
     {
         animator.SetBool("Switching", false); //animator.StopPlayback(); //stop playing the animation
         swapSprites(true, character); // go back to the idle sprite
@@ -365,6 +377,7 @@ public class RPS_Switching : MonoBehaviour
         if (collision.gameObject.tag == "Platform")
         {
             playerOnPlatform = true;
+            //Debug.Log(player + " ON PLATFORM");
         }
     }
 
@@ -374,6 +387,7 @@ public class RPS_Switching : MonoBehaviour
         if (collision.gameObject.tag == "Platform")
         {
             playerOnPlatform = false;
+            //Debug.Log(player + " NOT ON PLATFORM");
         }
 
     }
