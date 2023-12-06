@@ -80,6 +80,9 @@ public class Manager : MonoBehaviour
 
     }*/
 
+    [SerializeField] public AudioSource source;
+    [SerializeField] public Sound sound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -125,6 +128,8 @@ public class Manager : MonoBehaviour
         //player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
 
         stopSwitchingAnimation = false;
+
+        source = GetComponent<AudioSource>();
 	}
 
     // Update is called once per frame
@@ -152,6 +157,8 @@ public class Manager : MonoBehaviour
                     Debug.Log(players[i].GetComponent<RPS_Switching>().player);
                     players[i].GetComponent<Combat>().setRespawnPoints(GameObject.FindGameObjectWithTag("RespawnPoints"));
                 }*/
+
+                source.PlayOneShot(sound.sound_background_menu);
             }
         }
         
@@ -216,6 +223,8 @@ public class Manager : MonoBehaviour
                 stopSwitchingAnimation = true;
 
 			}
+
+            source.PlayOneShot(sound.sound_background_rps);
         }
         //when in the battle state
         else if (state == GameState.battle)
@@ -263,12 +272,13 @@ public class Manager : MonoBehaviour
             //if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
             //if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
             //{
-                //state = GameState.gameOver; // switch to game over state
-                //Debug.Log("game over");
+            //state = GameState.gameOver; // switch to game over state
+            //Debug.Log("game over");
             //}
             //Debug.Log("player 1 lives: " + player1.GetComponent<Combat>().lives);
             //Debug.Log("player 2 lives: " + player2.GetComponent<Combat>().lives);
 
+            source.PlayOneShot(sound.sound_background_fight);
         }
         //going to assume the only other possible state is game over
         else if (state == GameState.gameOver)
