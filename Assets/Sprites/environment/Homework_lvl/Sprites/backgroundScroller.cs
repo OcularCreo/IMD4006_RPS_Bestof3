@@ -31,7 +31,8 @@ public class backgroundScroller : MonoBehaviour
     void Update()
     {
         //have the titling backgrond's material offset be set to the position of the camera
-        bgRenderer.material.mainTextureOffset = new Vector2 (camTransform.position.x, camTransform.position.y);
+        float div = 18 * (Camera.main.orthographicSize / initialCamSize);
+        bgRenderer.material.mainTextureOffset = new Vector2 (camTransform.position.x /div, camTransform.position.y /div);
 
         //move and scale the background plane relative to the camera
         bgTransform.position = new Vector2(camTransform.position.x, camTransform.position.y);
@@ -42,9 +43,13 @@ public class backgroundScroller : MonoBehaviour
 
             float scaleRatio = Camera.main.orthographicSize / initialCamSize;
 
-            //bgTransform.localScale = new Vector3(initialBgScale.x * scaleRatio, initialBgScale.y * scaleRatio, initialBgScale.z * scaleRatio);
+            bgTransform.localScale = new Vector3(initialBgScale.x * scaleRatio, initialBgScale.y * scaleRatio, initialBgScale.z * scaleRatio);
 
-            //bgRenderer.material.mainTextureScale = new Vector2(initialScale.x * scaleRatio, initialScale.y * scaleRatio);
+            bgRenderer.material.mainTextureScale = new Vector2(initialScale.x * scaleRatio, initialScale.y * scaleRatio);
+
+            Vector2 newOffset = new Vector2((1-scaleRatio) /2, (1-scaleRatio) /2) + new Vector2(camTransform.position.x, camTransform.position.y);
+
+            bgRenderer.material.mainTextureOffset = newOffset;
 
         }
         
