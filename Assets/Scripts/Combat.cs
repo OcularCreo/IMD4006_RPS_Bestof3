@@ -107,10 +107,10 @@ public class Combat : MonoBehaviour
 
 
 
-			if (gameObject.GetComponent<Controller_Movement>().slamming)
+			/*if (gameObject.GetComponent<Controller_Movement>().slamming)
 			{
 
-			}
+			}*/
 
 			// Slam does damage
 			if(GetComponent<Movement>().playersCollided && GetComponent<Movement>().slammed) // if players have collided and slam has been done
@@ -462,10 +462,11 @@ public class Combat : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(gameObject.GetComponent<Controller_Movement>().slamming && collision.gameObject.tag == "Player")
+		//OLD ROCK
+        /*if(gameObject.GetComponent<Abilities>().slamming && collision.gameObject.tag == "Player")
 		{
 
-			UnityEngine.Debug.Log("Slammed an enemy");
+			Debug.Log("Slammed an enemy");
 
 			if(gameObject.GetComponent<RPS_Switching>().character == Character.rock)
 			{
@@ -475,8 +476,29 @@ public class Combat : MonoBehaviour
             }
 
 			//gameObject.GetComponent<Controller_Movement>().slamming = false;
+		}*/
+
+		//Rock
+		if (gameObject.GetComponent<Abilities>().slamming && collision.gameObject.tag == "Player")
+		{
+			Debug.Log("Slammed into enemy");
+			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().slamDamage);
 		}
-		
+
+		//Paper
+		if (gameObject.GetComponent<Abilities>().jumping && collision.gameObject.tag == "Player")
+		{
+			Debug.Log("Jumped into enemy");
+			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().jumpDamage);
+		}
+
+		//Scissors
+		if (gameObject.GetComponent<Abilities>().dashing && collision.gameObject.tag == "Player")
+		{
+			Debug.Log("Dashed into enemy");
+			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().dashDamage);
+		}
+
 		
 	}
 

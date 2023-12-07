@@ -94,12 +94,12 @@ public class RPS_Switching : MonoBehaviour
         if(Mathf.Abs(gameObject.GetComponent<Controller_Movement>().horizontal) > 0.1)
         {
             playerStationary = false;
-            Debug.Log("player moving");
+            //Debug.Log("player moving");
         }
         else 
         {
             playerStationary = true;
-            Debug.Log("player NOT moving");
+            //Debug.Log("player NOT moving");
         }
         
 
@@ -177,7 +177,11 @@ public class RPS_Switching : MonoBehaviour
         if (context.canceled)
         {
             switchButton = "none";
-            stopAnimation();
+            // if the game state is RPS and the button is released, stop the switching animation
+            if(gameManager.state == GameState.RPS)
+            {
+                stopAnimation();
+            }
         }
 
         //on button down (player has pressed the button)
