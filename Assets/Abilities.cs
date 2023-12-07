@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,11 +13,11 @@ public class Abilities : MonoBehaviour
 	private float slamPower = 50f;      //variable used to determine how strong slams are
 	public bool slamming;              //tells us if the player his holding the slamming button
 
-    //Paper
+	//Paper
 
 
-    //Scissors
-
+	//Scissors
+	private float dashPower = 1500f;
 
 	// Start is called before the first frame update
 	void Start()
@@ -62,7 +63,14 @@ public class Abilities : MonoBehaviour
 			}
 			else if (characterType == Character.scissors)
 			{
-				rb.AddForce(Vector2.right * slamPower);
+				bool facingR = GetComponent<Controller_Movement>().isFacingRight;
+				if (facingR) {
+					rb.AddForce(Vector2.right * dashPower);
+				}
+                else
+                {
+					rb.AddForce(Vector2.left * dashPower);
+				}
 			}
 
 
