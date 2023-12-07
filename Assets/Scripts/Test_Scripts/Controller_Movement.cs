@@ -16,15 +16,17 @@ public class Controller_Movement : MonoBehaviour
 
     //***** GENERAL MOVEMENT VARIABLES *****
     [Header("Movement Variables")]
-    [SerializeField] private float horizontal;           //variable used for horizontal (left and right) movement
+    public float horizontal;           //variable used for horizontal (left and right) movement
     [SerializeField] private float speed = 10f;          //variable used to determine speed of player
     public float acceleration = 7f;    //sets acceleration of the player
     public float decceleration = 7f;   //sets the deceleration of the player
     [SerializeField] private float velPower = 0.9f;      //sets the velocity power of the plyaer
     [SerializeField] private float frictionAmount = 2f;  //sets the amount of friciton the player has to the floor when deccelerating
     
-    private float slamPower = 50f;      //variable used to determine how strong slams are
-    public bool slamming;              //tells us if the player his holding the slamming button
+    //Abilities
+    //private float slamPower = 50f;      //variable used to determine how strong slams are
+    //public bool slamming;              //tells us if the player his holding the slamming button
+
     public bool isFacingRight = true;  //variable used for determining player orentations
 	
     //Movement Particles
@@ -62,7 +64,7 @@ public class Controller_Movement : MonoBehaviour
         extraJumps = extraJumpValues;
 
         //setting up default variable values
-        slamming = false;
+        //slamming = false;
     }
 
     // Update is called once per frame
@@ -143,7 +145,7 @@ public class Controller_Movement : MonoBehaviour
             rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);                      //applying friction force in opposite direction as movement
         }
 
-        //when the player is holding the slam button
+        /*//when the player is holding the slam button
         if (slamming)
         {
             //Debug.Log("slamming now");
@@ -154,7 +156,7 @@ public class Controller_Movement : MonoBehaviour
             {
                 slamming = false;
             }
-        }
+        }*/
 
         
     }
@@ -246,6 +248,9 @@ public class Controller_Movement : MonoBehaviour
 			//this case it is the south gamepad button (xbox = A button)
 			if (context.action.triggered && extraJumps > 0)
             {
+                //Rock ability jump cancel
+                GetComponent<Abilities>().slamming = false;
+
                 //rb.velocity = Vector2.up * jumpingPower; //old code
                 jumpTimeCounter = jumpTime;
                 jumping = true;
@@ -297,21 +302,38 @@ public class Controller_Movement : MonoBehaviour
 		}
 	}
 
-	//funciton used to read in when player hits the slam button
-	public void onSlam(InputAction.CallbackContext context)
+    
+	/*//funciton used to read in when player hits the slam button
+	public void characterAbility(InputAction.CallbackContext context)
     {
-        /*//when the player lifts the trigger
+        *//*//when the player lifts the trigger
         if (context.canceled)
         {
             slamming = false;
-        }*/
+        }*//*
         
         //when the player presses the right trigger have them move down at a speed determined by slam power
         if (context.action.triggered)
         {
-            //rb.AddForce(Vector2.down * slamPower); //old code
-            slamming = true;
-        }
+            Character characterType = GetComponent<RPS_Switching>().character;
+
+            if (characterType == Character.rock)
+            {
+				//rb.AddForce(Vector2.down * slamPower); //old code
+				slamming = true;
+                Debug.Log("Slam");
+			}
+            else if (characterType == Character.paper)
+            {
+				
+			}
+			else if (characterType == Character.scissors)
+			{
+				rb.AddForce(Vector2.right * slamPower);
+			}
+
+
+		}
         
     }
 
@@ -331,7 +353,7 @@ public class Controller_Movement : MonoBehaviour
 			slamming = true;
 		}
 
-	}
+	}*/
 
 	private void Flip()
 	{
@@ -375,18 +397,28 @@ public class Controller_Movement : MonoBehaviour
 		}
 		onJumpKeyboard(jumpVal);
 
-        //Slam
+        /*//Slam
 		int abilityVal = 0;
 		if (Input.GetKey("e"))
 		{
 			abilityVal = 1;
 		}
-		onSlamKeyboard(abilityVal);
+		onSlamKeyboard(abilityVal);*/
 	}
 
 	//Movement Function for Keyboard Player 2
 	public void Player2Keyboard()
 	{
 		
+	}
+
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+        //landing particles
+		if (collision.gameObject.tag == "Platform")
+        {
+            CreateJumpParticles();
+        }
 	}
 }

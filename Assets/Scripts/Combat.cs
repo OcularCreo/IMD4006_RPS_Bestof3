@@ -9,6 +9,7 @@ using Unity.Mathematics;
 using System;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.InputSystem;
+using UnityEditor.Build.Content;
 
 public class Combat : MonoBehaviour
 {
@@ -45,6 +46,8 @@ public class Combat : MonoBehaviour
 	public bool hasRespawned = true;
 
 	public GameObject enemy;
+
+	public Manager gameManager;
 
 
 	// [SerializeField] private GameObject health_bar;
@@ -107,10 +110,10 @@ public class Combat : MonoBehaviour
 
 
 
-			if (gameObject.GetComponent<Controller_Movement>().slamming)
+			/*if (gameObject.GetComponent<Controller_Movement>().slamming)
 			{
 
-			}
+			}*/
 
 			// Slam does damage
 			if(GetComponent<Movement>().playersCollided && GetComponent<Movement>().slammed) // if players have collided and slam has been done
@@ -462,10 +465,11 @@ public class Combat : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(gameObject.GetComponent<Controller_Movement>().slamming && collision.gameObject.tag == "Player")
+		//OLD ROCK
+        /*if(gameObject.GetComponent<Abilities>().slamming && collision.gameObject.tag == "Player")
 		{
 
-			UnityEngine.Debug.Log("Slammed an enemy");
+			Debug.Log("Slammed an enemy");
 
 			if(gameObject.GetComponent<RPS_Switching>().character == Character.rock)
 			{
@@ -475,8 +479,30 @@ public class Combat : MonoBehaviour
             }
 
 			//gameObject.GetComponent<Controller_Movement>().slamming = false;
+		}*/
+
+		//Rock
+		if (gameObject.GetComponent<Abilities>().slamming && collision.gameObject.tag == "Player")
+		{
+			Debug.Log("Slammed into enemy");
+			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().slamDamage);
+			GetComponent<Abilities>().slamming = false;
 		}
-		
+
+		//Paper
+		if (gameObject.GetComponent<Abilities>().jumping && collision.gameObject.tag == "Player")
+		{
+			Debug.Log("Jumped into enemy");
+			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().jumpDamage);
+		}
+
+		//Scissors
+		if (gameObject.GetComponent<Abilities>().dashing && collision.gameObject.tag == "Player")
+		{
+			Debug.Log("Dashed into enemy");
+			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().dashDamage);
+		}
+
 		
 	}
 
@@ -507,13 +533,15 @@ public class Combat : MonoBehaviour
 		}
 	}
 
+	//function called when the player is recivig damage
+	//includes knocback
 	public void takeDamage(int dmg)
 	{
-		//knockback
+		//knockback player (disable player movement for small amount of time to prevent them from cancelling motion of knock-back)
 		StartCoroutine(KnockbackTimer());
-		float enemyFacing = 1;
-		//Debug.Log(GetComponent<Movement>().facingRight);
-		if (enemy.GetComponent<Controller_Movement>().isFacingRight == true)
+
+        /*float enemyFacing = 1; 
+        if (enemy.GetComponent<Controller_Movement>().isFacingRight == true)
 		{
 			//right
 			enemyFacing = 1;
@@ -522,65 +550,49 @@ public class Combat : MonoBehaviour
 		{
 			//left
 			enemyFacing = -1;
-		}
-		Rigidbody2D rb = GetComponent<Rigidbody2D>();
+		}*/
+
+        //change vector direction (postive or negative) depending on the where enemy is facing
+        float enemyFacing = (enemy.GetComponent<Controller_Movement>().isFacingRight ? 1.0f : -1f);
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
 		knockbackMultiplier = Mathf.Pow((((float)maxHealth - (float)health) / (float)maxHealth) + 1, 2f);
 		float kbValue = knockback * knockbackMultiplier;
 		//Debug.Log(kbValue);
 		GetComponent<Rigidbody2D>().velocity = new Vector2(rb.velocity.x + (kbValue * enemyFacing), rb.velocity.y + kbValue);
 
-		//Update Health
-		if (doubleDamage)
+        //Update Health
+        //only apply damage to other player when in battle stage
+        if (gameManager.state == GameState.battle)
 		{
-			health = health - (dmg * 2);
-			//Debug.Log(dmg * 2);
-			//when do damage 
-			
-		}
-		else {
-			health = health - dmg;
-			//Debug.Log(dmg);
-		}
-		//healthUI.text = health.ToString();
-		//Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);
+            //Double damage if debuff is active
+            if (doubleDamage)
+            {
+                health = health - (dmg * 2);
 
-		/*if (health < 20) {
-            GetComponent<PlayerIcons>().EnableLowHealthIcon();
-        }*/
+            }
+			//deal normal damage if there is no buff
+            else
+            {
+                health = health - dmg;
+            }
 
-		healthBar_thisCharacter.GetComponent<HealthBar>().setHealth(health);
+			//update the health bar UI
+            healthBar_thisCharacter.GetComponent<HealthBar>().setHealth(health);
+        }
 		
 	}
 
+	//Delay how long player cannot move while being knocked back
 	private IEnumerator KnockbackTimer()
 	{
 		GetComponent<Controller_Movement>().isBeingKnockedBack = true;
-		//Debug.Log(GetComponent<Movement>().isBeingKnockedBack);
 
 		yield return new WaitForSeconds(knockbackTime);
 
 		GetComponent<Controller_Movement>().isBeingKnockedBack = false;
-		//Debug.Log(GetComponent<Movement>().isBeingKnockedBack);
+
 	}
-
-
-	// private void healtBar(){
-
-	//         if(opponentHealth >20 && opponentHealth < 100){
-	//         healthBarNum = health_bar.GetComponent<Transform>().localScale.x - (1-(opponentHealth/100f));
-	//         healthBarLocalPosition =  (health/100f);
-	//         health_bar.GetComponent<Transform>().localScale = new Vector2(healthBarNum,health_bar.GetComponent<Transform>().localScale.y);
-	//         health_bar.GetComponent<Transform>().position = new Vector2(GetComponent<Transform>().position.x - healthBarLocalPosition,health_bar.GetComponent<Transform>().position.y);
-	//         //Debug.Log(gameObject.name + "is hit" + opponentHealth);
-	// 		}
-	// 		else if(opponentHealth < 20){
-	// 		health_bar.GetComponent<Transform>().localScale = new Vector2(0,health_bar.GetComponent<Transform>().localScale.y);
-	// 		}
-	// 		else if(opponentHealth == 100){
-	// 		health_bar.GetComponent<Transform>().localScale = new Vector2(3f,health_bar.GetComponent<Transform>().localScale.y);
-	// 		}
-
-	// }
 
 	public void setRespawnPoints(GameObject respawnPointsObject) {
         respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();

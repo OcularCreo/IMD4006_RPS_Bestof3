@@ -39,9 +39,11 @@ public class RPS_Switching : MonoBehaviour
     public GameObject rock, paper, scissors;    //variable to take in the different character objects/types
 
     private bool playerOnPlatform;              //boolean to check if the player is on a platform
+    private bool playerStationary;
     private string switchButton;
 
     public Animator animator;
+    private bool stoppedAnim;
 
     //[SerializeField] private GameObject controlLayout;
 
@@ -79,6 +81,8 @@ public class RPS_Switching : MonoBehaviour
 
             
         }
+
+        stoppedAnim = true;
     }
 
     // Update is called once per frame
@@ -86,10 +90,18 @@ public class RPS_Switching : MonoBehaviour
     {
         // check if player is on platform
         playerOnPlatform = gameObject.GetComponent<Controller_Movement>().isGrounded();
+        // check if player is moving controller stick
+        if(Mathf.Abs(gameObject.GetComponent<Controller_Movement>().horizontal) > 0.1)
+        {
+            playerStationary = false;
+        }
+        else 
+        {
+            playerStationary = true;
+        }
+        
 
-        //checking the game manager's state
-        //when in RPS mode and player has not started to do a change slam, allow the player to change their character
-        //if(gameManager.state == GameState.RPS && GetComponent<Movement>().changeSlamNum < 1)
+        //when in RPS mode and player is on platform and player not moving L/R, allow the player to change their character
         if (gameManager.state == GameState.RPS && playerOnPlatform)
         {
             //controlLayout.SetActive(true);
@@ -119,35 +131,17 @@ public class RPS_Switching : MonoBehaviour
                 //StartCoroutine(changeCharacterAnimation(2));
                 changeCharacterAnimation();
             }
-            else if (switchButton == "none")
-            {
-                // if no buttons are pressed at the moment and the changing sprite is being used
-                //if (gameObject.GetComponent<PlayerGFX>().rockChange.activeSelf || gameObject.GetComponent<PlayerGFX>().paperChange.activeSelf || gameObject.GetComponent<PlayerGFX>().scissorsChange.activeSelf)
-                //{
-                //    // don't play the animation & use idle sprite
-                //    stopAnimation();
-                //    Debug.Log(player + " STOP ANIMATION");
-                //}
-                //if(player == Player.P2)
-                //{
-                //    Debug.Log("P2 Booleans for changing sprites: ");
-                //    Debug.Log("Rock: " + gameObject.GetComponent<PlayerGFX>().rockChange.activeSelf + ", Paper: " + gameObject.GetComponent<PlayerGFX>().paperChange.activeSelf + ", Scissors: " + gameObject.GetComponent<PlayerGFX>().scissorsChange.activeSelf);
-                //}
-                
-            }
 
         } 
         //need to reset toggle bool once out of the switching characters state
-        else
+        else if (gameManager.state != GameState.RPS && !stoppedAnim)
         {
             applyedChange = false;
+
+            stopAnimation();
+            stoppedAnim = true;
+
             //controlLayout.SetActive(false);
-            // once RPS state ends, stop animation & use idle sprite when not in switching state
-            if (gameManager.stopSwitchingAnimation)
-            {
-                stopAnimation();
-                gameManager.stopSwitchingAnimation = false;
-            }
         }
 
     }
@@ -159,7 +153,11 @@ public class RPS_Switching : MonoBehaviour
         if (context.canceled)
         {
             switchButton = "none";
-            stopAnimation();
+            // if the game state is RPS and the button is released, stop the switching animation
+            if(gameManager.state == GameState.RPS)
+            {
+                stopAnimation();
+            }
         }
 
         //on button down (player has pressed the button)
@@ -211,13 +209,11 @@ public class RPS_Switching : MonoBehaviour
                 controllerMovement.jumpingPower = 15;
                 gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
                 gameObject.GetComponent<Rigidbody2D>().mass = 2;
-                controllerMovement.extraJumpValues = 1;
                 break;
             case Character.paper:
                 controllerMovement.acceleration = 3;
                 controllerMovement.decceleration = 3;
                 controllerMovement.jumpingPower = 8;
-                controllerMovement.extraJumpValues = 2;
                 gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
                 gameObject.GetComponent<Rigidbody2D>().mass = 1;
                 break;
@@ -227,7 +223,6 @@ public class RPS_Switching : MonoBehaviour
                 controllerMovement.jumpingPower = 12;
                 gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
                 gameObject.GetComponent<Rigidbody2D>().mass = 1.5f;
-                controllerMovement.extraJumpValues = 1;
                 break;
         }
 
@@ -347,9 +342,9 @@ public class RPS_Switching : MonoBehaviour
     //new animation function using unity animation
     private void changeCharacterAnimation()
     {
-
+        stoppedAnim = false;
         // change character if game is still in RPS state and if the player is still holding down the key
-        if (gameManager.state == GameState.RPS && switchButton != "none")
+        if (gameManager.state == GameState.RPS && switchButton != "none" && playerStationary)
         {
             //turn off the idle sprite and then turn on the changing sprite
             swapSprites(false, character);
@@ -394,7 +389,5 @@ public class RPS_Switching : MonoBehaviour
 
     //}
 
-    // notes:
-    // restrict left/right movement when the animation is playing
 
 }
