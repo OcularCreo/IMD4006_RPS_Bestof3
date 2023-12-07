@@ -77,7 +77,7 @@ public class Abilities : MonoBehaviour
 	//funciton used to read in when player hits the slam button
 	public void CharacterAbility(InputAction.CallbackContext context)
 	{
-		if (context.action.triggered)
+		if (context.action.triggered && GetComponent<RPS_Switching>().gameManager.state == GameState.battle)
 		{
 			Character characterType = GetComponent<RPS_Switching>().character;
 
