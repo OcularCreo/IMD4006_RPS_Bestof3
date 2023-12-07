@@ -1453,7 +1453,6 @@ MonoBehaviour:
   characterDamage: 5
   advantageMultiplier: 1.5
   disadvantageMultiplier: 0.5
-  respawnPointsObject: {fileID: 0}
   alreadyHit: 0
   slamOver: 0
   hasRespawned: 1
@@ -1656,7 +1655,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -2064724191323337345}
         m_TargetAssemblyTypeName: Controller_Movement, Assembly-CSharp
-        m_MethodName: onSlam
+        m_MethodName: characterAbility
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

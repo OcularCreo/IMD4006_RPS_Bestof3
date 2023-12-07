@@ -94,12 +94,12 @@ public class RPS_Switching : MonoBehaviour
         if(Mathf.Abs(gameObject.GetComponent<Controller_Movement>().horizontal) > 0.1)
         {
             playerStationary = false;
-            Debug.Log("player moving");
+            //Debug.Log("player moving");
         }
         else 
         {
             playerStationary = true;
-            Debug.Log("player NOT moving");
+            //Debug.Log("player NOT moving");
         }
         
 

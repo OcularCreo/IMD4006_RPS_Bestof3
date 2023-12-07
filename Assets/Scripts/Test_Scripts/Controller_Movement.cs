@@ -298,7 +298,7 @@ public class Controller_Movement : MonoBehaviour
 	}
 
 	//funciton used to read in when player hits the slam button
-	public void onSlam(InputAction.CallbackContext context)
+	public void characterAbility(InputAction.CallbackContext context)
     {
         /*//when the player lifts the trigger
         if (context.canceled)
@@ -309,9 +309,25 @@ public class Controller_Movement : MonoBehaviour
         //when the player presses the right trigger have them move down at a speed determined by slam power
         if (context.action.triggered)
         {
-            //rb.AddForce(Vector2.down * slamPower); //old code
-            slamming = true;
-        }
+            Character characterType = GetComponent<RPS_Switching>().character;
+
+            if (characterType == Character.rock)
+            {
+				//rb.AddForce(Vector2.down * slamPower); //old code
+				slamming = true;
+                Debug.Log("Slam");
+			}
+            else if (characterType == Character.paper)
+            {
+				
+			}
+			else if (characterType == Character.scissors)
+			{
+				rb.AddForce(Vector2.right * slamPower);
+			}
+
+
+		}
         
     }
 
