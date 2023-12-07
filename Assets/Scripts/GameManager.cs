@@ -278,7 +278,7 @@ public class Manager : MonoBehaviour
     {
         fightGraphic.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(3f);
 
         fightGraphic.gameObject.SetActive(false);
         shownGraphic = true;
@@ -288,7 +288,7 @@ public class Manager : MonoBehaviour
     {
         rpsGraphic.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         rpsGraphic.gameObject.SetActive(false);
         shownGraphic = true;
