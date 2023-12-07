@@ -164,6 +164,7 @@ public class RPS_Switching : MonoBehaviour
                 stopAnimation();
             }
 
+            //reset particle counter
             particleCounter = 3;
         }
 
