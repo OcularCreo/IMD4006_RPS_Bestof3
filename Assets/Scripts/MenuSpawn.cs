@@ -49,6 +49,8 @@ public class MenuSpawn : MonoBehaviour
             //playerInput.GetComponent<Combat>().respawnPointsObject = respawnPoints;
             gameManagerObject.player2 = playerInput.gameObject;
 
+            playerInput.GetComponent<Combat>().enemy = gameManagerObject.player1;
+			gameManagerObject.player1.GetComponent<Combat>().enemy = gameManagerObject.player2;
 
 			p2Join.SetActive(false);
 			yStart.SetActive(true);
