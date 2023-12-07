@@ -58,12 +58,15 @@ public class Manager : MonoBehaviour
 	[SerializeField] private GameObject timerFightGraphic;
 	[SerializeField] private GameObject timerRpsGraphic;
 
+    //Winner
 	[SerializeField] private GameObject victoryGraphic1;
     [SerializeField] private GameObject victoryGraphic2;
+    private GameObject playerWinner;
+	[SerializeField] private ParticleSystem winnerParticles;
 
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
         action.Enable();
 
@@ -219,10 +222,11 @@ public class Manager : MonoBehaviour
         //going to assume the only other possible state is game over
         else if (state == GameState.gameOver)
         {
-            // display game over screen
-            // change label to 
-            stateLabelUI.text = "GAME OVER";
-        }
+			// display game over screen
+			// change label to 
+			//stateLabelUI.text = "GAME OVER";
+			Instantiate(winnerParticles, playerWinner.gameObject.transform.position, playerWinner.gameObject.transform.rotation);
+		}
 
     }
 
@@ -250,7 +254,17 @@ public class Manager : MonoBehaviour
 
     public void EndGame (Player playerNum)
     {
-        StartCoroutine(EndgameDelay(playerNum));
+        state = GameState.gameOver;
+
+		if (playerNum == Player.P1)
+        {
+            playerWinner = player2;
+        }
+		if (playerNum == Player.P2)
+		{
+			playerWinner = player1;
+		}
+		StartCoroutine(EndgameDelay(playerNum));
     }
 
     private  IEnumerator EndgameDelay(Player playerNum)

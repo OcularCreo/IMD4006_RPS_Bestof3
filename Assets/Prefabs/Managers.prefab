@@ -84,7 +84,7 @@ MonoBehaviour:
   timerRpsGraphic: {fileID: 0}
   victoryGraphic1: {fileID: 0}
   victoryGraphic2: {fileID: 0}
-  winnerParticle: {fileID: 5076444897473476155, guid: cea642e8a9f00ce4181c59f32ab9cb01, type: 3}
+  winnerParticles: {fileID: 5076444897473476155, guid: cea642e8a9f00ce4181c59f32ab9cb01, type: 3}
 --- !u!1 &2895036695116369735
 GameObject:
   m_ObjectHideFlags: 0
