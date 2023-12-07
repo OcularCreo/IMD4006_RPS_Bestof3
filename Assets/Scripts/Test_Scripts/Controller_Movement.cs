@@ -411,4 +411,14 @@ public class Controller_Movement : MonoBehaviour
 	{
 		
 	}
+
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+        //landing particles
+		if (collision.gameObject.tag == "Platform")
+        {
+            CreateJumpParticles();
+        }
+	}
 }
