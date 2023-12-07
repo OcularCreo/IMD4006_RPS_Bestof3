@@ -400,7 +400,7 @@ public class Combat : MonoBehaviour
 		//Debug.Log("Life Lost");
 		if (lives <= 0)
 		{
-			GetComponent<RPS_Switching>().gameManager.GetComponent<Manager>().EndGame(GetComponent<RPS_Switching>().player);
+			gameManager.GetComponent<Manager>().EndGame(GetComponent<RPS_Switching>().player);
 			gameObject.SetActive(false);
 		}
 		else {

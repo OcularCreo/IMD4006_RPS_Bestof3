@@ -49,6 +49,7 @@ MonoBehaviour:
   player1: {fileID: 0}
   player2: {fileID: 0}
   time: {fileID: 0}
+  timebar: {fileID: 0}
   stateLabelUI: {fileID: 0}
   action:
     m_Name: Action
@@ -67,8 +68,23 @@ MonoBehaviour:
       m_Action: Action
       m_Flags: 0
     m_Flags: 0
+  playerManager: {fileID: 0}
   inputPlayerManager: {fileID: 0}
   menuColliders: {fileID: 0}
+  virtualCam: {fileID: 0}
+  cameraTargetGroup: {fileID: 0}
+  menuBackground: {fileID: 0}
+  canvas: {fileID: 0}
+  switchIcons: {fileID: 0}
+  hp1: {fileID: 0}
+  hp2: {fileID: 0}
+  fightGraphic: {fileID: 0}
+  rpsGraphic: {fileID: 0}
+  timerFightGraphic: {fileID: 0}
+  timerRpsGraphic: {fileID: 0}
+  victoryGraphic1: {fileID: 0}
+  victoryGraphic2: {fileID: 0}
+  winnerParticle: {fileID: 5076444897473476155, guid: cea642e8a9f00ce4181c59f32ab9cb01, type: 3}
 --- !u!1 &2895036695116369735
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +176,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 0}
   cameraTargetGroup: {fileID: 0}
+  gameManagerObject: {fileID: 0}
+  respawnPoints: {fileID: 0}
+  hpP1: {fileID: 0}
+  hpP2: {fileID: 0}
+  p1Join: {fileID: 0}
+  p2Join: {fileID: 0}
+  yStart: {fileID: 0}
   numPlayers: 0
+  joinAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &4217685602716250728
 GameObject:
   m_ObjectHideFlags: 0
