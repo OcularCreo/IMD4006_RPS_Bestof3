@@ -177,7 +177,11 @@ public class RPS_Switching : MonoBehaviour
         if (context.canceled)
         {
             switchButton = "none";
-            stopAnimation();
+            // if the game state is RPS and the button is released, stop the switching animation
+            if(gameManager.state == GameState.RPS)
+            {
+                stopAnimation();
+            }
         }
 
         //on button down (player has pressed the button)
