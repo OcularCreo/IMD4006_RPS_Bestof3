@@ -19,15 +19,15 @@ public class Abilities : MonoBehaviour
 	public int slamDamage = 15;
 	private bool canSlam = true;
 	public bool slamming = false;
-	private float slamCooldown = 3f;
-	private float slamDamageTimer = 0.3f;
+	//private float slamCooldown = 3f;
+	//private float slamDamageTimer = 0.3f;
 
 	//Paper
 	private float jumpPower = 700f;
 	public int jumpDamage = 5;
 	private bool canJump = true;
 	public bool jumping = false;
-	private float jumpCooldown = 3f;
+	//private float jumpCooldown = 3f;
 	private float jumpDamageTimer = 0.3f;
 
 	//Scissors
@@ -35,7 +35,7 @@ public class Abilities : MonoBehaviour
 	public int dashDamage = 10;
 	private bool canDash = true;
 	public bool dashing = false;
-	private float dashCooldown = 3f;
+	private float dashCooldown = 1.5f;
 	private float dashDamageTimer = 0.3f;
 
 	//Particles

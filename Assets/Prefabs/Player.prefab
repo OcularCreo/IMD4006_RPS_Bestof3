@@ -1763,6 +1763,7 @@ MonoBehaviour:
   paper: {fileID: 0}
   scissors: {fileID: 0}
   animator: {fileID: 2529676135959740994}
+  switchParticles: {fileID: 5076444897473476155, guid: 4f399a960ae9fa8428252eccf541ccb0, type: 3}
 --- !u!114 &1800599435404332921
 MonoBehaviour:
   m_ObjectHideFlags: 0

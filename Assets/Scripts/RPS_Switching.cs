@@ -45,10 +45,15 @@ public class RPS_Switching : MonoBehaviour
     public Animator animator;
     private bool stoppedAnim;
 
-    //[SerializeField] private GameObject controlLayout;
+    //Switch Particles
+	[SerializeField] private ParticleSystem switchParticles;
+    private bool switchParticlesReady = true;
+	private int particleCounter = 3;
 
-    // Start is called before the first frame update
-    void Start()
+	//[SerializeField] private GameObject controlLayout;
+
+	// Start is called before the first frame update
+	void Start()
     {
 
         switchButton = "none";
@@ -111,17 +116,17 @@ public class RPS_Switching : MonoBehaviour
             {
                 selectionCharacter = Character.rock;
 
-                // start animation
-                //StartCoroutine(changeCharacterAnimation(0));
-                changeCharacterAnimation();
+				// start animation
+				//StartCoroutine(changeCharacterAnimation(0));
+				changeCharacterAnimation();
             }
             else if (switchButton == "buttonNorth")
             {
                 selectionCharacter = Character.paper;
 
-                // start animation
-                //StartCoroutine(changeCharacterAnimation(1));
-                changeCharacterAnimation();
+				// start animation
+				//StartCoroutine(changeCharacterAnimation(1));
+				changeCharacterAnimation();
             }
             else if (switchButton == "buttonEast")
             {
@@ -141,8 +146,8 @@ public class RPS_Switching : MonoBehaviour
             stopAnimation();
             stoppedAnim = true;
 
-            //controlLayout.SetActive(false);
-        }
+			//controlLayout.SetActive(false);
+		}
 
     }
 
@@ -158,6 +163,8 @@ public class RPS_Switching : MonoBehaviour
             {
                 stopAnimation();
             }
+
+            particleCounter = 3;
         }
 
         //on button down (player has pressed the button)
@@ -165,7 +172,7 @@ public class RPS_Switching : MonoBehaviour
         {
             switchButton = context.control.name;
 
-        }
+		}
     }
 
     //function called after players have chosen their character
@@ -192,7 +199,7 @@ public class RPS_Switching : MonoBehaviour
             character = selectionCharacter;
 
             //Take double damage for 3 Seconds
-            gameObject.GetComponent<Combat>().switchDamage(); // do we still want to do this? ye probably
+            gameObject.GetComponent<Combat>().switchDamage();
         }
 
     }
@@ -346,8 +353,14 @@ public class RPS_Switching : MonoBehaviour
         // change character if game is still in RPS state and if the player is still holding down the key
         if (gameManager.state == GameState.RPS && switchButton != "none" && playerStationary)
         {
-            //turn off the idle sprite and then turn on the changing sprite
-            swapSprites(false, character);
+            //Play Particles
+            if (switchParticlesReady && particleCounter > 0) 
+            {
+                particleCounter--;
+                StartCoroutine(SwitchParticleTime());
+			}
+			//turn off the idle sprite and then turn on the changing sprite
+			swapSprites(false, character);
             // play switching animation
             animator.SetBool("Switching", true);
             //animator.StartPlayback();
@@ -356,15 +369,22 @@ public class RPS_Switching : MonoBehaviour
         {
             //if switching is stopped go back to the idle sprite and stop switching animation
             stopAnimation();
-        }
+		}
     }
 
+	private IEnumerator SwitchParticleTime()
+	{
+		switchParticlesReady = false;
+		yield return new WaitForSeconds(0.41f);
+		Instantiate(switchParticles, gameObject.transform.position, gameObject.transform.rotation);
+		switchParticlesReady = true;
+	}
 
-    public void stopAnimation()
+	public void stopAnimation()
     {
         animator.SetBool("Switching", false); //animator.StopPlayback(); //stop playing the animation
         swapSprites(true, character); // go back to the idle sprite
-    }
+	}
     
 
     // check if the player has collided with the platform

@@ -484,7 +484,7 @@ public class Combat : MonoBehaviour
 		//Rock
 		if (gameObject.GetComponent<Abilities>().slamming && collision.gameObject.tag == "Player")
 		{
-			Debug.Log("Slammed into enemy");
+			//Slam Damage
 			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().slamDamage);
 			GetComponent<Abilities>().slamming = false;
 		}
@@ -492,14 +492,14 @@ public class Combat : MonoBehaviour
 		//Paper
 		if (gameObject.GetComponent<Abilities>().jumping && collision.gameObject.tag == "Player")
 		{
-			Debug.Log("Jumped into enemy");
+			//Jump Damage
 			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().jumpDamage);
 		}
 
 		//Scissors
 		if (gameObject.GetComponent<Abilities>().dashing && collision.gameObject.tag == "Player")
 		{
-			Debug.Log("Dashed into enemy");
+			//Dash Damage
 			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().dashDamage);
 		}
 
