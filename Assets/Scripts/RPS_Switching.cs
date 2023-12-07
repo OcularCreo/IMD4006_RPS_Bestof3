@@ -94,10 +94,12 @@ public class RPS_Switching : MonoBehaviour
         if(Mathf.Abs(gameObject.GetComponent<Controller_Movement>().horizontal) > 0.1)
         {
             playerStationary = false;
+            //Debug.Log("player moving");
         }
         else 
         {
             playerStationary = true;
+            //Debug.Log("player NOT moving");
         }
         
 
@@ -131,6 +133,22 @@ public class RPS_Switching : MonoBehaviour
                 //StartCoroutine(changeCharacterAnimation(2));
                 changeCharacterAnimation();
             }
+            else if (switchButton == "none")
+            {
+                // if no buttons are pressed at the moment and the changing sprite is being used
+                //if (gameObject.GetComponent<PlayerGFX>().rockChange.activeSelf || gameObject.GetComponent<PlayerGFX>().paperChange.activeSelf || gameObject.GetComponent<PlayerGFX>().scissorsChange.activeSelf)
+                //{
+                //    // don't play the animation & use idle sprite
+                //    stopAnimation();
+                //    Debug.Log(player + " STOP ANIMATION");
+                //}
+                //if(player == Player.P2)
+                //{
+                //    Debug.Log("P2 Booleans for changing sprites: ");
+                //    Debug.Log("Rock: " + gameObject.GetComponent<PlayerGFX>().rockChange.activeSelf + ", Paper: " + gameObject.GetComponent<PlayerGFX>().paperChange.activeSelf + ", Scissors: " + gameObject.GetComponent<PlayerGFX>().scissorsChange.activeSelf);
+                //}
+                
+            }
 
         } 
         //need to reset toggle bool once out of the switching characters state
@@ -142,6 +160,12 @@ public class RPS_Switching : MonoBehaviour
             stoppedAnim = true;
 
             //controlLayout.SetActive(false);
+            // once RPS state ends, stop animation & use idle sprite when not in switching state
+            //if (gameManager.stopSwitchingAnimation)
+            //{
+                //stopAnimation();
+                //gameManager.stopSwitchingAnimation = false;
+            //}
         }
 
     }

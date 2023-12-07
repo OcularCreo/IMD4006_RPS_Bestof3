@@ -130,7 +130,7 @@ public class Manager : MonoBehaviour
         if (state == GameState.menu)
         {
             //if the controller is triggered and two players are in the game, enter RPS state, trun of the menu
-            if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 0))
+            if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 1))
             {
                 state = GameState.RPS;
                 shownGraphic = false;
