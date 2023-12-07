@@ -31,13 +31,13 @@ public class Manager : MonoBehaviour
 
     [SerializeField] public GameObject time;
 
-    public bool stopSwitchingAnimation; // boolean to stop the switching animation when rps state ends
-
     //NEW TIME
     public TimeBar timebar;
 
     public TextMeshProUGUI stateLabelUI;
     public InputAction action;
+    [SerializeField] private PlayerInputManager playerManager;
+
     
     [SerializeField] private GameObject inputPlayerManager;
     [SerializeField] private GameObject menuColliders;
@@ -62,31 +62,9 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject victoryGraphic2;
 
 
-    //funciton used to handle different game states
-    /*public void updateGameState(GameState newState)
-    {
-        state = newState;   //get the new state of the game
-
-        //handle the new game state
-        switch (newState)
-        {
-            case GameState.RPS:
-                break;
-            case GameState.battle:
-                break;
-            case GameState.gameOver:
-                break;
-        }
-
-    }*/
-
-    [SerializeField] public AudioSource source;
-    [SerializeField] public Sound sound;
-
     // Start is called before the first frame update
     void Start()
     {
-
         action.Enable();
 
         //start the game with the rock paper scissors state
@@ -105,31 +83,6 @@ public class Manager : MonoBehaviour
         //WHEN START SET TO MAX RPS TIME
         timebar.setMaxTime(RPS_time);
 
-        //stateLabelUI = GameObject.Find("State Label").GetComponent<TextMeshProUGUI>();
-
-        //assigned colour to the player
-        /*Vector4 p1Color = new Vector4(1f, 0.6181373f, 0.3820755f, 1f);
-		Vector4 p2Color = new Vector4(0.3726415f, 0.7f, 1f, 1f);
-
-		player1.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-        player1.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-        player1.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-		player1.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-		player1.transform.GetChild(4).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-		player1.transform.GetChild(5).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-
-		player2.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-        player2.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-        player2.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-		player2.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-		player2.transform.GetChild(4).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-		player2.transform.GetChild(5).gameObject.GetComponent<SpriteRenderer>().color = p2Color;*/
-
-        //player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
-
-        stopSwitchingAnimation = false;
-
-        source = GetComponent<AudioSource>();
 	}
 
     // Update is called once per frame
@@ -138,29 +91,22 @@ public class Manager : MonoBehaviour
         if (state == GameState.menu)
         {
             //if the controller is triggered and two players are in the game, enter RPS state, trun of the menu
-            if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 1))
+            if ((action.triggered && playerManager.playerCount > 1))
             {
-                state = GameState.RPS;
-                shownGraphic = false;
-                menuColliders.SetActive(false);
-                virtualCam.Follow = cameraTargetGroup.transform;
+                state = GameState.RPS;                              //change the game state to RPS stage
+                shownGraphic = false;                               //set to false to trigger a stage transition graphic to be revealed
+                menuColliders.SetActive(false);                     //remove menu walls/colliders to start the game
+                virtualCam.Follow = cameraTargetGroup.transform;    //enable camera follow players
+                action.Disable();                                   //disable start action controls
 
+                //turn off menu background and show canvas UI
                 menuBackground.SetActive(false);
                 canvas.SetActive(true);
 
                 //Load scene
                 SceneManager.LoadScene("DinoScene", LoadSceneMode.Additive);
 
-                //Set RespawnPoints
-                /*GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                for (int i = 0; i <= players.Length-1; i++) {
-                    Debug.Log(players[i].GetComponent<RPS_Switching>().player);
-                    players[i].GetComponent<Combat>().setRespawnPoints(GameObject.FindGameObjectWithTag("RespawnPoints"));
-                }*/
-
-                
             }
-            source.PlayOneShot(sound.sound_background_menu);
         }
         
         if (state == GameState.RPS)
@@ -185,12 +131,7 @@ public class Manager : MonoBehaviour
             timebar.setTime(RPS_time);
 
             // change label to 
-            stateLabelUI.text = "RPS Time!";
-
-            //timerRpsGraphic.SetActive(true);
-
-            // hide menu
-            //GameObject.Find("Menu_P1_EmptyHealth").GetComponent<Renderer>().enabled = false;
+            //stateLabelUI.text = "RPS Time!";
 
             //when the time runs out
             if (RPS_time < 0 || Input.GetKeyDown("p")) // press p to change state (for dev)
@@ -220,12 +161,7 @@ public class Manager : MonoBehaviour
                 timerRpsGraphic.SetActive(false);
 				timerFightGraphic.SetActive(true);
 
-                // stop switching animation
-                stopSwitchingAnimation = true;
-
 			}
-
-            source.PlayOneShot(sound.sound_background_rps);
         }
         //when in the battle state
         else if (state == GameState.battle)
@@ -273,13 +209,12 @@ public class Manager : MonoBehaviour
             //if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
             //if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
             //{
-            //state = GameState.gameOver; // switch to game over state
-            //Debug.Log("game over");
+                //state = GameState.gameOver; // switch to game over state
+                //Debug.Log("game over");
             //}
             //Debug.Log("player 1 lives: " + player1.GetComponent<Combat>().lives);
             //Debug.Log("player 2 lives: " + player2.GetComponent<Combat>().lives);
 
-            source.PlayOneShot(sound.sound_background_fight);
         }
         //going to assume the only other possible state is game over
         else if (state == GameState.gameOver)
@@ -295,7 +230,7 @@ public class Manager : MonoBehaviour
     {
         fightGraphic.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.5f);
 
         fightGraphic.gameObject.SetActive(false);
         shownGraphic = true;
@@ -305,7 +240,7 @@ public class Manager : MonoBehaviour
     {
         rpsGraphic.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         rpsGraphic.gameObject.SetActive(false);
         shownGraphic = true;
@@ -323,11 +258,11 @@ public class Manager : MonoBehaviour
         //inputPlayerManager.GetComponent<PlayerInputManager>().joiningEnabled = false;
         if (playerNum == Player.P1)
         {
-            victoryGraphic1.SetActive(true);
-        }
-        else
-        {
             victoryGraphic2.SetActive(true);
+        }
+        else if (playerNum == Player.P2)
+        {
+            victoryGraphic1.SetActive(true);
         }
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("MenuScene");
