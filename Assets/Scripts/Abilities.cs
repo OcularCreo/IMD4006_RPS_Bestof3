@@ -38,6 +38,9 @@ public class Abilities : MonoBehaviour
 	private float dashCooldown = 3f;
 	private float dashDamageTimer = 0.3f;
 
+	//Particles
+	[SerializeField] private ParticleSystem abilityReadyParticle;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -65,6 +68,13 @@ public class Abilities : MonoBehaviour
 
 		if (GetComponent<Controller_Movement>().isGrounded())
 		{
+			if (canSlam == false) {
+				Instantiate(abilityReadyParticle, gameObject.transform.position, gameObject.transform.rotation);
+			}
+			if (canJump == false)
+			{
+				Instantiate(abilityReadyParticle, gameObject.transform.position, gameObject.transform.rotation);
+			}
 			//Rock Ability Reset
 			canSlam = true;
 			slamming = false;
@@ -163,6 +173,8 @@ public class Abilities : MonoBehaviour
 		yield return new WaitForSeconds(dashCooldown);
 
 		canDash = true;
+
+		Instantiate(abilityReadyParticle, gameObject.transform.position, gameObject.transform.rotation);
 	}
 
 	private IEnumerator DashDamageTime()
