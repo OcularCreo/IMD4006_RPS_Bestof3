@@ -62,28 +62,9 @@ public class Manager : MonoBehaviour
     [SerializeField] private GameObject victoryGraphic2;
 
 
-    //funciton used to handle different game states
-    /*public void updateGameState(GameState newState)
-    {
-        state = newState;   //get the new state of the game
-
-        //handle the new game state
-        switch (newState)
-        {
-            case GameState.RPS:
-                break;
-            case GameState.battle:
-                break;
-            case GameState.gameOver:
-                break;
-        }
-
-    }*/
-
     // Start is called before the first frame update
     void Start()
     {
-
         action.Enable();
 
         //start the game with the rock paper scissors state
@@ -102,28 +83,6 @@ public class Manager : MonoBehaviour
         //WHEN START SET TO MAX RPS TIME
         timebar.setMaxTime(RPS_time);
 
-        //stateLabelUI = GameObject.Find("State Label").GetComponent<TextMeshProUGUI>();
-
-        //assigned colour to the player
-        /*Vector4 p1Color = new Vector4(1f, 0.6181373f, 0.3820755f, 1f);
-		Vector4 p2Color = new Vector4(0.3726415f, 0.7f, 1f, 1f);
-
-		player1.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-        player1.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-        player1.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-		player1.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-		player1.transform.GetChild(4).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-		player1.transform.GetChild(5).gameObject.GetComponent<SpriteRenderer>().color = p1Color;
-
-		player2.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-        player2.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-        player2.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-		player2.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-		player2.transform.GetChild(4).gameObject.GetComponent<SpriteRenderer>().color = p2Color;
-		player2.transform.GetChild(5).gameObject.GetComponent<SpriteRenderer>().color = p2Color;*/
-
-        //player2.GetComponent<SpriteRenderer>().color = new Vector4(1f,0f,0f,1f);
-
 	}
 
     // Update is called once per frame
@@ -134,26 +93,19 @@ public class Manager : MonoBehaviour
             //if the controller is triggered and two players are in the game, enter RPS state, trun of the menu
             if ((action.triggered && playerManager.playerCount > 1))
             {
-                state = GameState.RPS;
-                shownGraphic = false;
-                menuColliders.SetActive(false);
-                virtualCam.Follow = cameraTargetGroup.transform;
+                state = GameState.RPS;                              //change the game state to RPS stage
+                shownGraphic = false;                               //set to false to trigger a stage transition graphic to be revealed
+                menuColliders.SetActive(false);                     //remove menu walls/colliders to start the game
+                virtualCam.Follow = cameraTargetGroup.transform;    //enable camera follow players
+                action.Disable();                                   //disable start action controls
 
+                //turn off menu background and show canvas UI
                 menuBackground.SetActive(false);
                 canvas.SetActive(true);
 
                 //Load scene
-
-                playerManager.DisableJoining();
-
                 SceneManager.LoadScene("DinoScene", LoadSceneMode.Additive);
 
-                //Set RespawnPoints
-                /*GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                for (int i = 0; i <= players.Length-1; i++) {
-                    Debug.Log(players[i].GetComponent<RPS_Switching>().player);
-                    players[i].GetComponent<Combat>().setRespawnPoints(GameObject.FindGameObjectWithTag("RespawnPoints"));
-                }*/
             }
         }
         
@@ -179,12 +131,7 @@ public class Manager : MonoBehaviour
             timebar.setTime(RPS_time);
 
             // change label to 
-            stateLabelUI.text = "RPS Time!";
-
-            //timerRpsGraphic.SetActive(true);
-
-            // hide menu
-            //GameObject.Find("Menu_P1_EmptyHealth").GetComponent<Renderer>().enabled = false;
+            //stateLabelUI.text = "RPS Time!";
 
             //when the time runs out
             if (RPS_time < 0 || Input.GetKeyDown("p")) // press p to change state (for dev)
