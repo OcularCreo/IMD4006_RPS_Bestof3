@@ -1879,6 +1879,7 @@ MonoBehaviour:
   dashDamage: 10
   dashing: 0
   abilityReadyParticle: {fileID: 5076444897473476155, guid: cea642e8a9f00ce4181c59f32ab9cb01, type: 3}
+  usingAbilityParticle: {fileID: 1816164915614094655, guid: 9c093fadb0882ec4abfcb356cfe8085c, type: 3}
 --- !u!114 &891909332205106847
 MonoBehaviour:
   m_ObjectHideFlags: 0

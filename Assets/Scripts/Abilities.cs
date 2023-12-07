@@ -40,6 +40,7 @@ public class Abilities : MonoBehaviour
 
 	//Particles
 	[SerializeField] private ParticleSystem abilityReadyParticle;
+	[SerializeField] private ParticleSystem usingAbilityParticle;
 
 	// Start is called before the first frame update
 	void Start()
@@ -108,6 +109,9 @@ public class Abilities : MonoBehaviour
 
 				slamming = true;
 
+				//Particles
+				var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
+				debuffP.transform.parent = gameObject.transform;
 				//StartCoroutine(SlamDamageTime());
 			}
 
@@ -117,6 +121,10 @@ public class Abilities : MonoBehaviour
 				canJump = false;
 				rb.velocity = Vector2.zero;
 				rb.AddForce(Vector2.up * jumpPower);
+
+				//Particles
+				var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
+				debuffP.transform.parent = gameObject.transform;
 
 				StartCoroutine(JumpDamageTime());
 			}
@@ -135,6 +143,10 @@ public class Abilities : MonoBehaviour
                 {
 					rb.AddForce(Vector2.left * dashPower);
 				}
+
+				//Particles
+				var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
+				debuffP.transform.parent = gameObject.transform;
 
 				StartCoroutine(DashDamageTime());
 				StartCoroutine(DashTime());
