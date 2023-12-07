@@ -65,8 +65,9 @@ public class Abilities : MonoBehaviour
 
 		if (GetComponent<Controller_Movement>().isGrounded())
 		{
-			//Paper Ability Reset
+			//Rock Ability Reset
 			canSlam = true;
+			slamming = false;
 			//Paper Ability Reset
 			canJump = true;
 		}
@@ -95,7 +96,9 @@ public class Abilities : MonoBehaviour
 				rb.velocity = Vector2.zero;
 				rb.AddForce(Vector2.down * slamPower);
 
-				StartCoroutine(SlamDamageTime());
+				slamming = true;
+
+				//StartCoroutine(SlamDamageTime());
 			}
 
 			//Paper
@@ -133,14 +136,14 @@ public class Abilities : MonoBehaviour
 	}
 
 	//Rock
-	private IEnumerator SlamDamageTime()
+	/*private IEnumerator SlamDamageTime()
 	{
 		slamming = true;
 
 		yield return new WaitForSeconds(slamDamageTimer);
 
 		slamming = false;
-	}
+	}*/
 
 	//Paper
 	private IEnumerator JumpDamageTime()

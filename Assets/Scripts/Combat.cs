@@ -483,6 +483,7 @@ public class Combat : MonoBehaviour
 		{
 			Debug.Log("Slammed into enemy");
 			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().slamDamage);
+			GetComponent<Abilities>().slamming = false;
 		}
 
 		//Paper

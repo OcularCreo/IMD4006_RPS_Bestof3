@@ -248,6 +248,9 @@ public class Controller_Movement : MonoBehaviour
 			//this case it is the south gamepad button (xbox = A button)
 			if (context.action.triggered && extraJumps > 0)
             {
+                //Rock ability jump cancel
+                GetComponent<Abilities>().slamming = false;
+
                 //rb.velocity = Vector2.up * jumpingPower; //old code
                 jumpTimeCounter = jumpTime;
                 jumping = true;
