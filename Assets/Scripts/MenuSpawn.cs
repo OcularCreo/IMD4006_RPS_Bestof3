@@ -23,6 +23,10 @@ public class MenuSpawn : MonoBehaviour
 
 
 	public int numPlayers = 0;                                          //keep track of the number of players. Used to start game
+
+
+    //testing out manually joining players
+    public InputAction joinAction;
     
     //when a player joins this funciton is called
     void OnPlayerJoined(PlayerInput playerInput)
@@ -31,13 +35,16 @@ public class MenuSpawn : MonoBehaviour
         //spawn the player at their given location
         playerInput.gameObject.transform.position = spawnPoint.transform.position;
 
+        playerInput.GetComponent<RPS_Switching>().gameManager = gameManagerObject;
+        playerInput.GetComponent<Combat>().gameManager = gameManagerObject;
+
         //attach the player as a target
         cameraTargetGroup.m_Targets[numPlayers].target = playerInput.gameObject.transform;
 
         if (numPlayers > 0)
         {
 			playerInput.GetComponent<RPS_Switching>().player = Player.P2;
-			playerInput.GetComponent<RPS_Switching>().gameManager = gameManagerObject;
+			//playerInput.GetComponent<RPS_Switching>().gameManager = gameManagerObject;
 			playerInput.GetComponent<Combat>().healthBar_thisCharacter = hpP2;
 			//playerInput.GetComponent<Combat>().respawnPointsObject = respawnPoints;
 
@@ -48,7 +55,7 @@ public class MenuSpawn : MonoBehaviour
 		else 
         {
 			playerInput.GetComponent<RPS_Switching>().player = Player.P1;
-			playerInput.GetComponent<RPS_Switching>().gameManager = gameManagerObject;
+			//playerInput.GetComponent<RPS_Switching>().gameManager = gameManagerObject;
 			playerInput.GetComponent<Combat>().healthBar_thisCharacter = hpP1;
 			//playerInput.GetComponent<Combat>().respawnPointsObject = respawnPoints;
 
@@ -56,6 +63,12 @@ public class MenuSpawn : MonoBehaviour
 		}
         
         numPlayers++;
+
+        //prenting error
+        if(numPlayers > 1)
+        {
+            GetComponent<PlayerInputManager>().DisableJoining();
+        }
         
     }
 
@@ -64,4 +77,10 @@ public class MenuSpawn : MonoBehaviour
     {
         numPlayers--;
     }
+
+    private void Start()
+    {
+        joinAction.Enable();
+    }
+
 }

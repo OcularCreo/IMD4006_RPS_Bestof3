@@ -36,6 +36,8 @@ public class Manager : MonoBehaviour
 
     public TextMeshProUGUI stateLabelUI;
     public InputAction action;
+    [SerializeField] private PlayerInputManager playerManager;
+
     
     [SerializeField] private GameObject inputPlayerManager;
     [SerializeField] private GameObject menuColliders;
@@ -130,7 +132,7 @@ public class Manager : MonoBehaviour
         if (state == GameState.menu)
         {
             //if the controller is triggered and two players are in the game, enter RPS state, trun of the menu
-            if ((action.triggered && inputPlayerManager.GetComponent<MenuSpawn>().numPlayers > 0))
+            if ((action.triggered && playerManager.playerCount > 1))
             {
                 state = GameState.RPS;
                 shownGraphic = false;
@@ -141,6 +143,9 @@ public class Manager : MonoBehaviour
                 canvas.SetActive(true);
 
                 //Load scene
+
+                playerManager.DisableJoining();
+
                 SceneManager.LoadScene("DinoScene", LoadSceneMode.Additive);
 
                 //Set RespawnPoints
