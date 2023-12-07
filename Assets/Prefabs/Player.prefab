@@ -1458,6 +1458,7 @@ MonoBehaviour:
   slamOver: 0
   hasRespawned: 1
   enemy: {fileID: 0}
+  gameManager: {fileID: 0}
   healthBar_thisCharacter: {fileID: 0}
   hitParticle: {fileID: 5076444897473476155, guid: 0a7f850426bdd8540adbfbfff115749d, type: 3}
   hitParticleBig: {fileID: 5076444897473476155, guid: cbe8da99ff7637a4ebc850fde43bbd7c, type: 3}
@@ -1606,9 +1607,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9285da995a364d4485f6318e6f70af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slamDamage: 15
   slamming: 0
+  jumpDamage: 5
+  jumping: 0
   dashDamage: 10
   dashing: 0
+  abilityReadyParticle: {fileID: 5076444897473476155, guid: cea642e8a9f00ce4181c59f32ab9cb01, type: 3}
 --- !u!114 &891909332205106847
 MonoBehaviour:
   m_ObjectHideFlags: 0

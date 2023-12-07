@@ -116,7 +116,7 @@ public class Combat : MonoBehaviour
 			}*/
 
 			// Slam does damage
-			if(GetComponent<Movement>().playersCollided && GetComponent<Movement>().slammed) // if players have collided and slam has been done
+			/*if(GetComponent<Movement>().playersCollided && GetComponent<Movement>().slammed) // if players have collided and slam has been done
             {
 				// enemy takes damage
 				HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
@@ -125,7 +125,7 @@ public class Combat : MonoBehaviour
             if (!GetComponent<Movement>().slammed) // if slam is over, reset slamOver
             {
 				slamOver = false;
-            }
+            }*/
 
 		}
 
