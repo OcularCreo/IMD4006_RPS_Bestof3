@@ -23,8 +23,10 @@ public class Controller_Movement : MonoBehaviour
     [SerializeField] private float velPower = 0.9f;      //sets the velocity power of the plyaer
     [SerializeField] private float frictionAmount = 2f;  //sets the amount of friciton the player has to the floor when deccelerating
     
-    private float slamPower = 50f;      //variable used to determine how strong slams are
-    public bool slamming;              //tells us if the player his holding the slamming button
+    //Abilities
+    //private float slamPower = 50f;      //variable used to determine how strong slams are
+    //public bool slamming;              //tells us if the player his holding the slamming button
+
     public bool isFacingRight = true;  //variable used for determining player orentations
 	
     //Movement Particles
@@ -62,7 +64,7 @@ public class Controller_Movement : MonoBehaviour
         extraJumps = extraJumpValues;
 
         //setting up default variable values
-        slamming = false;
+        //slamming = false;
     }
 
     // Update is called once per frame
@@ -143,7 +145,7 @@ public class Controller_Movement : MonoBehaviour
             rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);                      //applying friction force in opposite direction as movement
         }
 
-        //when the player is holding the slam button
+        /*//when the player is holding the slam button
         if (slamming)
         {
             //Debug.Log("slamming now");
@@ -154,7 +156,7 @@ public class Controller_Movement : MonoBehaviour
             {
                 slamming = false;
             }
-        }
+        }*/
 
         
     }
@@ -297,14 +299,15 @@ public class Controller_Movement : MonoBehaviour
 		}
 	}
 
-	//funciton used to read in when player hits the slam button
+    
+	/*//funciton used to read in when player hits the slam button
 	public void characterAbility(InputAction.CallbackContext context)
     {
-        /*//when the player lifts the trigger
+        *//*//when the player lifts the trigger
         if (context.canceled)
         {
             slamming = false;
-        }*/
+        }*//*
         
         //when the player presses the right trigger have them move down at a speed determined by slam power
         if (context.action.triggered)
@@ -347,7 +350,7 @@ public class Controller_Movement : MonoBehaviour
 			slamming = true;
 		}
 
-	}
+	}*/
 
 	private void Flip()
 	{
@@ -391,13 +394,13 @@ public class Controller_Movement : MonoBehaviour
 		}
 		onJumpKeyboard(jumpVal);
 
-        //Slam
+        /*//Slam
 		int abilityVal = 0;
 		if (Input.GetKey("e"))
 		{
 			abilityVal = 1;
 		}
-		onSlamKeyboard(abilityVal);
+		onSlamKeyboard(abilityVal);*/
 	}
 
 	//Movement Function for Keyboard Player 2

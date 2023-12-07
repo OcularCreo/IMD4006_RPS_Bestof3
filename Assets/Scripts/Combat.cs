@@ -107,10 +107,10 @@ public class Combat : MonoBehaviour
 
 
 
-			if (gameObject.GetComponent<Controller_Movement>().slamming)
+			/*if (gameObject.GetComponent<Controller_Movement>().slamming)
 			{
 
-			}
+			}*/
 
 			// Slam does damage
 			if(GetComponent<Movement>().playersCollided && GetComponent<Movement>().slammed) // if players have collided and slam has been done
@@ -462,7 +462,7 @@ public class Combat : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(gameObject.GetComponent<Controller_Movement>().slamming && collision.gameObject.tag == "Player")
+        if(gameObject.GetComponent<Abilities>().slamming && collision.gameObject.tag == "Player")
 		{
 
 			UnityEngine.Debug.Log("Slammed an enemy");

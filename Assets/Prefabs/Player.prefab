@@ -1302,6 +1302,7 @@ GameObject:
   - component: {fileID: 732755535972966385}
   - component: {fileID: -2064724191323337345}
   - component: {fileID: 891909332205106847}
+  - component: {fileID: 206669118065578283}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1585,7 +1586,6 @@ MonoBehaviour:
   decceleration: 10
   velPower: 0.9
   frictionAmount: 2
-  slamming: 0
   isFacingRight: 1
   walkDust: {fileID: 8125542900305836771, guid: 33f96407d4bb9b044b07f50a1ed5c244, type: 3}
   walkDustPos: {fileID: 4479182111377180222}
@@ -1653,8 +1653,8 @@ MonoBehaviour:
     m_ActionName: Gameplay/Jump[/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -2064724191323337345}
-        m_TargetAssemblyTypeName: Controller_Movement, Assembly-CSharp
+      - m_Target: {fileID: 206669118065578283}
+        m_TargetAssemblyTypeName: Abilities, Assembly-CSharp
         m_MethodName: characterAbility
         m_Mode: 0
         m_Arguments:
@@ -1704,6 +1704,19 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &206669118065578283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310070276530836521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9285da995a364d4485f6318e6f70af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slamming: 0
 --- !u!1 &5539493433207918655
 GameObject:
   m_ObjectHideFlags: 0
