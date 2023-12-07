@@ -520,7 +520,7 @@ public class Combat : MonoBehaviour
                 //Debug.Log("Entered Range");
                 canHit = true;
             }*/
-            enemy = collision.gameObject;
+            //enemy = collision.gameObject;
 		}
 	}
 
