@@ -10,8 +10,7 @@ public class Sound : MonoBehaviour
     [SerializeField] public AudioClip sound_background_fight;
     [SerializeField] public AudioClip sound_background_rps;
 
-    [SerializeField] public AudioClip soundEffect_punch_normal;
-    [SerializeField] public AudioClip soundEffect_punch_super;
+    [SerializeField] public AudioClip soundEffect_punch;
     [SerializeField] public AudioClip soundEffect_cut;
     [SerializeField] public AudioClip soundEffect_rip;
 
