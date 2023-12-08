@@ -169,7 +169,7 @@ public class Combat : MonoBehaviour
 		}*/
 
 		//when the player presses B attack
-		if (context.action.triggered)
+		if (context.action.triggered && !GetComponent<RPS_Switching>().menuSwitching)
 		{
 			if (!hitting && GetComponent<RPS_Switching>().gameManager.state != GameState.RPS && !GetComponent<Abilities>().abilityInUse)
 			{
