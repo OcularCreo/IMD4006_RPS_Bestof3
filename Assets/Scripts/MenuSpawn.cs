@@ -54,7 +54,10 @@ public class MenuSpawn : MonoBehaviour
             playerInput.GetComponent<Combat>().enemy = gameManagerObject.player1;
 			gameManagerObject.player1.GetComponent<Combat>().enemy = gameManagerObject.player2;
 
-			menuCameraTarget.GetComponent<MenuCameraTarget>().player2 = playerInput.gameObject;
+            if (menuCameraTarget != null)
+            {
+				menuCameraTarget.GetComponent<MenuCameraTarget>().player2 = playerInput.gameObject;
+			}
 
 			p2Join.SetActive(false);
 			yStart.SetActive(true);
@@ -68,7 +71,10 @@ public class MenuSpawn : MonoBehaviour
 			//playerInput.GetComponent<Combat>().respawnPointsObject = respawnPoints;
 			gameManagerObject.player1 = playerInput.gameObject;
 
-			menuCameraTarget.GetComponent<MenuCameraTarget>().player1 = playerInput.gameObject;
+			if (menuCameraTarget != null)
+			{
+				menuCameraTarget.GetComponent<MenuCameraTarget>().player1 = playerInput.gameObject;
+			}
 
 			p1Join.SetActive(false);
 		}
