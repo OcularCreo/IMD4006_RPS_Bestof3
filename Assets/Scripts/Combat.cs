@@ -176,7 +176,7 @@ public class Combat : MonoBehaviour
                     if (!alreadyHit)
                     {
                         alreadyHit = true;
-                        HitEnemy(GetComponent<RPS_Switching>().character, enemy.GetComponent<RPS_Switching>().character);
+                        HitEnemy(gameObject, enemy, characterDamage);
                     }
                 }
             }
@@ -308,7 +308,7 @@ public class Combat : MonoBehaviour
 		
 	}
 
-	private void HitEnemy(Character thisPlayer, Character enemyPlayer)
+	private void HitEnemy(GameObject thisPlayer, GameObject enemyPlayer, int damage)
 	{
 		//hit enemy
 
@@ -316,81 +316,60 @@ public class Combat : MonoBehaviour
 		// int enemyHealth = Combat.health;
 		int damageDealt = 0;
 
+		//Get Characters
+		Character thisPlayerCharacter = thisPlayer.GetComponent<RPS_Switching>().character;
+		Character enemyPlayerCharacter = enemyPlayer.GetComponent<RPS_Switching>().character;
+
 		//Scissors to Rock
-		if (thisPlayer == Character.scissors && enemyPlayer == Character.rock)
+		if (thisPlayerCharacter == Character.scissors && enemyPlayerCharacter == Character.rock)
 		{
-			damageDealt = (int)(characterDamage * disadvantageMultiplier);
+			damageDealt = (int)(damage * disadvantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleLittle, enemy.transform.position, enemy.transform.rotation);
 		}
 		//Scissors to Paper
-		else if (thisPlayer == Character.scissors && enemyPlayer == Character.paper)
+		else if (thisPlayerCharacter == Character.scissors && enemyPlayerCharacter == Character.paper)
 		{
-			damageDealt = (int)(characterDamage * advantageMultiplier);
+			damageDealt = (int)(damage * advantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleBig, enemy.transform.position, enemy.transform.rotation);
 		}
 		//Rock to Paper
-		else if (thisPlayer == Character.rock && enemyPlayer == Character.paper)
+		else if (thisPlayerCharacter == Character.rock && enemyPlayerCharacter == Character.paper)
 		{
-			damageDealt = (int)(characterDamage * disadvantageMultiplier);
+			damageDealt = (int)(damage * disadvantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleLittle, enemy.transform.position, enemy.transform.rotation);
 		}
 		//Rock to Scissors
-		else if (thisPlayer == Character.rock && enemyPlayer == Character.scissors)
+		else if (thisPlayerCharacter == Character.rock && enemyPlayerCharacter == Character.scissors)
 		{
-			damageDealt = (int)(characterDamage * advantageMultiplier);
+			damageDealt = (int)(damage * advantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleBig, enemy.transform.position, enemy.transform.rotation);
 		}
 		//Paper to Rock
-		else if (thisPlayer == Character.paper && enemyPlayer == Character.rock)
+		else if (thisPlayerCharacter == Character.paper && enemyPlayerCharacter == Character.rock)
 		{
-			damageDealt = (int)(characterDamage * advantageMultiplier);
+			damageDealt = (int)(damage * advantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleBig, enemy.transform.position, enemy.transform.rotation);
 		}
 		//Paper to Scissors
-		else if (thisPlayer == Character.paper && enemyPlayer == Character.scissors)
+		else if (thisPlayerCharacter == Character.paper && enemyPlayerCharacter == Character.scissors)
 		{
-			damageDealt = (int)(characterDamage * disadvantageMultiplier);
+			damageDealt = (int)(damage * disadvantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleLittle, enemy.transform.position, enemy.transform.rotation);
 		}
 		else {
-			damageDealt = characterDamage;
+			damageDealt = damage;
 			//Paricle Effect
 			Instantiate(hitParticle, enemy.transform.position, enemy.transform.rotation);
 		}
 
-		//enemyHealth -= damageDealt;
-		//Debug.Log(damageDealt);
-		//Debug.Log(enemyHealth);
-
+		//Send Damage
 		enemy.GetComponent<Combat>().takeDamage(damageDealt);
-
-		
-
-		/*//knockback
-		Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
-		float characterFacing = 1;
-		Debug.Log(GetComponent<Movement>().facingRight);
-		if (GetComponent<Movement>().facingRight == true)
-		{
-			characterFacing = 1;
-		}
-		else
-		{
-			characterFacing = -1;
-		}
-		enemyRb.velocity = new Vector2(enemyRb.velocity.x + (knockback * characterFacing), enemyRb.velocity.y + knockback);
-
-		enemy.GetComponent<Combat>().health = enemyHealth;
-        enemy.GetComponent<Combat>().healthUI.text = enemyHealth.ToString();
-        //Debug.Log("Enemy health: " + enemy.GetComponent<Combat>().health);*/
-
-		//healtBar();
 	}
 
 	public void Die()
@@ -486,7 +465,7 @@ public class Combat : MonoBehaviour
 		if (gameObject.GetComponent<Abilities>().slamming && collision.gameObject.tag == "Player")
 		{
 			//Slam Damage
-			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().slamDamage);
+			HitEnemy(gameObject, enemy, GetComponent<Abilities>().slamDamage);
 			GetComponent<Abilities>().slamming = false;
 
 			//Particles
@@ -501,7 +480,7 @@ public class Combat : MonoBehaviour
 		if (gameObject.GetComponent<Abilities>().jumping && collision.gameObject.tag == "Player")
 		{
 			//Jump Damage
-			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().jumpDamage);
+			HitEnemy(gameObject, enemy, GetComponent<Abilities>().jumpDamage);
 
 			//Particles
 			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
@@ -515,7 +494,7 @@ public class Combat : MonoBehaviour
 		if (gameObject.GetComponent<Abilities>().dashing && collision.gameObject.tag == "Player")
 		{
 			//Dash Damage
-			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().dashDamage);
+			HitEnemy(gameObject, enemy, GetComponent<Abilities>().dashDamage);
 			
 			//Particles
 			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
@@ -530,8 +509,6 @@ public class Combat : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
 	{
-
-
 		//Debug.Log("Check in");
 		if (collision.gameObject.GetComponent<Combat>() != null)
 		{
@@ -559,33 +536,11 @@ public class Combat : MonoBehaviour
 	//includes knocback
 	public void takeDamage(int dmg)
 	{
-		//knockback player (disable player movement for small amount of time to prevent them from cancelling motion of knock-back)
-		StartCoroutine(KnockbackTimer());
+		KnockbackEnemy();
 
-        /*float enemyFacing = 1; 
-        if (enemy.GetComponent<Controller_Movement>().isFacingRight == true)
-		{
-			//right
-			enemyFacing = 1;
-		}
-		else
-		{
-			//left
-			enemyFacing = -1;
-		}*/
-
-        //change vector direction (postive or negative) depending on the where enemy is facing
-        float enemyFacing = (enemy.GetComponent<Controller_Movement>().isFacingRight ? 1.0f : -1f);
-
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-		knockbackMultiplier = Mathf.Pow((((float)maxHealth - (float)health) / (float)maxHealth) + 1, 2f);
-		float kbValue = knockback * knockbackMultiplier;
-		//Debug.Log(kbValue);
-		GetComponent<Rigidbody2D>().velocity = new Vector2(rb.velocity.x + (kbValue * enemyFacing), rb.velocity.y + kbValue);
-
-        //Update Health
-        //only apply damage to other player when in battle stage
-        if (gameManager.state == GameState.battle)
+		//Update Health
+		//only apply damage to other player when in battle stage
+		if (gameManager.state == GameState.battle)
 		{
             //Double damage if debuff is active
             if (doubleDamage)
@@ -603,6 +558,23 @@ public class Combat : MonoBehaviour
             healthBar_thisCharacter.GetComponent<HealthBar>().setHealth(health);
         }
 		
+	}
+
+	private void KnockbackEnemy() 
+	{
+		//knockback player (disable player movement for small amount of time to prevent them from cancelling motion of knock-back)
+		StartCoroutine(KnockbackTimer());
+
+
+        //change vector direction (postive or negative) depending on the where enemy is facing
+        float enemyFacing = (enemy.GetComponent<Controller_Movement>().isFacingRight ? 1.0f : -1f);
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+		knockbackMultiplier = Mathf.Pow((((float)maxHealth - (float)health) / (float)maxHealth) + 1, 2f);
+		float kbValue = knockback * knockbackMultiplier;
+		//Debug.Log(kbValue);
+		GetComponent<Rigidbody2D>().velocity = new Vector2(rb.velocity.x + (kbValue * enemyFacing), rb.velocity.y + kbValue);
+
 	}
 
 	//Delay how long player cannot move while being knocked back
