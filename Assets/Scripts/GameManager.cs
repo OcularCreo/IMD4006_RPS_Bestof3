@@ -70,6 +70,8 @@ public class Manager : MonoBehaviour
     [SerializeField] private AudioSource source;
     [SerializeField] private Sound sound;
 
+    [SerializeField] private GameObject bts;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -134,7 +136,7 @@ public class Manager : MonoBehaviour
 
                 } if(action.triggered && selectedLevel == Level.Tutorial)
                 {
-                    TeleportPlayers(new Vector2(0.5f, 0));
+                    TeleportPlayers(bts.GetComponent<Transform>().position);
                 }
 
             }
