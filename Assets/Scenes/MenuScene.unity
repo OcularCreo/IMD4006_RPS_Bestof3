@@ -3511,13 +3511,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound_background_menu: {fileID: 8300000, guid: 122190c54d4bc499a973ed27d895ecf4, type: 3}
-  sound_background_fight: {fileID: 8300000, guid: a9232f5e353244e15a58a1cda5839baf, type: 3}
+  sound_background_fight: {fileID: 8300000, guid: f6c784bf2e5204eeca31012b52132bcd, type: 3}
   sound_background_rps: {fileID: 8300000, guid: a419ed994981f424aaccfc6ce2d7ffee, type: 3}
-  soundEffect_punch: {fileID: 0}
-  soundEffect_jump: {fileID: 0}
-  soundEffect_slam: {fileID: 0}
-  soundEffect_fly: {fileID: 0}
-  soundEffect_drop: {fileID: 0}
+  soundEffect_punch: {fileID: 8300000, guid: 95dfd11ccde7442a8ad8931bd9237c18, type: 3}
+  soundEffect_cut: {fileID: 8300000, guid: 15708deed03e84017aaf70627bfdd241, type: 3}
+  soundEffect_rip: {fileID: 8300000, guid: f5eee0bd97bc243ab82a602d28ec4d83, type: 3}
   soundAnnounce_fight: {fileID: 8300000, guid: b21d021177c4448b987791ad14979f1f, type: 3}
   soundAnnounce_rps: {fileID: 8300000, guid: 77f5120d0045942a8abb608d882e724d, type: 3}
   rock: {fileID: 8300000, guid: 0608e918702ea4b9c92ee13589a59ca7, type: 3}
