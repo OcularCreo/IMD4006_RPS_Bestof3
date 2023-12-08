@@ -110,7 +110,7 @@ public class RPS_Switching : MonoBehaviour
 
 
         //when in RPS mode and player is on platform and player not moving L/R, allow the player to change their character
-        if ((gameManager.state == GameState.RPS && playerOnPlatform) || menuSwitching)
+        if ((gameManager.state == GameState.RPS || menuSwitching) && playerOnPlatform)
         {
             //controlLayout.SetActive(true);
 
