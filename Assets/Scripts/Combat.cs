@@ -65,10 +65,11 @@ public class Combat : MonoBehaviour
 	[SerializeField] private ParticleSystem hitParticleBig;
 	[SerializeField] private ParticleSystem hitParticleLittle;
 	[SerializeField] private ParticleSystem debuffParticles;
+	[SerializeField] private ParticleSystem abilityHitParticles;
 
 
 
-    void Start()
+	void Start()
     {
 		health = maxHealth;
 		//respawnPoints = respawnPointsObject.GetComponentsInChildren<Transform>();
@@ -487,6 +488,10 @@ public class Combat : MonoBehaviour
 			//Slam Damage
 			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().slamDamage);
 			GetComponent<Abilities>().slamming = false;
+
+			//Particles
+			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
+			debuffP.transform.parent = enemy.gameObject.transform;
 		}
 
 		//Paper
@@ -494,6 +499,10 @@ public class Combat : MonoBehaviour
 		{
 			//Jump Damage
 			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().jumpDamage);
+
+			//Particles
+			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
+			debuffP.transform.parent = enemy.gameObject.transform;
 		}
 
 		//Scissors
@@ -501,6 +510,10 @@ public class Combat : MonoBehaviour
 		{
 			//Dash Damage
 			enemy.GetComponent<Combat>().takeDamage(GetComponent<Abilities>().dashDamage);
+			
+			//Particles
+			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
+			debuffP.transform.parent = enemy.gameObject.transform;
 		}
 
 		

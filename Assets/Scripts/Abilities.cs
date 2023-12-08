@@ -19,23 +19,26 @@ public class Abilities : MonoBehaviour
 	public int slamDamage = 15;
 	private bool canSlam = true;
 	public bool slamming = false;
-	//private float slamCooldown = 3f;
+	private float slamCooldown = 1.5f;
 	//private float slamDamageTimer = 0.3f;
+	private bool slamCoroutineStarted = false;
 
 	//Paper
 	private float jumpPower = 700f;
 	public int jumpDamage = 5;
 	private bool canJump = true;
 	public bool jumping = false;
-	//private float jumpCooldown = 3f;
+	private float jumpCooldown = 1.5f;
 	private float jumpDamageTimer = 0.3f;
+	private float paperBufferTime = 0.1f;   //Buffer to prevent player from getting cooldown before leaving the ground
+	private bool jumpCoroutineStarted = false;
 
 	//Scissors
 	private float dashPower = 1500f;
 	public int dashDamage = 10;
 	private bool canDash = true;
 	public bool dashing = false;
-	private float dashCooldown = 1.5f;
+	private float dashCooldown = 2f;
 	private float dashDamageTimer = 0.3f;
 
 	//Particles
@@ -70,17 +73,19 @@ public class Abilities : MonoBehaviour
 		if (GetComponent<Controller_Movement>().isGrounded())
 		{
 			if (canSlam == false) {
-				Instantiate(abilityReadyParticle, gameObject.transform.position, gameObject.transform.rotation);
+				if (!slamCoroutineStarted)
+				{
+					StartCoroutine(SlamTime());
+				}
 			}
 			if (canJump == false)
 			{
-				Instantiate(abilityReadyParticle, gameObject.transform.position, gameObject.transform.rotation);
+				if (!jumpCoroutineStarted)
+				{
+					StartCoroutine(JumpBuffer());
+				}
 			}
-			//Rock Ability Reset
-			canSlam = true;
-			slamming = false;
-			//Paper Ability Reset
-			canJump = true;
+			
 		}
 
 	}
@@ -167,7 +172,47 @@ public class Abilities : MonoBehaviour
 		slamming = false;
 	}*/
 
+	//CoolDown
+	private IEnumerator SlamTime()
+	{
+		slamCoroutineStarted = true;
+
+		canSlam = false;
+		slamming = false;
+
+		yield return new WaitForSeconds(slamCooldown);
+
+		if (!canSlam)
+		{
+			Instantiate(abilityReadyParticle, gameObject.transform.position, gameObject.transform.rotation);
+		}
+
+		canSlam = true;
+
+		slamCoroutineStarted = false;
+	}
+
 	//Paper
+	//CoolDown
+	private IEnumerator JumpTime()
+	{
+		jumpCoroutineStarted = true;
+
+		canJump = false;
+
+		yield return new WaitForSeconds(jumpCooldown);
+
+		if (!canJump)
+		{
+			Instantiate(abilityReadyParticle, gameObject.transform.position, gameObject.transform.rotation);
+		}
+
+		canJump = true;
+
+		jumpCoroutineStarted = false;
+	}
+
+	//After time can no longer do damage
 	private IEnumerator JumpDamageTime()
 	{
 		jumping = true;
@@ -177,7 +222,17 @@ public class Abilities : MonoBehaviour
 		jumping = false;
 	}
 
+	private IEnumerator JumpBuffer()
+	{
+		yield return new WaitForSeconds(paperBufferTime);
+		if (GetComponent<Controller_Movement>().isGrounded())
+		{
+			StartCoroutine(JumpTime());
+		}
+	}
+
 	//Scissors
+	//CoolDown
 	private IEnumerator DashTime()
 	{
 		canDash = false;
@@ -188,7 +243,7 @@ public class Abilities : MonoBehaviour
 
 		Instantiate(abilityReadyParticle, gameObject.transform.position, gameObject.transform.rotation);
 	}
-
+	//After time can no longer do damage
 	private IEnumerator DashDamageTime()
 	{
 		dashing = true;
@@ -197,4 +252,6 @@ public class Abilities : MonoBehaviour
 
 		dashing = false;
 	}
+
+
 }
