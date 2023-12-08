@@ -69,8 +69,8 @@ public class Combat : MonoBehaviour
 	[SerializeField] private ParticleSystem abilityHitParticles2;
 
 
-	[SerializeField] private AudioSource source;
-	[SerializeField] private Sound sound;
+	//[SerializeField] private AudioSource source;
+	//[SerializeField] private Sound sound;
 
 
 
@@ -91,7 +91,7 @@ public class Combat : MonoBehaviour
         // healthBarLocalPosition = health_bar.GetComponent<Transform>().position.x;
 		// opponentHealth = health_bar.transform.parent.gameObject.GetComponent<Combat>().health;
 
-		source = GetComponent<AudioSource>();
+		//source = GetComponent<AudioSource>();
 		
 	}
 
@@ -227,21 +227,21 @@ public class Combat : MonoBehaviour
 				GetComponent<PlayerGFX>().rockAttack.SetActive(true);
 				GetComponent<PlayerGFX>().rockIdle.SetActive(false);
 
-				source.PlayOneShot(sound.soundEffect_punch_normal);
+				//source.PlayOneShot(sound.soundEffect_punch_normal);
 			}
 			else if (GetComponent<RPS_Switching>().character == Character.scissors)
 			{
 				GetComponent<PlayerGFX>().scissorsAttack.SetActive(true);
 				GetComponent<PlayerGFX>().scissorsIdle.SetActive(false);
 				
-				source.PlayOneShot(sound.soundEffect_cut);
+				//source.PlayOneShot(sound.soundEffect_cut);
 			}
 			else if (GetComponent<RPS_Switching>().character == Character.paper)
 			{
 				GetComponent<PlayerGFX>().paperAttack.SetActive(true);
 				GetComponent<PlayerGFX>().paperIdle.SetActive(false);
 
-				source.PlayOneShot(sound.soundEffect_rip);
+				//source.PlayOneShot(sound.soundEffect_rip);
 			}
 
 			yield return new WaitForSeconds(attackActiveTime);
@@ -256,21 +256,21 @@ public class Combat : MonoBehaviour
 				GetComponent<PlayerGFX>().rockAttack.SetActive(false);
 				GetComponent<PlayerGFX>().rockIdle.SetActive(true);
 
-				source.PlayOneShot(sound.soundEffect_punch_normal);
+				//source.PlayOneShot(sound.soundEffect_punch_normal);
 			}
 			else if (GetComponent<RPS_Switching>().character == Character.scissors)
 			{
 				GetComponent<PlayerGFX>().scissorsAttack.SetActive(false);
 				GetComponent<PlayerGFX>().scissorsIdle.SetActive(true);
 
-				source.PlayOneShot(sound.soundEffect_cut);
+				//source.PlayOneShot(sound.soundEffect_cut);
 			}
 			else if (GetComponent<RPS_Switching>().character == Character.paper)
 			{
 				GetComponent<PlayerGFX>().paperAttack.SetActive(false);
 				GetComponent<PlayerGFX>().paperIdle.SetActive(true);
 
-				source.PlayOneShot(sound.soundEffect_rip);
+				//source.PlayOneShot(sound.soundEffect_rip);
 			}
 
             hitting = false;
