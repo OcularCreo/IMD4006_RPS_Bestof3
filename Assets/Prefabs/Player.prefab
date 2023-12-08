@@ -1,5 +1,89 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &215711812382250163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6762937890346477011}
+  - component: {fileID: 8127274718507462701}
+  m_Layer: 0
+  m_Name: GameDev_ScissorsDash_O
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6762937890346477011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215711812382250163}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.47, y: -0.143, z: 0}
+  m_LocalScale: {x: 0.038508274, y: 0.038508274, z: 0.038508274}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 8090008543255318649}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!212 &8127274718507462701
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215711812382250163}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 5363ea9aed8b43f4d926fafa06fdfb0f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 46.06, y: 27.70797}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &530276244565202676
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,8 +785,8 @@ Transform:
   - {fileID: 6872593854091987609}
   - {fileID: 3357233402965107088}
   - {fileID: 3433649614738383216}
-  - {fileID: 6884680754427066393}
-  - {fileID: 2880461413670406864}
+  - {fileID: 8843054336229772631}
+  - {fileID: 6762937890346477011}
   m_Father: {fileID: 7999098566709630438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3580587765549520736
@@ -1348,90 +1432,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &4934863737908418813
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6884680754427066393}
-  - component: {fileID: 4795634106859814995}
-  m_Layer: 0
-  m_Name: GameDev_ScissorsSlam_Blue
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &6884680754427066393
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4934863737908418813}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.001, y: 0.374, z: 0}
-  m_LocalScale: {x: 0.038508274, y: 0.038508274, z: 0.038508274}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 8090008543255318649}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!212 &4795634106859814995
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4934863737908418813}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: af9a15723fd7da94abd3e7620e404c76, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 21.599998, y: 52.28936}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &5139053420865526289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,7 +1526,7 @@ MonoBehaviour:
   scissorsIdle: {fileID: 8751152781445937276}
   scissorsAttack: {fileID: 4775163086366208309}
   scissorsChange: {fileID: 2506088616373108832}
-  scissorsAbility: {fileID: 5893910537292750200}
+  scissorsAbility: {fileID: 0}
   rockIdle2: {fileID: 7028135621805163074}
   rockAttack2: {fileID: 5539493433207918655}
   rockChange2: {fileID: 4052436982004716915}
@@ -1788,7 +1788,7 @@ MonoBehaviour:
   scissorsIdle: {fileID: 8751152781445937276}
   scissorsAttack: {fileID: 4775163086366208309}
   scissorsChange: {fileID: 2506088616373108832}
-  scissorsAbility: {fileID: 5893910537292750200}
+  scissorsAbility: {fileID: 215711812382250163}
   rockIdle2: {fileID: 7028135621805163074}
   rockAttack2: {fileID: 5539493433207918655}
   rockChange2: {fileID: 4052436982004716915}
@@ -1800,7 +1800,7 @@ MonoBehaviour:
   scissorsIdle2: {fileID: 2262850351525335690}
   scissorsAttack2: {fileID: 2504891485711578807}
   scissorsChange2: {fileID: 7052589401019494499}
-  scissorsAbility2: {fileID: 4934863737908418813}
+  scissorsAbility2: {fileID: 5599165624446989044}
 --- !u!114 &4030185185971145316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1873,6 +1873,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9285da995a364d4485f6318e6f70af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityInUse: 0
+  abilityInUseStarted: 0
   slamDamage: 15
   slamming: 0
   jumpDamage: 5
@@ -2075,7 +2077,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &5893910537292750200
+--- !u!1 &5599165624446989044
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2083,37 +2085,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2880461413670406864}
-  - component: {fileID: 9027954157340836213}
+  - component: {fileID: 8843054336229772631}
+  - component: {fileID: 1474795674837167282}
   m_Layer: 0
-  m_Name: GameDev_ScissorsSlam_Orange
+  m_Name: GameDev_ScissorsDash_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &2880461413670406864
+--- !u!4 &8843054336229772631
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5893910537292750200}
+  m_GameObject: {fileID: 5599165624446989044}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.001, y: 0.374, z: 0}
+  m_LocalPosition: {x: -0.47, y: -0.143, z: 0}
   m_LocalScale: {x: 0.038508274, y: 0.038508274, z: 0.038508274}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8090008543255318649}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!212 &9027954157340836213
+--- !u!212 &1474795674837167282
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5893910537292750200}
+  m_GameObject: {fileID: 5599165624446989044}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -2148,12 +2150,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 069544ee51bec12439ee0401a8e07300, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b410ea7c3ef799741b6efbe0911bb16e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 21.599998, y: 52.28936}
+  m_Size: {x: 46.06, y: 27.70797}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
