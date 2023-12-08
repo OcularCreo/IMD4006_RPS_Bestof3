@@ -227,21 +227,21 @@ public class Combat : MonoBehaviour
 				GetComponent<PlayerGFX>().rockAttack.SetActive(true);
 				GetComponent<PlayerGFX>().rockIdle.SetActive(false);
 
-				source.PlayOneShot(sound.soundEffect_punch);
+				
 			}
 			else if (GetComponent<RPS_Switching>().character == Character.scissors)
 			{
 				GetComponent<PlayerGFX>().scissorsAttack.SetActive(true);
 				GetComponent<PlayerGFX>().scissorsIdle.SetActive(false);
 				
-				source.PlayOneShot(sound.soundEffect_cut);
+				
 			}
 			else if (GetComponent<RPS_Switching>().character == Character.paper)
 			{
 				GetComponent<PlayerGFX>().paperAttack.SetActive(true);
 				GetComponent<PlayerGFX>().paperIdle.SetActive(false);
 
-				source.PlayOneShot(sound.soundEffect_rip);
+				
 			}
 
 			yield return new WaitForSeconds(attackActiveTime);
@@ -256,14 +256,14 @@ public class Combat : MonoBehaviour
 				GetComponent<PlayerGFX>().rockAttack.SetActive(false);
 				GetComponent<PlayerGFX>().rockIdle.SetActive(true);
 
-				source.PlayOneShot(sound.soundEffect_punch);
+				
 			}
 			else if (GetComponent<RPS_Switching>().character == Character.scissors)
 			{
 				GetComponent<PlayerGFX>().scissorsAttack.SetActive(false);
 				GetComponent<PlayerGFX>().scissorsIdle.SetActive(true);
 
-				source.PlayOneShot(sound.soundEffect_cut);
+				
 			}
 			else if (GetComponent<RPS_Switching>().character == Character.paper)
 			{
@@ -345,6 +345,10 @@ public class Combat : MonoBehaviour
 			damageDealt = (int)(damage * disadvantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleLittle, enemy.transform.position, enemy.transform.rotation);
+
+			//sound
+			source.PlayOneShot(sound.soundEffect_punch_normal);
+			
 		}
 		//Scissors to Paper
 		else if (thisPlayerCharacter == Character.scissors && enemyPlayerCharacter == Character.paper)
@@ -352,6 +356,7 @@ public class Combat : MonoBehaviour
 			damageDealt = (int)(damage * advantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleBig, enemy.transform.position, enemy.transform.rotation);
+			source.PlayOneShot(sound.soundEffect_punch_super);
 		}
 		//Rock to Paper
 		else if (thisPlayerCharacter == Character.rock && enemyPlayerCharacter == Character.paper)
@@ -359,6 +364,7 @@ public class Combat : MonoBehaviour
 			damageDealt = (int)(damage * disadvantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleLittle, enemy.transform.position, enemy.transform.rotation);
+			source.PlayOneShot(sound.soundEffect_punch_normal);
 		}
 		//Rock to Scissors
 		else if (thisPlayerCharacter == Character.rock && enemyPlayerCharacter == Character.scissors)
@@ -366,6 +372,7 @@ public class Combat : MonoBehaviour
 			damageDealt = (int)(damage * advantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleBig, enemy.transform.position, enemy.transform.rotation);
+			source.PlayOneShot(sound.soundEffect_punch_super);
 		}
 		//Paper to Rock
 		else if (thisPlayerCharacter == Character.paper && enemyPlayerCharacter == Character.rock)
@@ -373,6 +380,8 @@ public class Combat : MonoBehaviour
 			damageDealt = (int)(damage * advantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleBig, enemy.transform.position, enemy.transform.rotation);
+			source.PlayOneShot(sound.soundEffect_punch_super);
+			
 		}
 		//Paper to Scissors
 		else if (thisPlayerCharacter == Character.paper && enemyPlayerCharacter == Character.scissors)
@@ -380,11 +389,14 @@ public class Combat : MonoBehaviour
 			damageDealt = (int)(damage * disadvantageMultiplier);
 			//Paricle Effect
 			Instantiate(hitParticleLittle, enemy.transform.position, enemy.transform.rotation);
+
+			source.PlayOneShot(sound.soundEffect_punch_normal);
 		}
 		else {
 			damageDealt = damage;
 			//Paricle Effect
 			Instantiate(hitParticle, enemy.transform.position, enemy.transform.rotation);
+			source.PlayOneShot(sound.soundEffect_punch_normal);
 		}
 
 		//Send Damage
