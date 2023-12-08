@@ -66,6 +66,9 @@ public class Manager : MonoBehaviour
 
     public Level selectedLevel;
 
+    [SerializeField] private AudioSource source;
+    [SerializeField] private Sound sound;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -88,6 +91,8 @@ public class Manager : MonoBehaviour
         timebar.setMaxTime(RPS_time);
 
         selectedLevel = Level.None;
+
+        source = GetComponent<AudioSource>();
 
 	}
 
@@ -148,6 +153,9 @@ public class Manager : MonoBehaviour
                 SceneManager.LoadScene("DinoScene", LoadSceneMode.Additive);
 
             }*/
+
+            //PLAY SOUND
+            source.PlayOneShot(sound.sound_background_menu);
         }
         
         if (state == GameState.RPS)
@@ -203,6 +211,7 @@ public class Manager : MonoBehaviour
 				timerFightGraphic.SetActive(true);
 
 			}
+            source.PlayOneShot(sound.sound_background_rps);
         }
         //when in the battle state
         else if (state == GameState.battle)
@@ -255,7 +264,7 @@ public class Manager : MonoBehaviour
             //}
             //Debug.Log("player 1 lives: " + player1.GetComponent<Combat>().lives);
             //Debug.Log("player 2 lives: " + player2.GetComponent<Combat>().lives);
-
+            source.PlayOneShot(sound.sound_background_fight);
         }
         //going to assume the only other possible state is game over
         else if (state == GameState.gameOver)
@@ -265,6 +274,7 @@ public class Manager : MonoBehaviour
 			//stateLabelUI.text = "GAME OVER";
 			Instantiate(winnerParticles, playerWinner.gameObject.transform.position, playerWinner.gameObject.transform.rotation);
 		}
+
 
     }
 
