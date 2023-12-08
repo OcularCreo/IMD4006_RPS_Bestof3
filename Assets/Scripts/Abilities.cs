@@ -8,6 +8,8 @@ public class Abilities : MonoBehaviour
 {
 	//Generic
 	private Rigidbody2D rb;
+	public bool abilityInUse = false;
+	public bool abilityInUseStarted = false;
 
 	//Rock
 
@@ -68,8 +70,17 @@ public class Abilities : MonoBehaviour
 			}
 		}*/
 
-		
+		//Prevent Attacks
+		if (!canDash || !canJump || !canSlam)
+		{
+			if (!abilityInUse && !abilityInUseStarted) {
+				abilityInUse = true;
+				abilityInUseStarted = true;
+				StartCoroutine(AbilityInUseTimer());
+			}
+		}
 
+		//Reset Ability
 		if (GetComponent<Controller_Movement>().isGrounded())
 		{
 			if (canSlam == false) {
@@ -90,9 +101,19 @@ public class Abilities : MonoBehaviour
 
 	}
 
+	private IEnumerator AbilityInUseTimer()
+	{
+		yield return new WaitForSeconds(0.25f);
+		abilityInUse = false;
+
+	}
+
 	//funciton used to read in when player hits the slam button
 	public void CharacterAbility(InputAction.CallbackContext context)
 	{
+		//Reset Check if ability was used
+		abilityInUseStarted = false;
+
 		if (context.action.triggered && GetComponent<RPS_Switching>().gameManager.state == GameState.battle)
 		{
 			Character characterType = GetComponent<RPS_Switching>().character;
@@ -118,6 +139,9 @@ public class Abilities : MonoBehaviour
 				var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
 				debuffP.transform.parent = gameObject.transform;
 				//StartCoroutine(SlamDamageTime());
+
+				//GFX
+				swapSprites(false, Character.rock);
 			}
 
 			//Paper
@@ -130,6 +154,9 @@ public class Abilities : MonoBehaviour
 				//Particles
 				var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
 				debuffP.transform.parent = gameObject.transform;
+
+				//GFX
+				swapSprites(false, Character.paper);
 
 				StartCoroutine(JumpDamageTime());
 			}
@@ -152,6 +179,9 @@ public class Abilities : MonoBehaviour
 				//Particles
 				var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
 				debuffP.transform.parent = gameObject.transform;
+
+				//GFX
+				swapSprites(false, Character.scissors);
 
 				StartCoroutine(DashDamageTime());
 				StartCoroutine(DashTime());
@@ -179,6 +209,8 @@ public class Abilities : MonoBehaviour
 
 		canSlam = false;
 		slamming = false;
+
+		GetComponent<Abilities>().swapSprites(true, Character.rock);
 
 		yield return new WaitForSeconds(slamCooldown);
 
@@ -220,6 +252,9 @@ public class Abilities : MonoBehaviour
 		yield return new WaitForSeconds(jumpDamageTimer);
 
 		jumping = false;
+
+		//GFX
+		swapSprites(true, Character.paper);
 	}
 
 	private IEnumerator JumpBuffer()
@@ -251,7 +286,49 @@ public class Abilities : MonoBehaviour
 		yield return new WaitForSeconds(dashDamageTimer);
 
 		dashing = false;
+
+		//GFX
+		swapSprites(true, Character.scissors);
 	}
 
-
+	public void swapSprites(bool idle, Character charType)
+	{
+		//change sprites depending on who the player is
+		if (GetComponent<RPS_Switching>().player == Player.P1)
+		{
+			switch (charType)
+			{
+				case Character.rock:
+					GetComponent<PlayerGFX>().rockIdle.SetActive(idle);
+					GetComponent<PlayerGFX>().rockAbility.SetActive(!idle);
+					break;
+				case Character.paper:
+					GetComponent<PlayerGFX>().paperIdle.SetActive(idle);
+					GetComponent<PlayerGFX>().paperAbility.SetActive(!idle);
+					break;
+				case Character.scissors:
+					GetComponent<PlayerGFX>().scissorsIdle.SetActive(idle);
+					GetComponent<PlayerGFX>().scissorsAbility.SetActive(!idle);
+					break;
+			}
+		}
+		else
+		{
+			switch (charType)
+			{
+				case Character.rock:
+					GetComponent<PlayerGFX>().rockIdle2.SetActive(idle);
+					GetComponent<PlayerGFX>().rockAbility2.SetActive(!idle);
+					break;
+				case Character.paper:
+					GetComponent<PlayerGFX>().paperIdle2.SetActive(idle);
+					GetComponent<PlayerGFX>().paperAbility2.SetActive(!idle);
+					break;
+				case Character.scissors:
+					GetComponent<PlayerGFX>().scissorsIdle2.SetActive(idle);
+					GetComponent<PlayerGFX>().scissorsAbility2.SetActive(!idle);
+					break;
+			}
+		}
+	}
 }

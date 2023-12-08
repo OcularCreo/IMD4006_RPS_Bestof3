@@ -165,7 +165,7 @@ public class Combat : MonoBehaviour
 		//when the player presses B attack
 		if (context.action.triggered)
 		{
-			if (!hitting && GetComponent<RPS_Switching>().gameManager.state != GameState.RPS)
+			if (!hitting && GetComponent<RPS_Switching>().gameManager.state != GameState.RPS && !GetComponent<Abilities>().abilityInUse)
 			{
 				StartCoroutine(AttackAnimation());
 
@@ -492,6 +492,9 @@ public class Combat : MonoBehaviour
 			//Particles
 			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
 			debuffP.transform.parent = enemy.gameObject.transform;
+
+			//GFX
+			GetComponent<Abilities>().swapSprites(true, Character.rock);
 		}
 
 		//Paper
@@ -503,6 +506,9 @@ public class Combat : MonoBehaviour
 			//Particles
 			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
 			debuffP.transform.parent = enemy.gameObject.transform;
+
+			//GFX
+			GetComponent<Abilities>().swapSprites(true, Character.paper);
 		}
 
 		//Scissors
@@ -514,6 +520,9 @@ public class Combat : MonoBehaviour
 			//Particles
 			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
 			debuffP.transform.parent = enemy.gameObject.transform;
+
+			//GFX
+			GetComponent<Abilities>().swapSprites(true, Character.scissors);
 		}
 
 		
