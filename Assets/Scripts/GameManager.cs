@@ -64,6 +64,7 @@ public class Manager : MonoBehaviour
     private GameObject playerWinner;
 	[SerializeField] private ParticleSystem winnerParticles;
 
+    public Level selectedLevel;
 
 	// Start is called before the first frame update
 	void Start()
@@ -86,6 +87,8 @@ public class Manager : MonoBehaviour
         //WHEN START SET TO MAX RPS TIME
         timebar.setMaxTime(RPS_time);
 
+        selectedLevel = Level.None;
+
 	}
 
     // Update is called once per frame
@@ -93,6 +96,41 @@ public class Manager : MonoBehaviour
     {
         if (state == GameState.menu)
         {
+
+            //check that there are two players
+            if(playerManager.playerCount > 1 && selectedLevel != Level.None) {
+
+                //reveal start game graphic to players
+
+
+                //when the player presses the start game button
+                if (action.triggered)
+                {
+
+                    //Load selected scene
+                    if(selectedLevel == Level.Dino) {
+                        SceneManager.LoadScene("DinoScene", LoadSceneMode.Additive);
+                    } 
+                    else if(selectedLevel == Level.Math)
+                    {
+                        SceneManager.LoadScene("HomeworkLvl", LoadSceneMode.Additive);
+                    }
+
+                    state = GameState.RPS;                              //change the game state to RPS stage
+                    shownGraphic = false;                               //set to false to trigger a stage transition graphic to be revealed
+                    menuColliders.SetActive(false);                     //remove menu walls/colliders to start the game
+                    virtualCam.Follow = cameraTargetGroup.transform;    //enable camera follow players
+                    action.Disable();                                   //disable start action controls
+
+                    //turn off menu background and show canvas UI
+                    menuBackground.SetActive(false);
+                    canvas.SetActive(true);
+
+                }
+
+            }
+            
+            /*
             //if the controller is triggered and two players are in the game, enter RPS state, trun of the menu
             if ((action.triggered && playerManager.playerCount > 1))
             {
@@ -109,7 +147,7 @@ public class Manager : MonoBehaviour
                 //Load scene
                 SceneManager.LoadScene("DinoScene", LoadSceneMode.Additive);
 
-            }
+            }*/
         }
         
         if (state == GameState.RPS)
