@@ -42,6 +42,7 @@ public class Manager : MonoBehaviour
     
     [SerializeField] private GameObject inputPlayerManager;
     [SerializeField] private GameObject menuColliders;
+    [SerializeField] private GameObject cameraWalls;
     [SerializeField] private CinemachineVirtualCamera virtualCam;
     [SerializeField] private CinemachineTargetGroup cameraTargetGroup;
 
@@ -66,11 +67,12 @@ public class Manager : MonoBehaviour
 	[SerializeField] private ParticleSystem winnerParticles;
 
     public Level selectedLevel;
+    [SerializeField] private GameObject bts;
 
     [SerializeField] private AudioSource source;
     [SerializeField] private Sound sound;
 
-    [SerializeField] private GameObject bts;
+    
 
 	// Start is called before the first frame update
 	void Start()
@@ -127,6 +129,7 @@ public class Manager : MonoBehaviour
                     state = GameState.RPS;                              //change the game state to RPS stage
                     shownGraphic = false;                               //set to false to trigger a stage transition graphic to be revealed
                     menuColliders.SetActive(false);                     //remove menu walls/colliders to start the game
+                    cameraWalls.SetActive(false);                       //remove camera walls/colliders to start the game
                     virtualCam.Follow = cameraTargetGroup.transform;    //enable camera follow players
                     action.Disable();                                   //disable start action controls
 
@@ -134,31 +137,14 @@ public class Manager : MonoBehaviour
                     menuBackground.SetActive(false);
                     canvas.SetActive(true);
 
-                } if(action.triggered && selectedLevel == Level.Tutorial)
+                } 
+                //spawn players back at a the start screen
+                if(action.triggered && selectedLevel == Level.Tutorial)
                 {
                     TeleportPlayers(bts.GetComponent<Transform>().position);
                 }
 
             }
-            
-            /*
-            //if the controller is triggered and two players are in the game, enter RPS state, trun of the menu
-            if ((action.triggered && playerManager.playerCount > 1))
-            {
-                state = GameState.RPS;                              //change the game state to RPS stage
-                shownGraphic = false;                               //set to false to trigger a stage transition graphic to be revealed
-                menuColliders.SetActive(false);                     //remove menu walls/colliders to start the game
-                virtualCam.Follow = cameraTargetGroup.transform;    //enable camera follow players
-                action.Disable();                                   //disable start action controls
-
-                //turn off menu background and show canvas UI
-                menuBackground.SetActive(false);
-                canvas.SetActive(true);
-
-                //Load scene
-                SceneManager.LoadScene("DinoScene", LoadSceneMode.Additive);
-
-            }*/
 
             //PLAY SOUND
             source.PlayOneShot(sound.sound_background_menu);
