@@ -731,7 +731,7 @@ Transform:
   m_GameObject: {fileID: 3580587765549520736}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.008, y: 0.263, z: 0.044}
+  m_LocalPosition: {x: -0.008, y: 0.263, z: 0}
   m_LocalScale: {x: 0.038508274, y: 0.038508274, z: 0.038508274}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1374,7 +1374,7 @@ Transform:
   m_GameObject: {fileID: 4934863737908418813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.001, y: 0.374, z: 0.028}
+  m_LocalPosition: {x: 0.001, y: 0.374, z: 0}
   m_LocalScale: {x: 0.038508274, y: 0.038508274, z: 0.038508274}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1722,6 +1722,7 @@ MonoBehaviour:
   hitParticleBig: {fileID: 5076444897473476155, guid: cbe8da99ff7637a4ebc850fde43bbd7c, type: 3}
   hitParticleLittle: {fileID: 5076444897473476155, guid: 3b0ab74b5f32abf478b4bbb7ddb047f6, type: 3}
   debuffParticles: {fileID: 1816164915614094655, guid: 105071f223b44ea4e8c487d1495ef083, type: 3}
+  abilityHitParticles: {fileID: 5076444897473476155, guid: c822868b90e2f9e4ab33e24675fd529f, type: 3}
 --- !u!114 &1521416363925835935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1779,27 +1780,27 @@ MonoBehaviour:
   rockIdle: {fileID: 530276244565202676}
   rockAttack: {fileID: 4472479017792926583}
   rockChange: {fileID: 8673262405376285209}
-  rockAbility: {fileID: 0}
+  rockAbility: {fileID: 7623371024521605380}
   paperIdle: {fileID: 4648373661884412186}
   paperAttack: {fileID: 8742978811120544225}
   paperChange: {fileID: 1760404037004230753}
-  paperAbility: {fileID: 0}
+  paperAbility: {fileID: 6117247391277548777}
   scissorsIdle: {fileID: 8751152781445937276}
   scissorsAttack: {fileID: 4775163086366208309}
   scissorsChange: {fileID: 2506088616373108832}
-  scissorsAbility: {fileID: 0}
+  scissorsAbility: {fileID: 5893910537292750200}
   rockIdle2: {fileID: 7028135621805163074}
   rockAttack2: {fileID: 5539493433207918655}
   rockChange2: {fileID: 4052436982004716915}
-  rockAbility2: {fileID: 0}
+  rockAbility2: {fileID: 3580587765549520736}
   paperIdle2: {fileID: 4836715495686554069}
   paperAttack2: {fileID: 8770610981669913145}
   paperChange2: {fileID: 2676812432220172848}
-  paperAbility2: {fileID: 0}
+  paperAbility2: {fileID: 9145507637167367475}
   scissorsIdle2: {fileID: 2262850351525335690}
   scissorsAttack2: {fileID: 2504891485711578807}
   scissorsChange2: {fileID: 7052589401019494499}
-  scissorsAbility2: {fileID: 0}
+  scissorsAbility2: {fileID: 4934863737908418813}
 --- !u!114 &4030185185971145316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1879,6 +1880,7 @@ MonoBehaviour:
   dashDamage: 10
   dashing: 0
   abilityReadyParticle: {fileID: 5076444897473476155, guid: cea642e8a9f00ce4181c59f32ab9cb01, type: 3}
+  usingAbilityParticle: {fileID: 1816164915614094655, guid: 9c093fadb0882ec4abfcb356cfe8085c, type: 3}
 --- !u!114 &891909332205106847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2099,7 +2101,7 @@ Transform:
   m_GameObject: {fileID: 5893910537292750200}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.001, y: 0.374, z: 0.028}
+  m_LocalPosition: {x: 0.001, y: 0.374, z: 0}
   m_LocalScale: {x: 0.038508274, y: 0.038508274, z: 0.038508274}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2435,7 +2437,7 @@ Transform:
   m_GameObject: {fileID: 7623371024521605380}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.008, y: 0.263, z: 0.044}
+  m_LocalPosition: {x: -0.008, y: 0.263, z: 0}
   m_LocalScale: {x: 0.038508274, y: 0.038508274, z: 0.038508274}
   m_ConstrainProportionsScale: 1
   m_Children: []
