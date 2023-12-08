@@ -107,8 +107,14 @@ public class Manager : MonoBehaviour
         if (state == GameState.menu)
         {
 
+            //PLAY SOUND
+            if (!source.isPlaying)
+            {
+                source.PlayOneShot(sound.sound_background_menu);
+            }
+
             //check that there are two players
-            if(playerManager.playerCount > 1 && selectedLevel != Level.None) {
+            if (playerManager.playerCount > 1 && selectedLevel != Level.None) {
 
                 //reveal start game graphic to players
 
@@ -137,6 +143,9 @@ public class Manager : MonoBehaviour
                     menuBackground.SetActive(false);
                     canvas.SetActive(true);
 
+                    //stop the main menu music
+                    source.Stop();
+
                 } 
                 //spawn players back at a the start screen
                 if(action.triggered && selectedLevel == Level.Tutorial)
@@ -145,13 +154,18 @@ public class Manager : MonoBehaviour
                 }
 
             }
-
-            //PLAY SOUND
-            source.PlayOneShot(sound.sound_background_menu);
+            
         }
         
         if (state == GameState.RPS)
         {
+
+            //audio check first
+            if (!source.isPlaying)
+            {
+                source.PlayOneShot(sound.sound_background_rps);
+            }
+
             //show the rps graphic
             if (!shownGraphic)
             {
@@ -175,7 +189,7 @@ public class Manager : MonoBehaviour
             //stateLabelUI.text = "RPS Time!";
 
             //when the time runs out
-            if (RPS_time < 0 || Input.GetKeyDown("p")) // press p to change state (for dev)
+            if (RPS_time < 0 /*|| Input.GetKeyDown("p")*/) // press p to change state (for dev)
             {
 				hp1.SetActive(true);
 				hp2.SetActive(true);
@@ -202,12 +216,19 @@ public class Manager : MonoBehaviour
                 timerRpsGraphic.SetActive(false);
 				timerFightGraphic.SetActive(true);
 
+                source.Stop();
+
 			}
-            source.PlayOneShot(sound.sound_background_rps);
+            
         }
         //when in the battle state
         else if (state == GameState.battle)
         {
+            //audio check at the start of state
+            if (!source.isPlaying)
+            {
+                source.PlayOneShot(sound.sound_background_fight);
+            }
 
             //show the rps graphic
             if (!shownGraphic)
@@ -244,19 +265,13 @@ public class Manager : MonoBehaviour
 				timerRpsGraphic.SetActive(true);
 				timerFightGraphic.SetActive(false);
 
+                source.Stop();
+
 			}
 
+            
 
-            // if a player has lost all their lives, then game over
-            //if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
-            //if (player1.GetComponent<Combat>().lives <= 0 || player2.GetComponent<Combat>().lives <= 0)
-            //{
-                //state = GameState.gameOver; // switch to game over state
-                //Debug.Log("game over");
-            //}
-            //Debug.Log("player 1 lives: " + player1.GetComponent<Combat>().lives);
-            //Debug.Log("player 2 lives: " + player2.GetComponent<Combat>().lives);
-            source.PlayOneShot(sound.sound_background_fight);
+            
         }
         //going to assume the only other possible state is game over
         else if (state == GameState.gameOver)
