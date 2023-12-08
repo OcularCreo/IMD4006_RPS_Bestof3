@@ -280,22 +280,27 @@ public class Manager : MonoBehaviour
 
     private IEnumerator fightGraphicReveal()
     {
-        fightGraphic.gameObject.SetActive(true);
+        if(state != GameState.gameOver) 
+        {
+			fightGraphic.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(0.5f);
 
-        fightGraphic.gameObject.SetActive(false);
-        shownGraphic = true;
-
+			fightGraphic.gameObject.SetActive(false);
+			shownGraphic = true;
+		}
     }
     private IEnumerator RPSGraphicReveal()
     {
-        rpsGraphic.gameObject.SetActive(true);
+        if (state != GameState.gameOver) 
+        {
+			rpsGraphic.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(0.5f);
 
-        rpsGraphic.gameObject.SetActive(false);
-        shownGraphic = true;
+			rpsGraphic.gameObject.SetActive(false);
+			shownGraphic = true;
+		}
 
     }
 
