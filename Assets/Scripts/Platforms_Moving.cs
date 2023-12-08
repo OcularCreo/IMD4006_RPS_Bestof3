@@ -7,11 +7,12 @@ public class Platforms_Moving : MonoBehaviour
     // platforms
     GameObject trexPlatform;
     GameObject trexPlatform_mouthOpen;
-
     GameObject crocPlatform;
+    GameObject handsPlatform;
 
     private bool changed;
     private bool crocChanged;
+    private bool handsChanged;
 
     [SerializeField] private Manager gameManager;
 
@@ -24,33 +25,25 @@ public class Platforms_Moving : MonoBehaviour
 
         crocPlatform = GameObject.Find("croc");
 
+        handsPlatform = GameObject.Find("dino in hands");
+
         changed = false;
         crocChanged = false;
+        handsChanged = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        // only have platform movement in battle state
+        // TREX
         if (!changed)
         {
             // trex animation once every 25 seconds, and not at the start of time
             if (Mathf.RoundToInt(Time.time) % 25 == 0 && Mathf.RoundToInt(Time.time) > 0)
             {
-                // if original trex used, play animation and change to trex mouth open platform
-                //if (!platformChanged)
-                //{
-                    //StartCoroutine(movePlatform(trexPlatform, trexPlatform_mouthOpen, 30, -1));
-                    StartCoroutine(movePlatformFull(trexPlatform, trexPlatform_mouthOpen, 30, -1));
-                    changed = true;
-                //}
-                //else // otherwise play reverse animation and change back to trex platform
-                //{
-                //    StartCoroutine(movePlatform(trexPlatform_mouthOpen, trexPlatform, 30, 1));
-                //    platformChanged = false;
-                //    changed = true;
-                //}
+                StartCoroutine(rotatePlatformFull(trexPlatform, trexPlatform_mouthOpen, 30, -1));
+                changed = true;
             }
         }
         else if (Mathf.RoundToInt(Time.time) % 25 == 1)
@@ -74,10 +67,23 @@ public class Platforms_Moving : MonoBehaviour
             // 1 second later, set changed back to false
             crocChanged = false;
         }
+
+        // HANDS
+        // hands platform animation once every 40 seconds, and not at the start of time
+        if (Mathf.RoundToInt(Time.time) % 40 == 0 && Mathf.RoundToInt(Time.time) > 0 && !handsChanged)
+        {
+            StartCoroutine(rotateHands(handsPlatform, 40, 1));
+            handsChanged = true;
+        }
+        else if (Mathf.RoundToInt(Time.time) % 40 == 5 && Mathf.RoundToInt(Time.time) > 0 && handsChanged)
+        {
+            StartCoroutine(rotateHands(handsPlatform, 40, -1));
+            handsChanged = false;
+        }
     }
 
     // function to rotate the platform, then switch to the other image of the platform
-    private IEnumerator movePlatform(GameObject platform1, GameObject platform2, int rotateAmount, int rotateDirection)
+    private IEnumerator rotatePlatform(GameObject platform1, GameObject platform2, int rotateAmount, int rotateDirection)
     {
         for (int i = 0; i < rotateAmount; i++)
         {
@@ -89,26 +95,37 @@ public class Platforms_Moving : MonoBehaviour
         platform2.SetActive(true); // set the other (invisible) platform to active
     }
 
-    private IEnumerator movePlatformFull(GameObject platform1, GameObject platform2, int rotateAmount, int rotateDirection)
+    private IEnumerator rotatePlatformFull(GameObject platform1, GameObject platform2, int rotateAmount, int rotateDirection)
     {
-        StartCoroutine(movePlatform(platform1, platform2, rotateAmount, rotateDirection));
+        StartCoroutine(rotatePlatform(platform1, platform2, rotateAmount, rotateDirection));
         yield return new WaitForSeconds(5.0f);
-        StartCoroutine(movePlatform(platform2, platform1, rotateAmount, -(rotateDirection)));
+        StartCoroutine(rotatePlatform(platform2, platform1, rotateAmount, -(rotateDirection)));
     }
 
+    // horizontal platform movement
     private IEnumerator translateHorizontalPlatform(GameObject platform, int translateAmount)
     {
         // move slowly to the left
-        for(int i = 0; i < translateAmount; i++)
+        for(int i = 0; i < translateAmount*5; i++)
         {
-            platform.transform.Translate(-0.1f, 0, 0);
-            yield return new WaitForSeconds(0.05f);
+            platform.transform.Translate(-0.02f, 0, 0);
+            yield return new WaitForSeconds(0.01f);
         }
         // move fast to the right
         for (int i = 0; i < translateAmount; i++)
         {
             platform.transform.Translate(0.1f, 0, 0);
             yield return new WaitForSeconds(0.001f);
+        }
+    }
+
+    // rotate platform for hands platform
+    private IEnumerator rotateHands(GameObject platform, int rotateAmount, int rotateDirection)
+    {
+        for (int i = 0; i < rotateAmount; i++)
+        {
+            platform.transform.Rotate(0, 0, rotateDirection, Space.Self); // rotate visible platform
+            yield return new WaitForSeconds(0.01f);
         }
     }
 }
