@@ -243,7 +243,7 @@ public class Manager : MonoBehaviour
             //NEW TIME BAR
             timebar.setTime(battleTime);
 
-            if (battleTime < 0 || Input.GetKeyDown("p")) // press p to change state (for dev)
+            if (battleTime < 0 /*|| Input.GetKeyDown("p")*/) // press p to change state (for dev)
             {
                 //change to the 
                 state = GameState.RPS;
