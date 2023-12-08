@@ -16,10 +16,13 @@ public class Sound : MonoBehaviour
     [SerializeField] public AudioClip soundEffect_fly;
     [SerializeField] public AudioClip soundEffect_drop;
 
+    [SerializeField] public AudioClip soundAnnounce_fight;
+    [SerializeField] public AudioClip soundAnnounce_rps;
 
-    [SerializeField] public AudioClip soundAnnounce_1;
-    [SerializeField] public AudioClip soundAnnounce_2;
-    [SerializeField] public AudioClip soundAnnounce_3;
+    [SerializeField] public AudioClip rock;
+
+
+
 
     
 }
