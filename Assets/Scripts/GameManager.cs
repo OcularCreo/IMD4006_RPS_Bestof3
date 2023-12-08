@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using static UnityEditor.PlayerSettings;
 
 //different states the game can be in
 public enum GameState
@@ -109,7 +110,7 @@ public class Manager : MonoBehaviour
 
 
                 //when the player presses the start game button
-                if (action.triggered)
+                if (action.triggered && selectedLevel != Level.Tutorial)
                 {
 
                     //Load selected scene
@@ -131,6 +132,9 @@ public class Manager : MonoBehaviour
                     menuBackground.SetActive(false);
                     canvas.SetActive(true);
 
+                } if(action.triggered && selectedLevel == Level.Tutorial)
+                {
+                    TeleportPlayers(new Vector2(0.5f, 0));
                 }
 
             }
