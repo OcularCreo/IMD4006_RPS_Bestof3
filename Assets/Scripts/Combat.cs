@@ -227,7 +227,7 @@ public class Combat : MonoBehaviour
 				GetComponent<PlayerGFX>().rockAttack.SetActive(true);
 				GetComponent<PlayerGFX>().rockIdle.SetActive(false);
 
-				source.PlayOneShot(sound.soundEffect_punch);
+				source.PlayOneShot(sound.soundEffect_punch_normal);
 			}
 			else if (GetComponent<RPS_Switching>().character == Character.scissors)
 			{
@@ -256,7 +256,7 @@ public class Combat : MonoBehaviour
 				GetComponent<PlayerGFX>().rockAttack.SetActive(false);
 				GetComponent<PlayerGFX>().rockIdle.SetActive(true);
 
-				source.PlayOneShot(sound.soundEffect_punch);
+				source.PlayOneShot(sound.soundEffect_punch_normal);
 			}
 			else if (GetComponent<RPS_Switching>().character == Character.scissors)
 			{
