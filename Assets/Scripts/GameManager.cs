@@ -69,8 +69,8 @@ public class Manager : MonoBehaviour
     public Level selectedLevel;
     [SerializeField] private GameObject bts;
 
-    [SerializeField] private AudioSource source;
-    [SerializeField] private Sound sound;
+    [SerializeField] public AudioSource source;
+    [SerializeField] public Sound sound;
 
     
 
