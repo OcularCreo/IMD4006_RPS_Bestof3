@@ -117,7 +117,6 @@ public class RPS_Switching : MonoBehaviour
                 selectionCharacter = Character.rock;
 
 				// start animation
-				//StartCoroutine(changeCharacterAnimation(0));
 				changeCharacterAnimation();
             }
             else if (switchButton == "buttonNorth")
@@ -125,7 +124,6 @@ public class RPS_Switching : MonoBehaviour
                 selectionCharacter = Character.paper;
 
 				// start animation
-				//StartCoroutine(changeCharacterAnimation(1));
 				changeCharacterAnimation();
             }
             else if (switchButton == "buttonEast")
@@ -133,7 +131,6 @@ public class RPS_Switching : MonoBehaviour
                 selectionCharacter = Character.scissors;
 
                 // start animation
-                //StartCoroutine(changeCharacterAnimation(2));
                 changeCharacterAnimation();
             }
 
@@ -308,44 +305,6 @@ public class RPS_Switching : MonoBehaviour
         }
     }
 
-    // plays an animation of the character doing 3 jumps + slams, then calls changeCharacter() function
-    //private IEnumerator changeCharacterAnimation(int rpsCntrlKey)
-    //{
-        //turn off the idle sprite and then turn on the changning sprite
-        //swapSprites(false, character);
-
-        //    for (int i = 0; i < 3; i++)
-        //    {
-        //        // play animation only if the game is still RPS state and the player is still holding down the key
-        //        if (gameManager.state == GameState.RPS && switchButton != "none") 
-        //        {
-        //// jump
-        //gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 6f);
-        //            yield return new WaitForSeconds(0.3f);
-
-        //            //slam
-        //            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -6f);
-        //            yield return new WaitForSeconds(0.3f);
-
-
-        //        } else
-        //        {
-        //           //if switching is stoped go back to the idle sprite
-        //           swapSprites(true, character);
-        //        }
-        //    }
-       
-
-        // change character if game is still in RPS state and if the player is still holding down the key
-        //if (gameManager.state == GameState.RPS && switchButton != "none")
-        //{
-        //    //change sprite back to off
-        //    swapSprites(true, character);
-        //    changeCharacter();
-        //}
-    //}
-
-
 
     //new animation function using unity animation
     private void changeCharacterAnimation()
@@ -360,6 +319,7 @@ public class RPS_Switching : MonoBehaviour
                 particleCounter--;
                 StartCoroutine(SwitchParticleTime());
 			}
+
 			//turn off the idle sprite and then turn on the changing sprite
 			swapSprites(false, character);
             // play switching animation
@@ -383,32 +343,10 @@ public class RPS_Switching : MonoBehaviour
 
 	public void stopAnimation()
     {
-        animator.SetBool("Switching", false); //animator.StopPlayback(); //stop playing the animation
+        animator.SetBool("Switching", false); //stop playing the animation
         swapSprites(true, character); // go back to the idle sprite
 	}
     
-
-    // check if the player has collided with the platform
-    //public void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    // if collided, set variable to true
-    //    if (collision.gameObject.tag == "Platform")
-    //    {
-    //        playerOnPlatform = true;
-    //        //Debug.Log(player + " ON PLATFORM");
-    //    }
-    //}
-
-    //public void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    // if end of collision, set variable to false
-    //    if (collision.gameObject.tag == "Platform")
-    //    {
-    //        playerOnPlatform = false;
-    //        //Debug.Log(player + " NOT ON PLATFORM");
-    //    }
-
-    //}
 
 
 }
