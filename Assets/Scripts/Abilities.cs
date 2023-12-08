@@ -114,7 +114,7 @@ public class Abilities : MonoBehaviour
 		//Reset Check if ability was used
 		abilityInUseStarted = false;
 
-		if (context.action.triggered && GetComponent<RPS_Switching>().gameManager.state != GameState.RPS)
+		if (context.action.triggered && GetComponent<RPS_Switching>().gameManager.state != GameState.RPS && !GetComponent<RPS_Switching>().menuSwitching)
 		{
 			Character characterType = GetComponent<RPS_Switching>().character;
 
