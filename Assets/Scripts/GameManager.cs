@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
-using static UnityEditor.PlayerSettings;
+//using static UnityEditor.PlayerSettings;
 
 //different states the game can be in
 public enum GameState
