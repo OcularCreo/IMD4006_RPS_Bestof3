@@ -1050,6 +1050,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RespawnPoints
       objectReference: {fileID: 0}
+    - target: {fileID: 8444891072185125209, guid: 9d3b9588c91f83d4e916bbdea7c40b8b, type: 3}
+      propertyPath: m_TagString
+      value: RespawnPoints
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
