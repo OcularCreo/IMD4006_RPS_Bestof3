@@ -42,7 +42,7 @@ public class Manager : MonoBehaviour
     
     [SerializeField] private GameObject inputPlayerManager;
     [SerializeField] private GameObject menuColliders;
-    [SerializeField] private GameObject cameraWalls;
+    //[SerializeField] private GameObject cameraWalls;
     [SerializeField] private CinemachineVirtualCamera virtualCam;
     [SerializeField] private CinemachineTargetGroup cameraTargetGroup;
 
@@ -129,7 +129,7 @@ public class Manager : MonoBehaviour
                     state = GameState.RPS;                              //change the game state to RPS stage
                     shownGraphic = false;                               //set to false to trigger a stage transition graphic to be revealed
                     menuColliders.SetActive(false);                     //remove menu walls/colliders to start the game
-                    cameraWalls.SetActive(false);                       //remove camera walls/colliders to start the game
+                    //cameraWalls.SetActive(false);                       //remove camera walls/colliders to start the game
                     virtualCam.Follow = cameraTargetGroup.transform;    //enable camera follow players
                     action.Disable();                                   //disable start action controls
 

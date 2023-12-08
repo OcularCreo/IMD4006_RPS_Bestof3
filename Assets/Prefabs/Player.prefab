@@ -1725,6 +1725,7 @@ MonoBehaviour:
   hitParticleLittle: {fileID: 5076444897473476155, guid: 3b0ab74b5f32abf478b4bbb7ddb047f6, type: 3}
   debuffParticles: {fileID: 1816164915614094655, guid: 105071f223b44ea4e8c487d1495ef083, type: 3}
   abilityHitParticles: {fileID: 5076444897473476155, guid: c822868b90e2f9e4ab33e24675fd529f, type: 3}
+  abilityHitParticles2: {fileID: 5076444897473476155, guid: 8523f3a1f9187284590945d1ab1ec873, type: 3}
   source: {fileID: 2645341982759497089}
   sound: {fileID: 5565003186756793895}
 --- !u!114 &1521416363925835935
@@ -1887,6 +1888,7 @@ MonoBehaviour:
   dashing: 0
   abilityReadyParticle: {fileID: 5076444897473476155, guid: cea642e8a9f00ce4181c59f32ab9cb01, type: 3}
   usingAbilityParticle: {fileID: 1816164915614094655, guid: 9c093fadb0882ec4abfcb356cfe8085c, type: 3}
+  usingAbilityParticleP2: {fileID: 1816164915614094655, guid: 2610aa04734c7a447963a177b087bc74, type: 3}
 --- !u!114 &891909332205106847
 MonoBehaviour:
   m_ObjectHideFlags: 0

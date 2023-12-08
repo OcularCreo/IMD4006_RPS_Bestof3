@@ -46,6 +46,7 @@ public class Abilities : MonoBehaviour
 	//Particles
 	[SerializeField] private ParticleSystem abilityReadyParticle;
 	[SerializeField] private ParticleSystem usingAbilityParticle;
+	[SerializeField] private ParticleSystem usingAbilityParticleP2;
 
 	// Start is called before the first frame update
 	void Start()
@@ -136,8 +137,16 @@ public class Abilities : MonoBehaviour
 				slamming = true;
 
 				//Particles
-				var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
-				debuffP.transform.parent = gameObject.transform;
+				if (GetComponent<RPS_Switching>().player == Player.P1)
+				{
+					var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
+					debuffP.transform.parent = this.gameObject.transform;
+				}
+				else if (GetComponent<RPS_Switching>().player == Player.P2)
+				{
+					var debuffP = Instantiate(usingAbilityParticleP2, this.transform.position, this.transform.rotation);
+					debuffP.transform.parent = this.gameObject.transform;
+				}
 				//StartCoroutine(SlamDamageTime());
 
 				//GFX
@@ -152,8 +161,16 @@ public class Abilities : MonoBehaviour
 				rb.AddForce(Vector2.up * jumpPower);
 
 				//Particles
-				var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
-				debuffP.transform.parent = gameObject.transform;
+				if (GetComponent<RPS_Switching>().player == Player.P1)
+				{
+					var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
+					debuffP.transform.parent = this.gameObject.transform;
+				}
+				else if (GetComponent<RPS_Switching>().player == Player.P2)
+				{
+					var debuffP = Instantiate(usingAbilityParticleP2, this.transform.position, this.transform.rotation);
+					debuffP.transform.parent = this.gameObject.transform;
+				}
 
 				//GFX
 				swapSprites(false, Character.paper);
@@ -177,8 +194,16 @@ public class Abilities : MonoBehaviour
 				}
 
 				//Particles
-				var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
-				debuffP.transform.parent = gameObject.transform;
+				if (GetComponent<RPS_Switching>().player == Player.P1)
+				{
+					var debuffP = Instantiate(usingAbilityParticle, this.transform.position, this.transform.rotation);
+					debuffP.transform.parent = this.gameObject.transform;
+				}
+				else if (GetComponent<RPS_Switching>().player == Player.P2)
+				{
+					var debuffP = Instantiate(usingAbilityParticleP2, this.transform.position, this.transform.rotation);
+					debuffP.transform.parent = this.gameObject.transform;
+				}
 
 				//GFX
 				swapSprites(false, Character.scissors);

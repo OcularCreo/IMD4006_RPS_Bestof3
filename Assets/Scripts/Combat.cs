@@ -66,6 +66,7 @@ public class Combat : MonoBehaviour
 	[SerializeField] private ParticleSystem hitParticleLittle;
 	[SerializeField] private ParticleSystem debuffParticles;
 	[SerializeField] private ParticleSystem abilityHitParticles;
+	[SerializeField] private ParticleSystem abilityHitParticles2;
 
 
 	[SerializeField] private AudioSource source;
@@ -487,8 +488,16 @@ public class Combat : MonoBehaviour
 			GetComponent<Abilities>().slamming = false;
 
 			//Particles
-			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
-			debuffP.transform.parent = enemy.gameObject.transform;
+			if (GetComponent<RPS_Switching>().player == Player.P1)
+			{
+				var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
+				debuffP.transform.parent = enemy.gameObject.transform;
+			}
+			else if (GetComponent<RPS_Switching>().player == Player.P2)
+			{
+				var debuffP = Instantiate(abilityHitParticles2, enemy.transform.position, enemy.transform.rotation);
+				debuffP.transform.parent = enemy.gameObject.transform;
+			}
 
 			//GFX
 			GetComponent<Abilities>().swapSprites(true, Character.rock);
@@ -501,8 +510,16 @@ public class Combat : MonoBehaviour
 			HitEnemy(gameObject, enemy, GetComponent<Abilities>().jumpDamage);
 
 			//Particles
-			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
-			debuffP.transform.parent = enemy.gameObject.transform;
+			if (GetComponent<RPS_Switching>().player == Player.P1)
+			{
+				var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
+				debuffP.transform.parent = enemy.gameObject.transform;
+			}
+			else if (GetComponent<RPS_Switching>().player == Player.P2)
+			{
+				var debuffP = Instantiate(abilityHitParticles2, enemy.transform.position, enemy.transform.rotation);
+				debuffP.transform.parent = enemy.gameObject.transform;
+			}
 
 			//GFX
 			GetComponent<Abilities>().swapSprites(true, Character.paper);
@@ -513,10 +530,18 @@ public class Combat : MonoBehaviour
 		{
 			//Dash Damage
 			HitEnemy(gameObject, enemy, GetComponent<Abilities>().dashDamage);
-			
+
 			//Particles
-			var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
-			debuffP.transform.parent = enemy.gameObject.transform;
+			if (GetComponent<RPS_Switching>().player == Player.P1)
+			{
+				var debuffP = Instantiate(abilityHitParticles, enemy.transform.position, enemy.transform.rotation);
+				debuffP.transform.parent = enemy.gameObject.transform;
+			}
+			else if (GetComponent<RPS_Switching>().player == Player.P2)
+			{
+				var debuffP = Instantiate(abilityHitParticles2, enemy.transform.position, enemy.transform.rotation);
+				debuffP.transform.parent = enemy.gameObject.transform;
+			}
 
 			//GFX
 			GetComponent<Abilities>().swapSprites(true, Character.scissors);
