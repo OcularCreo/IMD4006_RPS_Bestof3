@@ -32,7 +32,7 @@ public class RPS_Switching : MonoBehaviour
     [SerializeField] private Controller_Movement controllerMovement;
 
     string[] RPS_cntrl = new string[3];         //creating empty character array
-    
+
     public Character character;                 //variable to keep track of the current character the player is
     Character selectionCharacter;               //veriable used when selected a new character
     bool applyedChange;
@@ -44,20 +44,21 @@ public class RPS_Switching : MonoBehaviour
 
     public Animator animator;
     private bool stoppedAnim;
+    public bool menuSwitching;
 
     //Switch Particles
-	[SerializeField] private ParticleSystem switchParticles;
+    [SerializeField] private ParticleSystem switchParticles;
     private bool switchParticlesReady = true;
-	private int particleCounter = 3;
+    private int particleCounter = 3;
 
-	//[SerializeField] private GameObject controlLayout;
+    //[SerializeField] private GameObject controlLayout;
 
-	// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+    void Start()
     {
 
         switchButton = "none";
-        
+
         //defaulting players to rock character
         character = Character.rock;
         toggleCharacter(true, Character.rock);
@@ -76,7 +77,7 @@ public class RPS_Switching : MonoBehaviour
             RPS_cntrl[1] = "x";
             RPS_cntrl[2] = "c";
 
-            
+
 
         } else
         {
@@ -84,10 +85,11 @@ public class RPS_Switching : MonoBehaviour
             RPS_cntrl[1] = "n";
             RPS_cntrl[2] = "m";
 
-            
+
         }
 
         stoppedAnim = true;
+        menuSwitching = false;
     }
 
     // Update is called once per frame
@@ -96,18 +98,19 @@ public class RPS_Switching : MonoBehaviour
         // check if player is on platform
         playerOnPlatform = gameObject.GetComponent<Controller_Movement>().isGrounded();
         // check if player is moving controller stick
-        if(Mathf.Abs(gameObject.GetComponent<Controller_Movement>().horizontal) > 0.1)
+        if (Mathf.Abs(gameObject.GetComponent<Controller_Movement>().horizontal) > 0.1)
         {
             playerStationary = false;
         }
-        else 
+        else
         {
             playerStationary = true;
         }
-        
+
+
 
         //when in RPS mode and player is on platform and player not moving L/R, allow the player to change their character
-        if (gameManager.state == GameState.RPS && playerOnPlatform)
+        if ((gameManager.state == GameState.RPS || menuSwitching) && playerOnPlatform)
         {
             //controlLayout.SetActive(true);
 
@@ -116,15 +119,15 @@ public class RPS_Switching : MonoBehaviour
             {
                 selectionCharacter = Character.rock;
 
-				// start animation
-				changeCharacterAnimation();
+                // start animation
+                changeCharacterAnimation();
             }
             else if (switchButton == "buttonNorth")
             {
                 selectionCharacter = Character.paper;
 
-				// start animation
-				changeCharacterAnimation();
+                // start animation
+                changeCharacterAnimation();
             }
             else if (switchButton == "buttonEast")
             {
@@ -134,7 +137,7 @@ public class RPS_Switching : MonoBehaviour
                 changeCharacterAnimation();
             }
 
-        } 
+        }
         //need to reset toggle bool once out of the switching characters state
         else if (gameManager.state != GameState.RPS && !stoppedAnim)
         {
@@ -145,6 +148,7 @@ public class RPS_Switching : MonoBehaviour
 
 			//controlLayout.SetActive(false);
 		}
+        
 
     }
 
@@ -156,7 +160,7 @@ public class RPS_Switching : MonoBehaviour
         {
             switchButton = "none";
             // if the game state is RPS and the button is released, stop the switching animation
-            if(gameManager.state == GameState.RPS)
+            if(gameManager.state == GameState.RPS || menuSwitching)
             {
                 stopAnimation();
             }
@@ -311,7 +315,7 @@ public class RPS_Switching : MonoBehaviour
     {
         stoppedAnim = false;
         // change character if game is still in RPS state and if the player is still holding down the key
-        if (gameManager.state == GameState.RPS && switchButton != "none" && playerStationary)
+        if ((gameManager.state == GameState.RPS || menuSwitching) && switchButton != "none" && playerStationary)
         {
             //Play Particles
             if (switchParticlesReady && particleCounter > 0) 
@@ -346,7 +350,23 @@ public class RPS_Switching : MonoBehaviour
         animator.SetBool("Switching", false); //stop playing the animation
         swapSprites(true, character); // go back to the idle sprite
 	}
-    
+
+    // When player enters the switching area on the main menu, allow switching
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.name == "SwitchingCollider")
+        {
+            menuSwitching = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "SwitchingCollider")
+        {
+            menuSwitching = false;
+        }
+    }
 
 
 }

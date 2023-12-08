@@ -28,6 +28,5 @@ public class SwitchingAnimationEvents : MonoBehaviour
         rpsSwitching.changeCharacter(); // change character in rps switching
         rpsSwitching.swapSprites(true, rpsSwitching.character); //change sprite to new character and idle
         rpsSwitching.animator.SetBool("Switching", false); // stop the switching animation
-        //Debug.Log("CHANGED");
     }
 }
