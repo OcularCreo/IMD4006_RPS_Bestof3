@@ -14,7 +14,8 @@ public enum Level
 
 public class LevelSelect : MonoBehaviour
 {
-    [SerializeField] private Manager gameManager;    
+    [SerializeField] private Manager gameManager;
+    [SerializeField] private GameObject selectMapUI;
     private Transform thisTransform;
 
     [SerializeField] Level thisLvl;
@@ -25,6 +26,7 @@ public class LevelSelect : MonoBehaviour
     void Start()
     {
         isSelected = false;
+        selectMapUI.SetActive(false);
         thisTransform = GetComponent<Transform>();
     }
 
@@ -39,6 +41,7 @@ public class LevelSelect : MonoBehaviour
         if(numInside >= 2)
         {
             gameManager.selectedLevel = thisLvl;
+            selectMapUI.SetActive(true);
         }
 
     }
@@ -55,6 +58,7 @@ public class LevelSelect : MonoBehaviour
         if (numInside < 2)
         {
             gameManager.selectedLevel = Level.None;
+            selectMapUI.SetActive(false);
 
         }
     }

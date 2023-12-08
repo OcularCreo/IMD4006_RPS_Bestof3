@@ -23,6 +23,9 @@ public class MenuSpawn : MonoBehaviour
 
 	[SerializeField] private GameObject menuCameraTarget;
 
+    [Header("Menu Visuals")]
+    [SerializeField] private GameObject selectionUI;
+
 
 	public int numPlayers = 0;                                          //keep track of the number of players. Used to start game
 
@@ -59,7 +62,7 @@ public class MenuSpawn : MonoBehaviour
 				menuCameraTarget.GetComponent<MenuCameraTarget>().player2 = playerInput.gameObject;
 			}
 
-			//p2Join.SetActive(false);
+			p2Join.SetActive(false);
 			//yStart.SetActive(true);
 
 		}
@@ -76,7 +79,7 @@ public class MenuSpawn : MonoBehaviour
 				menuCameraTarget.GetComponent<MenuCameraTarget>().player1 = playerInput.gameObject;
 			}
 
-			//p1Join.SetActive(false);
+			p1Join.SetActive(false);
 		}
         
         numPlayers++;
@@ -85,6 +88,7 @@ public class MenuSpawn : MonoBehaviour
         if(numPlayers > 1)
         {
             GetComponent<PlayerInputManager>().DisableJoining();
+            selectionUI.SetActive(true);
         }
         
     }
