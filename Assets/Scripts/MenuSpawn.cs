@@ -21,6 +21,8 @@ public class MenuSpawn : MonoBehaviour
 	[SerializeField] private GameObject p2Join;
 	[SerializeField] private GameObject yStart;
 
+	[SerializeField] private GameObject menuCameraTarget;
+
 
 	public int numPlayers = 0;                                          //keep track of the number of players. Used to start game
 
@@ -52,6 +54,8 @@ public class MenuSpawn : MonoBehaviour
             playerInput.GetComponent<Combat>().enemy = gameManagerObject.player1;
 			gameManagerObject.player1.GetComponent<Combat>().enemy = gameManagerObject.player2;
 
+			menuCameraTarget.GetComponent<MenuCameraTarget>().player2 = playerInput.gameObject;
+
 			p2Join.SetActive(false);
 			yStart.SetActive(true);
 
@@ -63,6 +67,8 @@ public class MenuSpawn : MonoBehaviour
 			playerInput.GetComponent<Combat>().healthBar_thisCharacter = hpP1;
 			//playerInput.GetComponent<Combat>().respawnPointsObject = respawnPoints;
 			gameManagerObject.player1 = playerInput.gameObject;
+
+			menuCameraTarget.GetComponent<MenuCameraTarget>().player1 = playerInput.gameObject;
 
 			p1Join.SetActive(false);
 		}
