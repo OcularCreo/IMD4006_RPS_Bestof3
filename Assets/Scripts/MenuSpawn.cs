@@ -59,8 +59,8 @@ public class MenuSpawn : MonoBehaviour
 				menuCameraTarget.GetComponent<MenuCameraTarget>().player2 = playerInput.gameObject;
 			}
 
-			p2Join.SetActive(false);
-			yStart.SetActive(true);
+			//p2Join.SetActive(false);
+			//yStart.SetActive(true);
 
 		}
 		else 
@@ -76,7 +76,7 @@ public class MenuSpawn : MonoBehaviour
 				menuCameraTarget.GetComponent<MenuCameraTarget>().player1 = playerInput.gameObject;
 			}
 
-			p1Join.SetActive(false);
+			//p1Join.SetActive(false);
 		}
         
         numPlayers++;

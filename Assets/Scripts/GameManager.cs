@@ -334,5 +334,11 @@ public class Manager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("MenuScene");
     }
+
+	public void TeleportPlayers(Vector2 pos)
+	{
+		player1.transform.position = new Vector2(pos.x, pos.y);
+		player2.transform.position = new Vector2(pos.x, pos.y);
+	}
 }
 
